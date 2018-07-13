@@ -29,7 +29,7 @@ var calcBounceCount = 0;
 var calculatedY = 0;
 var calculatedX = "NONE";
 var lastHit = "5";
-var winningScore = 3;
+var winningScore = 10;
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1opQvnZCR9N9uIy9Imvaehyle8NQ969iJ-IgA19YBvk4/edit#gid=0';
 
 function setup() {
@@ -50,7 +50,6 @@ function getSheetData() {
     {
       key: publicSpreadsheetUrl,
       callback: showInfo,
-      //simpleSheet: true 
     })
 }
 
@@ -122,7 +121,6 @@ function calcFrameRate() {
     fpsCount++;
     fpsNumber += frameRate();
     fps = fpsNumber / fpsCount;
-    //console.log("FPS:",fps,frameRate());
   }
 }
 
@@ -428,7 +426,6 @@ function drawStatistics() {
 }
 
 function play() {
-  //reset();
   settings.hideSettings();
   settings.updateSliders();
   showControls = true;
@@ -478,8 +475,6 @@ function pause() {
     settings.pause.style.left = "0vw";
     settings.mainMenu.style.visibility = "visible";
     settings.fullScreen.style.visibility = "visible";
-    //redraw();
-    //drawPause();
     noLoop();
   } else {
     if (status == "paused") {
@@ -500,7 +495,6 @@ function drawCount() {
     if (displayedCount <= 0) {
       status = "active";
       calcTrajectory();
-      //bot[1].calcMove();
     }
     stroke(255);
     fill(0);
@@ -514,10 +508,10 @@ function drawCount() {
 }
 
 function score(side) {
-  if (side == "l") {
+  if (side == "r") { // hits right wall
     scoreL++;
   }
-  if (side == "r") { // hits left wall
+  if (side == "l") { // hits left wall
     scoreR++;
   }
   if (scoreR == winningScore || scoreL == winningScore) {
@@ -529,7 +523,6 @@ function score(side) {
 }
 
 function gameOver() {
-  //console.log(":isPLayer",settings.isPlayerL != settings.isPlayerR);
   statistics();
   status = "game-over";
   if (scoreR == winningScore) {
@@ -539,26 +532,19 @@ function gameOver() {
       winnerSide = "Left";
     }
   }
-  //console.log("Win side:",winnerSide);
   if (settings.isPlayerL != settings.isPlayerR) {
     if (winnerSide == "Right") {
-      // console.log("Right win:",settings.isPlayerR);
       if (settings.isPlayerR) {
         winner = "Player";
-        // console.log("winner:",winner);
       } else {
         winner = "Bot";
-        // console.log("winner:",winner);
       }
     } else {
       if (winnerSide == "Left") {
-        //console.log("Left win:",settings.isPlayerL);
         if (settings.isPlayerL) {
           winner = "Player";
-          //console.log("winner:",winner);
         } else {
           winner = "Bot";
-          //console.log("winner:",winner);
         }
       }
     }
@@ -570,7 +556,6 @@ function gameOver() {
       botPoints = scoreL;
     }
   }
-  //console.log("winnnnnner",winner);
   sendData();
   console.log("   ");
   console.log("Game Over");
@@ -742,7 +727,6 @@ class Setting {
     this.isPlayerL = this.checkBoxes[0];
     this.isPlayerR = this.checkBoxes[1];
 
-    //if (this.isPlayerL != this.isPlayerR) {
       if (this.checkBoxes[4]) {
         this.botModeL = "Easy";
       }
@@ -761,7 +745,6 @@ class Setting {
       if (this.checkBoxes[9]) {
         this.botModeR = "Impossible";
       }
-    //}
   }
 
   updateSliders() {
@@ -824,7 +807,7 @@ class Ball {
     this.y = 0;
     this.flipX = 1;
     this.flipY = 1;
-    this.lastHit = 5;
+    lastHit = 9;
     this.speed = settings.ballSpeed.value;
     this.hit;
     calculatedX = "NONE";
@@ -841,7 +824,7 @@ class Ball {
     console.log("        ");
     console.log("        ");
     console.log("STARTING VALUES")
-    console.log("Real Angle:", this.realAngle, "Quadrant:", this.quadrant, "Angle:", this.angle, "Speed:", this.speed);
+    console.log("Real Angle:", this.realAngle, "Quadrant:", this.quadrant, "Angle:", this.angle, "Speed:", this.speed,"x:",this.x,"y:",this.y);
     console.log("Ball Info:",ball);
     console.log("        ");
   }
@@ -864,15 +847,13 @@ class Ball {
   }
 
   bounce(hitPaddle, side) {
-    console.log("Ball Info:",ball);
+    console.log("Ball Info:",ball.x,ball.y,hitPaddle,side,lastHit);
     this.newAngle();
     if (hitPaddle) {
       this.paddleMin = paddle[side].y - 110;
       this.paddleMax = paddle[side].y + 110;
       if (this.y > this.paddleMin && this.y < this.paddleMax && lastHit != side) {
         console.log("Paddle Hit:", side);
-        //this.flipX *= -1;
-        //this.realAngle *= 1.5;
         if (this.quadrant == 1) {
           this.quadrant = 2;
         } else {
@@ -922,7 +903,6 @@ class Ball {
             this.quadrant = 3;
           }
         }
-        //this.angle += random(-15,15);
         this.angle = constrain(this.angle, 10, 30);
         this.calcRealAngle();
         lastHit = side;
@@ -931,7 +911,6 @@ class Ball {
     }
     console.log("Last Hit:",lastHit);
     calcTrajectory();
-    // bot[1].calcMove();
   }
 
   move() {
@@ -953,14 +932,6 @@ class Ball {
   }
 
   checkHit() {
-    //if (this.x > 950) { // hits right wall
-    //  score("l");
-    //  return;
-    //}
-    //if (this.x < -950) { // hits left wall
-    //  score("r");
-    //  return;
-    //}
     if (this.x > 890) {  // hits right paddle
       this.bounce(true, 1);
       return;
@@ -987,7 +958,6 @@ class Ball {
   setupArrow() {
     this.arrowFinal = this.realAngle + 360;
     this.arrowT = 90;
-    //console.log("Arrow Angle:", this.arrowFinal - 360);
   }
 
   drawArrow(count) {
@@ -1024,11 +994,9 @@ class Paddle {
     if (status == "active") {
       if (this.side == "R") {
         if (direction == "right-up") {
-          //this.y -= this.speed;
           this.y -= speed;
         }
         if (direction == "right-down") {
-          //this.y += this.speed;
           this.y += speed;
         }
       }
@@ -1096,7 +1064,6 @@ class Bot {
   constructor(side) {
     this.side = side;
     this.canMove = true;
-    //this.mode = settings.botMode;
     this.moveTo;
     this.error;
     if (side == 0) {
@@ -1136,9 +1103,6 @@ class Bot {
         }
       }
 
-      // this.moveTo += this.error;
-
-      // console.log(this.side);
       if (abs(paddle[this.side].y - this.moveTo) > paddle[this.side].speed) {
         if (paddle[this.side].y > this.moveTo) {
           paddle[this.side].move(direction + "-up", this.calcSpeed());
@@ -1157,16 +1121,14 @@ class Bot {
     }
     var speed;
     if (this.mode == "Easy") {
-      speed = (paddle[0].speed / 3) + random(0,4); // third speed (same as player)
+      speed = (paddle[0].speed / 3); // third speed
     }
     if (this.mode == "Normal") {
-      speed = (paddle[0].speed / 2) + random(0,8); // half speed 
+      speed = (paddle[0].speed / 2) + random(0,5); // half speed 
     }
     if (this.mode == "Impossible") {
       speed = paddle[0].speed; // full speed (same as player)
     }
-    //console.log(this.mode);
-    //console.log(" Speed:",constrain(speed, 5, paddle[0].speed), this.side, paddle[0].speed);
     return constrain(speed, 8, paddle[0].speed);
   }
 
