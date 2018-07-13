@@ -1,0 +1,49 @@
+<!-- Start of Header/Nav Template -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Kyle's Projects</title>
+    <link rel="stylesheet" href="../css/reset.css" type="text/css">
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107607354-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-107607354-2');
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    
+</head>
+
+<body>    
+    <div id="content">
+        <div id="page-title"><p>Traffic Light</p></div>
+        <div class="iframe-sketch">
+            <iframe src="https://www.youtube.com/embed/WN59b-VI5YE?rel=0&loop=1&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="divider"></div>
+        <div class="title">Description</div>
+        <div class="text">
+            <p>The light stays on green for 20 seconds, switches to yellow for 3 seconds, then to red for 6 seconds.  If the pedestrian button is pressed when the light is green,  the light will skip to a yellow then red light.  While the light is red, a buzzer (not in video) will beep once per second for 4 seconds then 5 times per second for the last 2 seconds before it switches back to green.</p>
+        </div>
+        <div class="divider"></div>
+        <div class="title">Python Code</div>
+        <iframe src="../p5js/TrafficLight/pycode.html" style="width: 100%; height:600px;"></iframe>
+        <div class="divider"></div>
+        <div class="title">Java Script Traffic Light</div>
+        <div class="text">
+            <p>The java script traffic light was made using p5js.  It follows the same light sequence as the python version.  Click the traffic light to switch to pedestrian crossing.</p>
+        </div>
+        <div class="divider"></div>
+        <iframe src="../p5js/TrafficLight/index.html" style="width: 100%; height: 160px;"></iframe>
+        <div class="divider"></div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+.sketch-inputs button, input{
+    background-color: rgb(200, 200, 200);
+    padding: 12px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 16px;
+    border: none;
+    min-width: 220px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    padding: 0px;
+    height: 10px;
+    border-radius: 35px;   
+    background: rgb(200, 200, 200);
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: rgb(155, 155, 155);
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.sketch-inputs p {
+    text-align: center;
+    min-width: 220px;
+    font-size: 2em;
+}
+
+.sketch-inputs {
+    display: flex;
+    justify-content: center;
+}
+
+.sketch-inputs button:hover {
+    background: rgb(150,150,150);
+} 
+
+.tile {
+
+}
+
+#tile0 {
+    z-index: 1;
+    position: absolute;
+    top: 500;
+    left: 500;
+    width: 400px;
+}

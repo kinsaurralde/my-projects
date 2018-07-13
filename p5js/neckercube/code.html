@@ -1,0 +1,180 @@
+<html><body><pre>
+<span style="color: #33997E;">var</span> x = 750;
+<span style="color: #33997E;">var</span> y = 250;
+<span style="color: #33997E;">var</span> i = 0;
+<span style="color: #33997E;">var</span> starX = 0;
+<span style="color: #33997E;">var</span> starY = 0;
+<span style="color: #33997E;">var</span> starx = [];
+<span style="color: #33997E;">var</span> stary = [];
+<span style="color: #33997E;">var</span> winScale = 1;
+<span style="color: #33997E;">var</span> divWidth = 100;
+<span style="color: #33997E;">var</span> windowHeight = 100;
+
+<span style="color: #33997E;">function</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #33997E;">var</span> canvas = createCanvas(1920, 1080);
+&nbsp;&nbsp;canvas.parent(<span style="color: #7D4793;">&apos;sketch-holder&apos;</span>);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (isMobileDevice()) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #33997E;">var</span> divWidth = windowWidth;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #33997E;">var</span> divHeight;
+&nbsp;&nbsp;&nbsp;&nbsp;winScale&nbsp;=&nbsp;divWidth/1920;
+&nbsp;&nbsp;&nbsp;&nbsp;divHeight&nbsp;=&nbsp;divWidth*9/16;
+&nbsp;&nbsp;&nbsp;&nbsp;resizeCanvas(divWidth,&nbsp;divHeight);
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;setWindowSize();
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 255, 100);
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+
+&nbsp;&nbsp;<span style="color: #669900;">for</span> ( i = 0; i &lt; 100; i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;starx[i]&nbsp;=&nbsp;<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(1920));
+&nbsp;&nbsp;&nbsp;&nbsp;stary[i]&nbsp;=&nbsp;<span style="color: #006699;">int</span>(<span style="color: #006699;">random</span>(1080));
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">function</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #33997E;">var</span> white = <span style="color: #006699;">color</span>(255, 255, 255);
+&nbsp;&nbsp;<span style="color: #33997E;">var</span> black = <span style="color: #006699;">color</span>(0, 0, 0);
+&nbsp;&nbsp;<span style="color: #33997E;">var</span> lightblue = <span style="color: #006699;">color</span>(100, 150, 170);
+&nbsp;&nbsp;<span style="color: #33997E;">var</span> grayblue = <span style="color: #006699;">color</span>(175, 200, 225);
+&nbsp;&nbsp;<span style="color: #33997E;">var</span> darkblue = <span style="color: #006699;">color</span>(50, 125, 140);
+&nbsp;&nbsp;<span style="color: #33997E;">var</span> darkerblue = <span style="color: #006699;">color</span>(25, 75, 90);
+&nbsp;&nbsp;<span style="color: #33997E;">var</span> yellow = <span style="color: #006699;">color</span>(255, 255, 100);
+
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mouseX</span> &gt;= 0 &amp;&amp; <span style="color: #D94A7A;">mouseX</span> &lt;= <span style="color: #D94A7A;">width</span> &amp;&amp; <span style="color: #D94A7A;">mouseY</span> &gt;= 0 &amp;&amp; <span style="color: #D94A7A;">mouseY</span> &lt;= <span style="color: #D94A7A;">height</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mouseButton</span> == <span style="color: #718A62;">LEFT</span> &amp;&amp; mouseIsPressed) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">pmouseX</span> &gt; <span style="color: #D94A7A;">mouseX</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;starX&nbsp;=&nbsp;starX&nbsp;-&nbsp;(<span style="color: #D94A7A;">pmouseX</span> - <span style="color: #D94A7A;">mouseX</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">pmouseX</span> &lt; <span style="color: #D94A7A;">mouseX</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;starX&nbsp;=&nbsp;starX&nbsp;+&nbsp;(<span style="color: #D94A7A;">mouseX</span> - <span style="color: #D94A7A;">pmouseX</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">pmouseY</span> &gt; <span style="color: #D94A7A;">mouseY</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;starY&nbsp;=&nbsp;starY&nbsp;-&nbsp;(<span style="color: #D94A7A;">pmouseY</span> - <span style="color: #D94A7A;">mouseY</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">pmouseY</span> &lt; <span style="color: #D94A7A;">mouseY</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;starY&nbsp;=&nbsp;starY&nbsp;+&nbsp;(<span style="color: #D94A7A;">mouseY</span> - <span style="color: #D94A7A;">pmouseY</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (starX &lt; 0) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;starX&nbsp;=&nbsp;starX&nbsp;+&nbsp;<span style="color: #D94A7A;">width</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (starY &lt; 0) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;starY&nbsp;=&nbsp;starY&nbsp;+&nbsp;<span style="color: #D94A7A;">height</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (keyIsDown(UP_ARROW)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;=&nbsp;y-3;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (keyIsDown(DOWN_ARROW)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;=&nbsp;y+3;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (keyIsDown(LEFT_ARROW)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;=&nbsp;x-3;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (keyIsDown(RIGHT_ARROW)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;=&nbsp;x+3;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">key</span> === <span style="color: #7D4793;">&apos; &apos;</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;=&nbsp;750;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;=&nbsp;250;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;}
+
+
+
+
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(black);
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (i = 0; i &lt; 100; i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(yellow);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(((starx[i]+starX)*winScale%<span style="color: #D94A7A;">width</span>), ((stary[i]+starY)*winScale%<span style="color: #D94A7A;">height</span>), 5*winScale, 5*winScale);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(x*winScale, y*winScale);
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(grayblue);
+&nbsp;&nbsp;quadScale(174,&nbsp;50,&nbsp;362,&nbsp;125,&nbsp;347,&nbsp;140,&nbsp;174,&nbsp;67);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(grayblue);
+&nbsp;&nbsp;quadScale(174,&nbsp;50,&nbsp;75,&nbsp;125,&nbsp;89,&nbsp;135,&nbsp;174,&nbsp;67);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(grayblue);
+&nbsp;&nbsp;quadScale(75,&nbsp;125,&nbsp;95,&nbsp;120,&nbsp;275,&nbsp;187,&nbsp;275,&nbsp;200);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(grayblue);
+&nbsp;&nbsp;quadScale(275,&nbsp;200,&nbsp;266,&nbsp;187,&nbsp;334,&nbsp;130,&nbsp;347,&nbsp;140);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(darkblue);
+&nbsp;&nbsp;quadScale(177,&nbsp;65,&nbsp;177,&nbsp;75,&nbsp;110,&nbsp;126,&nbsp;100,&nbsp;122);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(lightblue);
+&nbsp;&nbsp;quadScale(177,&nbsp;65,&nbsp;177,&nbsp;75,&nbsp;328,&nbsp;135,&nbsp;337,&nbsp;127);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(darkblue);
+&nbsp;&nbsp;quadScale(75,&nbsp;125,&nbsp;275,&nbsp;200,&nbsp;275,&nbsp;215,&nbsp;75,&nbsp;140);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(lightblue);
+&nbsp;&nbsp;quadScale(275,&nbsp;200,&nbsp;275,&nbsp;215,&nbsp;362,&nbsp;140,&nbsp;362,&nbsp;125);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(lightblue);
+&nbsp;&nbsp;quadScale(177,&nbsp;75,&nbsp;163,&nbsp;85,&nbsp;163,&nbsp;283,&nbsp;177,&nbsp;290);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(darkblue);
+&nbsp;&nbsp;quadScale(187,&nbsp;281,&nbsp;177,&nbsp;290,&nbsp;177,&nbsp;75,&nbsp;187,&nbsp;79);
+
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(darkblue);
+&nbsp;&nbsp;quadScale(260,&nbsp;205,&nbsp;275,&nbsp;210,&nbsp;275,&nbsp;425,&nbsp;260,&nbsp;420);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(lightblue);
+&nbsp;&nbsp;quadScale(275,&nbsp;210,&nbsp;285,&nbsp;200,&nbsp;285,&nbsp;425,&nbsp;275,&nbsp;425);
+
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(grayblue);
+&nbsp;&nbsp;quadScale(174,&nbsp;275,&nbsp;362,&nbsp;350,&nbsp;347,&nbsp;365,&nbsp;174,&nbsp;292);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(grayblue);
+&nbsp;&nbsp;quadScale(174,&nbsp;275,&nbsp;75,&nbsp;350,&nbsp;89,&nbsp;360,&nbsp;174,&nbsp;292);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(grayblue);
+&nbsp;&nbsp;quadScale(75,&nbsp;350,&nbsp;95,&nbsp;345,&nbsp;275,&nbsp;412,&nbsp;275,&nbsp;425);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(grayblue);
+&nbsp;&nbsp;quadScale(275,&nbsp;425,&nbsp;266,&nbsp;412,&nbsp;334,&nbsp;355,&nbsp;347,&nbsp;365);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(darkblue);
+&nbsp;&nbsp;quadScale(177,&nbsp;290,&nbsp;177,&nbsp;300,&nbsp;110,&nbsp;351,&nbsp;100,&nbsp;347);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(lightblue);
+&nbsp;&nbsp;quadScale(177,&nbsp;290,&nbsp;177,&nbsp;300,&nbsp;328,&nbsp;360,&nbsp;337,&nbsp;352);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(darkblue);
+&nbsp;&nbsp;quadScale(75,&nbsp;350,&nbsp;275,&nbsp;425,&nbsp;275,&nbsp;440,&nbsp;75,&nbsp;365);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(lightblue);
+&nbsp;&nbsp;quadScale(275,&nbsp;425,&nbsp;275,&nbsp;440,&nbsp;362,&nbsp;365,&nbsp;362,&nbsp;350);
+
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(darkblue);
+&nbsp;&nbsp;quadScale(75,&nbsp;125,&nbsp;87,&nbsp;129,&nbsp;87,&nbsp;355,&nbsp;75,&nbsp;350);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(lightblue);
+&nbsp;&nbsp;quadScale(87,&nbsp;355,&nbsp;100,&nbsp;347,&nbsp;100,&nbsp;149,&nbsp;87,&nbsp;144);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(lightblue);
+&nbsp;&nbsp;quadScale(177,&nbsp;178,&nbsp;163,&nbsp;173,&nbsp;163,&nbsp;283,&nbsp;177,&nbsp;290);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(darkblue);
+&nbsp;&nbsp;quadScale(187,&nbsp;281,&nbsp;177,&nbsp;290,&nbsp;177,&nbsp;178,&nbsp;187,&nbsp;180);
+
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(darkblue);
+&nbsp;&nbsp;quadScale(260,&nbsp;333,&nbsp;275,&nbsp;338,&nbsp;275,&nbsp;425,&nbsp;260,&nbsp;420);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(lightblue);
+&nbsp;&nbsp;quadScale(275,&nbsp;338,&nbsp;285,&nbsp;342,&nbsp;285,&nbsp;425,&nbsp;275,&nbsp;425);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(darkblue);
+&nbsp;&nbsp;quadScale(353,&nbsp;148,&nbsp;337,&nbsp;161,&nbsp;337,&nbsp;352,&nbsp;353,&nbsp;359);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(lightblue);
+&nbsp;&nbsp;quadScale(353,&nbsp;149,&nbsp;362,&nbsp;125,&nbsp;362,&nbsp;355,&nbsp;353,&nbsp;358);
+}
+
+<span style="color: #33997E;">function</span> isMobileDevice() {
+&nbsp;&nbsp;<span style="color: #33997E;">return</span> (<span style="color: #33997E;">typeof</span> <span style="color: #33997E;">window</span>.orientation !== <span style="color: #7D4793;">&quot;undefined&quot;</span>) || (navigator.userAgent.<span style="color: #006699;">indexOf</span>(<span style="color: #7D4793;">&apos;IEMobile&apos;</span>) !== -1);
+}
+
+<span style="color: #33997E;">function</span> quadScale(a, b, c, d, e, f, g, h) {
+&nbsp;&nbsp;<span style="color: #006699;">quad</span>(a*winScale, b*winScale, c*winScale, d*winScale, e*winScale, f*winScale, g*winScale, h*winScale);
+}
+
+<span style="color: #33997E;">function</span> windowResized() {
+&nbsp;&nbsp;setWindowSize();
+}
+
+<span style="color: #33997E;">function</span> setWindowSize() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (!isMobileDevice()) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #33997E;">var</span> container = <span style="color: #33997E;">document</span>.getElementById(<span style="color: #7D4793;">&apos;sketch-holder&apos;</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #33997E;">var</span> positionInfo = container.getBoundingClientRect();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #33997E;">var</span> divWidth = positionInfo.<span style="color: #D94A7A;">width</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #33997E;">var</span> divHeight;
+&nbsp;&nbsp;&nbsp;&nbsp;winScale&nbsp;=&nbsp;divWidth/1920;
+&nbsp;&nbsp;&nbsp;&nbsp;divHeight&nbsp;=&nbsp;divWidth*9/16;
+&nbsp;&nbsp;&nbsp;&nbsp;resizeCanvas(divWidth,&nbsp;divHeight);
+&nbsp;&nbsp;}
+}
+
+</pre></body></html>

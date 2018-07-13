@@ -1,0 +1,92 @@
+<html><body><pre>
+<span style="color: #33997E;">var</span> redStatus;
+<span style="color: #33997E;">var</span> yellowStatus;
+<span style="color: #33997E;">var</span> greenStatus;
+<span style="color: #33997E;">var</span> sleepTimer = 0;
+<span style="color: #33997E;">var</span> timer = 0;
+<span style="color: #33997E;">var</span> step = 0;
+
+<span style="color: #33997E;">function</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;createCanvas(windowWidth,&nbsp;160);
+&nbsp;&nbsp;<span style="color: #006699;">rectMode</span>(<span style="color: #718A62;">CENTER</span>);
+&nbsp;&nbsp;greenOn();
+}
+
+<span style="color: #33997E;">function</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">rect</span>(<span style="color: #D94A7A;">width</span>/2, 80, 80, 160);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 0, 0, redStatus);
+&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(<span style="color: #D94A7A;">width</span>/2, 30, 45);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 255, 0, yellowStatus);
+&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(<span style="color: #D94A7A;">width</span>/2, 80, 45);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0, 255, 0, greenStatus);
+&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(<span style="color: #D94A7A;">width</span>/2, 130, 45);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #006699;">millis</span>() - timer &gt; 20000 &amp;&amp; step == 0) {
+&nbsp;&nbsp;&nbsp;&nbsp;step&nbsp;=&nbsp;1;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (step == 1) {
+&nbsp;&nbsp;&nbsp;&nbsp;yellowOn();
+&nbsp;&nbsp;&nbsp;&nbsp;sleepTimer&nbsp;=&nbsp;<span style="color: #006699;">millis</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;step&nbsp;=&nbsp;2;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (step == 2) {
+&nbsp;&nbsp;&nbsp;&nbsp;sleep(3);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (step == 3) {
+&nbsp;&nbsp;&nbsp;&nbsp;redOn();
+&nbsp;&nbsp;&nbsp;&nbsp;sleepTimer&nbsp;=&nbsp;<span style="color: #006699;">millis</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;step&nbsp;=&nbsp;4;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (step == 4) {
+&nbsp;&nbsp;&nbsp;&nbsp;sleep(6);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (step == 5) {
+&nbsp;&nbsp;&nbsp;&nbsp;greenOn();
+&nbsp;&nbsp;&nbsp;&nbsp;step&nbsp;=&nbsp;0;
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">function</span> <span style="color: #006699;"><b>mousePressed</b></span>() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mouseX</span> &lt;= <span style="color: #D94A7A;">width</span>/2+40 &amp;&amp; <span style="color: #D94A7A;">mouseX</span> &gt;= <span style="color: #D94A7A;">width</span>/2-40 &amp;&amp; <span style="color: #D94A7A;">mouseY</span> &lt;= 160 &amp;&amp; <span style="color: #D94A7A;">mouseY</span> &gt;= 0) {
+&nbsp;&nbsp;&nbsp;&nbsp;pedestrian();
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">function</span> pedestrian() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (step == 0) {
+&nbsp;&nbsp;&nbsp;&nbsp;step&nbsp;=&nbsp;1;
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">function</span> greenOn() {
+&nbsp;&nbsp;timer&nbsp;=&nbsp;<span style="color: #006699;">millis</span>();
+&nbsp;&nbsp;greenStatus&nbsp;=&nbsp;255;
+&nbsp;&nbsp;redStatus&nbsp;=&nbsp;120;
+&nbsp;&nbsp;yellowStatus&nbsp;=&nbsp;120;
+}
+
+<span style="color: #33997E;">function</span> yellowOn() {
+&nbsp;&nbsp;greenStatus&nbsp;=&nbsp;120;
+&nbsp;&nbsp;redStatus&nbsp;=&nbsp;120;
+&nbsp;&nbsp;yellowStatus&nbsp;=&nbsp;255;
+}
+
+<span style="color: #33997E;">function</span> redOn() {
+&nbsp;&nbsp;greenStatus&nbsp;=&nbsp;120;
+&nbsp;&nbsp;redStatus&nbsp;=&nbsp;255;
+&nbsp;&nbsp;yellowStatus&nbsp;=&nbsp;120;
+}
+
+<span style="color: #33997E;">function</span> sleep(seconds) {
+&nbsp;&nbsp;<span style="color: #33997E;">console</span>.<span style="color: #006699;">log</span>(<span style="color: #006699;">millis</span>() - sleepTimer);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #006699;">millis</span>() - sleepTimer &gt; seconds*1000) {
+&nbsp;&nbsp;&nbsp;&nbsp;step++;
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">function</span> windowResized() {
+&nbsp;&nbsp;resizeCanvas(windowWidth,&nbsp;160);
+}
+
+</pre></body></html>

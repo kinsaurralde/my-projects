@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Kyle's Projects</title>
+    <link rel="stylesheet" href="../css/reset.css" type="text/css">
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
+</head>
+
+<body>
+    <div id="page-title">
+        <p>Minesweeper</p>
+    </div>
+    <div class="iframe-sketch-16-11">
+        <iframe src="../p5js/MineSweeper/index.html"></iframe>
+    </div>
+    <div class="divider"></div>
+    <div class="title">Description</div>
+    <div class="text">
+        <p></p>
+    </div>
+    <div class="divider"></div>
+    <div class="title">Code</div>
+    <div class="code" id="code-div" style="display: flex; flex-direction: column; height: 728em;">
+        <div class="version-select">
+            <button class="version-select-btn" onclick="myFunction()">Files</button>
+            <div class="version-select-content">
+                <a onclick="js()">minesweeper.js</a>
+                <a onclick="index()">index.html</a>
+                <a onclick="css()">minesweeper.css</a>
+            </div>
+        </div>
+        <iframe src="../p5js/MineSweeper/minesweeper.js" style="width: 100%; flex: 1 1 auto;" id="code-iframe"></iframe>
+    </div>  
+    <div class="divider"></div>
+
+    <script>
+        function js() {
+            document.getElementById("code-iframe").src = "../p5js/minesweeper/minesweeper.js";
+            document.getElementById("code-div").style.height = "728em";
+        }
+        function index() {
+            document.getElementById("code-iframe").src = "../p5js/minesweeper/index.txt";
+            document.getElementById("code-div").style.height = "10vh";
+        }
+        function css() {
+            document.getElementById("code-iframe").src = "../css/minesweeper.css";
+            document.getElementById("code-div").style.height = "10vh";
+        }
+    </script>
+</body>
