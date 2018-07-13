@@ -765,10 +765,7 @@ class Setting {
   }
 
   updateSliders() {
-    //paddle[0].speed = this.paddleSpeed.value;
-    //paddle[1].speed = this.paddleSpeed.value;
     ball.speed = this.ballSpeed.value;
-    //console.log(this.paddleSpeed.value,paddle[0].speed,paddle[1].speed);
   }
 
   hideSettings() {
