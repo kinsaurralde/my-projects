@@ -21,6 +21,7 @@ var fpsNumber;
 var fps;
 var stats;
 var fs;
+var test = false;
 var winnerSide;
 var winner;
 var botPoints;
@@ -29,7 +30,7 @@ var calcBounceCount = 0;
 var calculatedY = 0;
 var calculatedX = "NONE";
 var lastHit = "5";
-var winningScore = 10;
+var winningScore = 5;
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1opQvnZCR9N9uIy9Imvaehyle8NQ969iJ-IgA19YBvk4/edit#gid=0';
 
 function setup() {
@@ -63,6 +64,7 @@ function sendData() {
 function showInfo(data, tabletop) {
   sheet = data;
   stats.update();
+  redraw();
 }
 
 
@@ -77,12 +79,8 @@ function draw() {
     if (display == "game") {
       drawBoard();
     } else {
-      if (display == "more-settings") {
-        drawSettings();
-      } else {
-        if (display == "statistics") {
-          drawStatistics();
-        }
+      if (display == "statistics") {
+        drawStatistics();
       }
     }
   }
@@ -162,23 +160,15 @@ function drawMenu() {
   stroke(255);
   fill(0);
   scaleStrokeWeight(3);
-  scaleRect(0, -80, 450, 70, 10, 0);
-  scaleRect(-250, 470, 450, 70, 10);
-  scaleRect(250, 470, 450, 70, 10);
+  scaleRect(0, -80, 450, 70, 10, 0); // play 
+  scaleRect(0, 470, 450, 70, 10); // stats
   stroke(255);
   fill(255);
   scaleTextSize(60);
   scaleStrokeWeight(1);
   scaleText("PLAY", 0, -80);
   scaleTextSize(50);
-  scaleText("MORE SETTINGS", -250, 470);
-  scaleText("STATISTICS", 250, 470);
-  try {
-    if (stats.plays > 0) {
-      scaleText(("Plays: " + stats.plays), 400, 0);
-    }
-  } catch {
-  }
+  scaleText("STATS", 0, 470);
   noLoop();
 }
 
@@ -202,6 +192,10 @@ function drawBoard() {
   if (status == "active") {
     checkInput("");
     ball.move();
+    test = !settings.isPlayerL && !settings.isPlayerR;
+    if (test) {
+      drawTrajectory();
+    }
   } else {
     if (status == "paused") {
       paddle[0].draw();
@@ -211,7 +205,6 @@ function drawBoard() {
   }
   drawPause();
   drawCount();
-  drawTrajectory();
   bot[0].move();
   bot[1].move();
 }
@@ -331,51 +324,8 @@ function drawControls() {
   scaleText("Press Space", 0, 368);
 }
 
-function drawSettings() {
-  noFill();
-  stroke(255);
-  scaleStrokeWeight(3);
-  scaleRect(0, 475, 380, 72, 10); // main Menu
-
-  fill(255);
-  scaleRect(-325, -50, 400, 50, 0); // paddle speed
-  scaleRect(325, -50, 400, 50, 0); // ball speed
-  scaleRect(-325, 50, 400, 50, 0); // winning score
-  scaleRect(325, 50, 400, 50, 0); // ball speed increase
-
-  settings.updateSliders();
-  fill(0);
-  noStroke();
-  scaleRect(-250, -50, 40, 40, 0); // paddle speed
-  scaleRect(34 + int(ball.speed) * 11.6, -50, 40, 40, 0); // ball speed
-  scaleRect(-350, 50, 40, 40, 0); // winning score
-  scaleRect(350, 50, 40, 40, 0); // ball speed increase
-
-  fill(255);
-  noStroke();
-  scaleStrokeWeight(1);
-  scaleTextSize(50);
-  scaleText("MAIN MENU", 0, 475);
-  scaleTextSize(32);
-  textAlign(RIGHT, CENTER);
-  scaleText("PADDLE SPEED", -550, -50);
-  scaleText("WINNING SCORE", -550, 50);
-  textAlign(LEFT, CENTER);
-  scaleText("BALL SPEED", 550, -50);
-  scaleText("BALL SPEED INCREASE", 550, 50);
-
-  textAlign(CENTER, CENTER);
-  scaleTextSize(40);
-  scaleText(paddle[0].speed, -75, -50);
-  scaleText(ball.speed, 75, -50);
-  scaleText(settings.winningScore, -75, 50);
-  scaleText(ball.speedIncrease, 75, 50);
-
-  scaleTextSize(200);
-  scaleText("PONG", 0, -300);
-}
-
 function drawStatistics() {
+  textAlign(CENTER, CENTER);
   noFill();
   stroke(255);
   scaleStrokeWeight(3);
@@ -383,8 +333,13 @@ function drawStatistics() {
 
   fill(255);
   noStroke();
-  scaleRect(0, 200, 600, 50, 0);
-  scaleRect(0, 350, 600, 50, 0);
+  scaleRect(-625, 150, 500, 50, 0); // easy
+  scaleRect(-625, 300, 500, 50, 0); // easy
+  scaleRect(0, 150, 500, 50, 0); // medium
+  scaleRect(0, 300, 500, 50, 0); // medium
+  scaleRect(625, 150, 500, 50, 0); // impossible
+  scaleRect(625, 300, 500, 50, 0); // impossible
+
 
   fill(255);
   noStroke();
@@ -393,36 +348,64 @@ function drawStatistics() {
     scaleTextSize(200);
     scaleText("PONG", 0, -300);
   } else {
-    scaleTextSize(140);
-    scaleText("GAME OVER", 0, -400);
-    scaleTextSize(80);
-    scaleText((scoreL + "  -  " + scoreR), 0, -250);
+  scaleTextSize(140);
+  scaleText("GAME OVER", 0, -400);
+  scaleTextSize(80);
+  scaleText((scoreL + "  -  " + scoreR), 0, -250);
   }
   scaleTextSize(70);
-  scaleText("STATS", 0, -75);
+  scaleText("STATS", 0, -125);
+  scaleTextSize(60);
+  scaleText("WINS", 0, 75);
+  scaleText("POINTS", 0, 375);
   scaleTextSize(50);
   scaleText("MAIN MENU", 0, 475);
+  scaleText("TOTAL PLAYS: " + stats.plays, -625, -75);
+  scaleText("BOT PLAYS: " + stats.playsBot, 625, -75);
   scaleTextSize(40);
-  scaleText("TOTAL PLAYS: " + stats.plays, 0, 75);
-  scaleText("WINNER", 0, 150);
-  scaleText("BOT PLAYS", 0, 300);
+  scaleText("EASY", -625, 225);
+  scaleText("NORMAL", 0, 225);
+  scaleText("IMPOSSIBLE", 625, 225);
+  scaleText("P", -900, 150); // easy wins p
+  scaleText("B", -350, 150); // easy wins b
+  scaleText("P", -900, 300); // easy points p
+  scaleText("B", -350, 300); // easy points b
+  scaleText("P", -275, 150); // normal wins p
+  scaleText("B", 275, 150); // normal wins b
+  scaleText("P", -275, 300); // normal points p
+  scaleText("B", 275, 300); // normal points b
+  scaleText("P", 350, 150); // impossible wins p
+  scaleText("B", 900, 150); // impossible wins b
+  scaleText("P", 350, 300); // impossible points p
+  scaleText("B", 900, 300); // impossible points b
+
+  try {
+  var value;
+  fill(0);
+  value = int(stats.playerWin.Easy) / (int(stats.playerWin.Easy) + int(stats.botWin.Easy)) * 350;
+  scaleText(stats.playerWin.Easy + "   " + stats.botWin.Easy, -800 + value, 150);
+  scaleRect(-800 + value, 150, 3, 35, 0);  
+  value = int(stats.playerPoints.Easy) / (int(stats.playerPoints.Easy) + int(stats.botPoints.Easy)) * 350;
+  scaleText(stats.playerPoints.Easy + "   " + stats.botPoints.Easy, -800 + value, 300);
+  scaleRect(-800 + value, 300, 3, 35, 0);
+  value = int(stats.playerWin.Normal) / (int(stats.playerWin.Normal) + int(stats.botWin.Normal)) * 350;
+  scaleText(stats.playerWin.Normal + "   " + stats.botWin.Normal, -175 + value, 150);
+  scaleRect(-175 + value, 150, 3, 35, 0);
+  value = int(stats.playerPoints.Normal) / (int(stats.playerPoints.Normal) + int(stats.botPoints.Normal)) * 350;
+  scaleText(stats.playerPoints.Normal + "   " + stats.botPoints.Normal, -175 + value, 300);
+  scaleRect(-175 + value, 300, 3, 35, 0);
+  value = int(stats.playerWin.Impossible) / (int(stats.playerWin.Impossible) + int(stats.botWin.Impossible)) * 350;
+  scaleText(stats.playerWin.Impossible + "   " + stats.botWin.Impossible, 450 + value, 150);
+  scaleRect(450 + value, 150, 3, 35, 0);
+  value = int(stats.playerPoints.Impossible) / (int(stats.playerPoints.Impossible) + int(stats.botPoints.Impossible)) * 350;
+  scaleText(stats.playerPoints.Impossible + "   " + stats.botPoints.Impossible, 450 + value, 300);
+  scaleRect(450 + value, 300, 3, 35, 0);
+  } catch {
+  }
 
   scaleTextSize(30);
-  scaleText("EASY          NORMAL      IMPOSSIBLE", 0, 400);
-  scaleText("Updates Every 15 Minutes", 0, -25);
-
-  textAlign(LEFT, CENTER);
-  scaleText("BOT", 320, 200);
-  fill(0);
-  scaleText(stats.botWins + " | ", -250, 200);
-
-  textAlign(RIGHT, CENTER);
   fill(255);
-  scaleText("PLAYER", -320, 200);
-  fill(0);
-  scaleText(stats.playerWins, -190, 200);
-
-  textAlign(CENTER, CENTER);
+  scaleText("Updates Every 15 Minutes", 0, -50);
 }
 
 function play() {
@@ -437,17 +420,6 @@ function play() {
   pause();
 }
 
-function moreSettings() {
-  display = "more-settings";
-  for (i = 0; i < 10; i++) {
-    settings.checkButtons[i].style.visibility = "hidden";
-  }
-  settings.play.style.visibility = "hidden";
-  settings.moreSettings.style.visibility = "hidden";
-  settings.statistics.style.visibility = "hidden";
-  settings.mainMenu.style.visibility = "visible";
-}
-
 function statistics() {
   display = "statistics";
   for (i = 0; i < 10; i++) {
@@ -455,7 +427,6 @@ function statistics() {
   }
   settings.play.style.visibility = "hidden";
   settings.pause.style.visibility = "hidden";
-  settings.moreSettings.style.visibility = "hidden";
   settings.statistics.style.visibility = "hidden";
   settings.mainMenu.style.visibility = "visible";
 }
@@ -574,7 +545,7 @@ function calcTrajectory() {
   var ySpeed = (ball.speed) * sin(-1 * ball.realAngle);
   ballX += xSpeed;
   ballY += ySpeed;
-  while ((ballX > -890 && ballX < 890)) {
+  while ((ballX > -900 && ballX < 900)) {
     if (ballY >= 520 || ballY <= -520) {
       ySpeed *= -1;
       ballX += xSpeed;
@@ -667,7 +638,6 @@ class Setting {
     this.checkBoxes = new Array(10);
     this.checkButtons = new Array(10);
     this.play = document.getElementById("play");
-    this.moreSettings = document.getElementById("moreSettings");
     this.statistics = document.getElementById("statistics");
     this.mainMenu = document.getElementById("mainMenu");
     this.fullScreen = document.getElementById("fullScreen");
@@ -727,24 +697,24 @@ class Setting {
     this.isPlayerL = this.checkBoxes[0];
     this.isPlayerR = this.checkBoxes[1];
 
-      if (this.checkBoxes[4]) {
-        this.botModeL = "Easy";
-      }
-      if (this.checkBoxes[6]) {
-        this.botModeL = "Normal";
-      }
-      if (this.checkBoxes[8]) {
-        this.botModeL = "Impossible";
-      }
-      if (this.checkBoxes[5]) {
-        this.botModeR = "Easy";
-      }
-      if (this.checkBoxes[7]) {
-        this.botModeR = "Normal";
-      }
-      if (this.checkBoxes[9]) {
-        this.botModeR = "Impossible";
-      }
+    if (this.checkBoxes[4]) {
+      this.botModeL = "Easy";
+    }
+    if (this.checkBoxes[6]) {
+      this.botModeL = "Normal";
+    }
+    if (this.checkBoxes[8]) {
+      this.botModeL = "Impossible";
+    }
+    if (this.checkBoxes[5]) {
+      this.botModeR = "Easy";
+    }
+    if (this.checkBoxes[7]) {
+      this.botModeR = "Normal";
+    }
+    if (this.checkBoxes[9]) {
+      this.botModeR = "Impossible";
+    }
   }
 
   updateSliders() {
@@ -756,7 +726,6 @@ class Setting {
       this.checkButtons[i].style.visibility = "hidden";
     }
     this.play.style.visibility = "hidden";
-    this.moreSettings.style.visibility = "hidden";
     this.statistics.style.visibility = "hidden";
     this.pause.style.visibility = "visible";
     this.rightUp.style.visibility = "visible";
@@ -770,7 +739,6 @@ class Setting {
       this.checkButtons[i].style.visibility = "visible";
     }
     this.play.style.visibility = "visible";
-    this.moreSettings.style.visibility = "visible";
     this.statistics.style.visibility = "visible";
     this.pause.style.visibility = "hidden";
     this.rightUp.style.visibility = "hidden";
@@ -824,8 +792,8 @@ class Ball {
     console.log("        ");
     console.log("        ");
     console.log("STARTING VALUES")
-    console.log("Real Angle:", this.realAngle, "Quadrant:", this.quadrant, "Angle:", this.angle, "Speed:", this.speed,"x:",this.x,"y:",this.y);
-    console.log("Ball Info:",ball);
+    console.log("Real Angle:", this.realAngle, "Quadrant:", this.quadrant, "Angle:", this.angle, "Speed:", this.speed, "x:", this.x, "y:", this.y);
+    console.log("Ball Info:", ball);
     console.log("        ");
   }
 
@@ -847,7 +815,7 @@ class Ball {
   }
 
   bounce(hitPaddle, side) {
-    console.log("Ball Info:",ball.x,ball.y,hitPaddle,side,lastHit);
+    console.log("Ball Info:", ball.x, ball.y, hitPaddle, side, lastHit);
     this.newAngle();
     if (hitPaddle) {
       this.paddleMin = paddle[side].y - 110;
@@ -909,7 +877,7 @@ class Ball {
         console.log("Real Angle:", this.realAngle, "Quadrant:", this.quadrant, "Angle:", this.angle);
       }
     }
-    console.log("Last Hit:",lastHit);
+    console.log("Last Hit:", lastHit);
     calcTrajectory();
   }
 
@@ -918,8 +886,8 @@ class Ball {
       angleMode(DEGREES);
       this.xSpeed = (this.speed) * cos(-1 * this.realAngle);
       this.ySpeed = (this.speed) * sin(-1 * this.realAngle);
-      this.x += this.xSpeed/1;
-      this.y += this.ySpeed/1;
+      this.x += this.xSpeed / 1;
+      this.y += this.ySpeed / 1;
       this.checkHit();
       this.draw();
     }
@@ -932,11 +900,11 @@ class Ball {
   }
 
   checkHit() {
-    if (this.x > 890) {  // hits right paddle
+    if (this.x > 900) {  // hits right paddle
       this.bounce(true, 1);
       return;
     }
-    if (this.x < -890) {  // hits left paddle
+    if (this.x < -900) {  // hits left paddle
       this.bounce(true, 0);
       return;
     }
@@ -978,7 +946,7 @@ class Ball {
 
 class Paddle {
   constructor(side) {
-    this.x = -920;
+    this.x = -930;
     this.y = 0;
     this.speed = 20;
     this.paddleSpeed;
@@ -1025,8 +993,8 @@ class Stat {
     this.read;
 
     this.plays;
-    this.playerWins;
-    this.botWins;
+    this.playsBot;
+    this.playerWin;
 
     this.sendPlays = document.getElementById("stat-plays");
     this.sendWinner = document.getElementById("stat-winner");
@@ -1041,8 +1009,11 @@ class Stat {
     this.read = sheet["Read"]["elements"];
 
     this.plays = this.read[0].Value;
-    this.playerWins = this.read[3].Value;
-    this.botWins = this.read[4].Value;
+    this.playsBot = this.read[1].Value;
+    this.playerWin = this.read[2];
+    this.botWin = this.read[3];
+    this.playerPoints = this.read[4];
+    this.botPoints = this.read[5];
 
     this.sendPlays.value = this.plays;
     this.sendFPS.value = fps;
@@ -1121,10 +1092,10 @@ class Bot {
     }
     var speed;
     if (this.mode == "Easy") {
-      speed = (paddle[0].speed / 3); // third speed
+      speed = (paddle[0].speed / 3) + random(-4, 0); // third speed
     }
     if (this.mode == "Normal") {
-      speed = (paddle[0].speed / 2) + random(0,5); // half speed 
+      speed = (paddle[0].speed / 2) + random(-4, 0); // half speed 
     }
     if (this.mode == "Impossible") {
       speed = paddle[0].speed; // full speed (same as player)
@@ -1133,4 +1104,3 @@ class Bot {
   }
 
 }
-

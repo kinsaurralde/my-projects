@@ -80,7 +80,7 @@
     width: 24vw;
     height: 4vw;
     background: rgb(255, 255, 255);
-    opacity: .0;
+    opacity: .4;
 }
 
 .slider {
@@ -101,8 +101,6 @@
     height: 2vw;
     background: #4CAF50;
 }
-
-
 
 #paddle-speed {
     top: 24.2vw;
@@ -127,14 +125,9 @@
     left: 38vw;
 }
 
-#moreSettings {
-    top: 50.6vw;
-    left: 25vw;
-}
-
 #statistics {
     top: 50.6vw;
-    left: 51vw;
+    left: 38vw;
 }
 
 #mainMenu {
