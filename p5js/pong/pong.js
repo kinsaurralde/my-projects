@@ -379,7 +379,7 @@ function drawStatistics() {
   scaleText("P", 350, 300); // impossible points p
   scaleText("B", 900, 300); // impossible points b
 
-  try {
+  try { // dont show if not loaded
   var value;
   fill(0);
   value = int(stats.playerWin.Easy) / (int(stats.playerWin.Easy) + int(stats.botWin.Easy)) * 350;
@@ -1092,15 +1092,14 @@ class Bot {
     }
     var speed;
     if (this.mode == "Easy") {
-      speed = (paddle[0].speed / 3) + random(-4, 0); // third speed
+      speed = (paddle[0].speed / 3) + random(-5, 0); // third speed
     }
     if (this.mode == "Normal") {
-      speed = (paddle[0].speed / 2) + random(-4, 0); // half speed 
+      speed = (paddle[0].speed / 2) + random(-5, 0); // half speed 
     }
     if (this.mode == "Impossible") {
       speed = paddle[0].speed; // full speed (same as player)
     }
-    return constrain(speed, 8, paddle[0].speed);
+    return constrain(speed, 3, paddle[0].speed);
   }
-
 }
