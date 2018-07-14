@@ -1019,7 +1019,11 @@ class Stat {
     this.sendFPS.value = fps;
     if (settings.isPlayerL != settings.isPlayerR) {
       this.sendWinner.value = winner;
-      this.sendBotMode.value = settings.botMode;
+      if (settings.isPlayerL) {
+        this.sendBotMode.value = settings.botModeR;
+      } else {
+        this.sendBotMode.value = settings.botModeL;
+      }
       this.sendBotPoints.value = botPoints;
       this.sendPlayerPoints.value = playerPoints;
     } else {
