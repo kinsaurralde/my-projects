@@ -786,7 +786,7 @@ class Ball {
     } else {
       this.opposite = 1;
     }
-    this.angle = random(10, 35);
+    this.angle = random(10, 30);
     this.quadrant = floor(random(1, 5));
     this.calcRealAngle();
     console.log("        ");
@@ -1096,10 +1096,10 @@ class Bot {
     }
     var speed;
     if (this.mode == "Easy") {
-      speed = (paddle[0].speed / 3) + random(-5, 0); // third speed
+      speed = (paddle[0].speed / 3) + random(-4, 0); // third speed
     }
     if (this.mode == "Normal") {
-      speed = (paddle[0].speed / 2) + random(-5, 0); // half speed 
+      speed = (paddle[0].speed / 2) + random(-7, 0); // half speed 
     }
     if (this.mode == "Impossible") {
       speed = paddle[0].speed; // full speed (same as player)
