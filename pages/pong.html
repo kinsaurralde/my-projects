@@ -13,7 +13,7 @@
         <p>Pong</p>
     </div>
     <div class="iframe-sketch">
-        <iframe src="../p5js/pong/index.html"></iframe>
+        <iframe src="../p5js/pong/index.html" onload="mobileSite()"></iframe>
     </div>
     <div class="divider"></div>
     <div class="title">Stats</div>
@@ -53,5 +53,16 @@
             document.getElementById("code-iframe").src = "../css/minesweeper.css";
             document.getElementById("code-div").style.height = "10vh";
         }
+
+        function isMobileDevice() {
+        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
+
+        function mobileSite() {
+            if (window.location.pathname != "/p5js/pong/index.html"  && isMobileDevice() && confirm("Go to mobile version")) {
+                window.open("../p5js/pong/index.html", "_parent");
+            }
+        }
+
     </script>
 </body>
