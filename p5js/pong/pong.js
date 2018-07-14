@@ -44,7 +44,17 @@ function setup() {
   reset();
   setWindowSize();
   stats = new Stat();
+
+  //if (isMobileDevice()) {
+   // if (confirm("Go to mobile version")) {
+      //alert("mobile");
+     // window.open("index.html", "_parent");
+   // } else {
+     // alert("standard");
+    //}
+  //}
 }
+
 
 function getSheetData() {
   Tabletop.getSheetData(
@@ -576,6 +586,8 @@ function drawTrajectory() {
     scaleLine(ball.x, ball.y, calculatedX, calculatedY);
   }
 }
+
+
 
 /****************************** Scaled Shapes *******************************/
 
