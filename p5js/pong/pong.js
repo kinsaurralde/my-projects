@@ -44,15 +44,6 @@ function setup() {
   reset();
   setWindowSize();
   stats = new Stat();
-
-  //if (isMobileDevice()) {
-   // if (confirm("Go to mobile version")) {
-      //alert("mobile");
-     // window.open("index.html", "_parent");
-   // } else {
-     // alert("standard");
-    //}
-  //}
 }
 
 
@@ -61,7 +52,8 @@ function getSheetData() {
     {
       key: publicSpreadsheetUrl,
       callback: showInfo,
-    })
+    }
+  )
 }
 
 function sendData() {
@@ -766,7 +758,7 @@ class Ball {
     this.y;
     this.xSpeed;
     this.ySpeed;
-    this.ex = 0;
+    this.hits = 0;
     this.angle;
     this.quadrant;
     this.realAngle;
@@ -788,8 +780,8 @@ class Ball {
     this.flipX = 1;
     this.flipY = 1;
     lastHit = 9;
+    this.hits = 0;
     this.speed = settings.ballSpeed.value;
-    this.hit;
     calculatedX = "NONE";
     paddle[0].y = 0;
     paddle[1].y = 0;
@@ -830,8 +822,9 @@ class Ball {
     console.log("Ball Info:", ball.x, ball.y, hitPaddle, side, lastHit);
     this.newAngle();
     if (hitPaddle) {
-      this.paddleMin = paddle[side].y - 110;
-      this.paddleMax = paddle[side].y + 110;
+      this.hits++;
+      this.paddleMin = paddle[side].y - 120;
+      this.paddleMax = paddle[side].y + 120;
       if (this.y > this.paddleMin && this.y < this.paddleMax && lastHit != side) {
         console.log("Paddle Hit:", side);
         if (this.quadrant == 1) {
@@ -928,8 +921,6 @@ class Ball {
       this.bounce(false, 3);
       return;
     }
-
-    this.hit = true;
   }
 
   newAngle() {
@@ -1079,7 +1070,7 @@ class Bot {
         if (ball.xSpeed < 0) {
           this.moveTo = calculatedY;
         } else {
-          this.moveTo = calculatedY / 2;
+          this.moveTo = calculatedY / 1.5;
         }
       } else {
         direction = "right";
@@ -1101,21 +1092,25 @@ class Bot {
   }
 
   calcSpeed() {
-    if (this.side == 0) {
-      this.mode = settings.botModeL;
+    if (ball.hits > 3) {
+      if (this.side == 0) {
+        this.mode = settings.botModeL;
+      } else {
+        this.mode = settings.botModeR;
+      }
+      var speed;
+      if (this.mode == "Easy") {
+        speed = (paddle[0].speed / 3) + random(-4, 0); // third speed
+      }
+      if (this.mode == "Normal") {
+        speed = (paddle[0].speed / 2) + random(-7, 0); // half speed 
+      }
+      if (this.mode == "Impossible") {
+        speed = paddle[0].speed; // full speed (same as player)
+      }
+      return constrain(speed, 3, paddle[0].speed);
     } else {
-      this.mode = settings.botModeR;
+      return paddle[0].speed;
     }
-    var speed;
-    if (this.mode == "Easy") {
-      speed = (paddle[0].speed / 3) + random(-4, 0); // third speed
-    }
-    if (this.mode == "Normal") {
-      speed = (paddle[0].speed / 2) + random(-7, 0); // half speed 
-    }
-    if (this.mode == "Impossible") {
-      speed = paddle[0].speed; // full speed (same as player)
-    }
-    return constrain(speed, 3, paddle[0].speed);
   }
 }
