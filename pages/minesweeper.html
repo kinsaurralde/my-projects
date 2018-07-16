@@ -13,7 +13,7 @@
         <p>Minesweeper</p>
     </div>
     <div class="iframe-sketch-16-11">
-        <iframe src="../p5js/MineSweeper/index.html"></iframe>
+        <iframe src="../p5js/MineSweeper/index.html"  onload="mobileSite()"></iframe>
     </div>
     <div class="divider"></div>
     <div class="title">Description</div>
@@ -47,6 +47,16 @@
         function css() {
             document.getElementById("code-iframe").src = "../css/minesweeper.css";
             document.getElementById("code-div").style.height = "10vh";
+        }
+
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
+
+        function mobileSite() {
+            if (window.location.pathname != "/p5js/minesweeper/index.html"  && isMobileDevice() && confirm("Go to mobile version")) {
+                window.open("../p5js/minesweeper/index.html", "_parent");
+            }
         }
     </script>
 </body>

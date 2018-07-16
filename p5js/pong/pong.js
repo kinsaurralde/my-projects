@@ -31,6 +31,7 @@ var calculatedY = 0;
 var calculatedX = "NONE";
 var lastHit = "5";
 var winningScore = 5;
+var mobile = isMobileDevice();
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1opQvnZCR9N9uIy9Imvaehyle8NQ969iJ-IgA19YBvk4/edit#gid=0';
 
 function setup() {
@@ -69,6 +70,9 @@ function showInfo(data, tabletop) {
   redraw();
 }
 
+function isMobileDevice() {
+  return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+}
 
 function draw() {
   frameRate(60);
@@ -622,10 +626,14 @@ function scaleTextSize(num) {
 /****************************** Window Resizing *******************************/
 
 function windowResized() { // js function runs when window is resized
-  setWindowSize();
+  //if (!mobile || deviceOrientation == "portrait") {
+    setWindowSize();
+  //}
+  redraw();
 }
 
 function setWindowSize() { // Resizes canvas and sets windowScale
+  console.log("Width:",windowWidth,deviceOrientation);
   windowScale = windowWidth / 1920;
   resizeCanvas(windowWidth, (windowWidth * 9 / 16));
 }
