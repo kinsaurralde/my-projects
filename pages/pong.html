@@ -31,9 +31,9 @@
         <div class="version-select">
             <button class="version-select-btn" onclick="myFunction()">Files</button>
             <div class="version-select-content">
-                <a onclick="js()">minesweeper.js</a>
+                <a onclick="js()">pong.js</a>
                 <a onclick="index()">index.html</a>
-                <a onclick="css()">minesweeper.css</a>
+                <a onclick="css()">pong.css</a>
             </div>
         </div>
         <iframe src="../p5js/Pong/pong.js" style="width: 100%; flex: 1 1 auto;" id="code-iframe"></iframe>
@@ -42,15 +42,15 @@
 
     <script>
         function js() {
-            document.getElementById("code-iframe").src = "../p5js/minesweeper/minesweeper.js";
+            document.getElementById("code-iframe").src = "../p5js/pong/pong.js";
             document.getElementById("code-div").style.height = "725em";
         }
         function index() {
-            document.getElementById("code-iframe").src = "../p5js/minesweeper/index.txt";
+            document.getElementById("code-iframe").src = "../p5js/pong/index.txt";
             document.getElementById("code-div").style.height = "10vh";
         }
         function css() {
-            document.getElementById("code-iframe").src = "../css/minesweeper.css";
+            document.getElementById("code-iframe").src = "../css/pongcss";
             document.getElementById("code-div").style.height = "10vh";
         }
 
