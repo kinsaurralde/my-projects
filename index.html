@@ -7,11 +7,22 @@
     <meta name="author" content="Kyle Insaurralde">
 
     <head>
-    </head>
-    <body>
         <link rel="stylesheet" href="css/reset.css" type="text/css">
         <link rel="stylesheet" href="css/styles.css" type="text/css">
+        <link rel="manifest" href="manifest.json">
+        <link rel="icon" sizes="225x225" href="images/icon.png">
+        <link rel='apple-touch-icon' href='images/icon.png'>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link href="splashscreens/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+        <link href="splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+        <link href="splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+        <link href="splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+        <link href="splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+        <link href="splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+        <link href="splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
         <script src="js/website.js"></script>
+    </head>
+    <body>
       
         <div id="overlay" >
             <iframe src="pages/navbar.html" onload="navReset()" id="iframeover"></iframe>
@@ -24,7 +35,7 @@
             
             <!-- Start of Project Template-->
             <div class="project">
-                <a href="graphing-calculator.html"><img src="images/Projectimg-AP.PNG" alt="Image Picture"/></a>
+                <a href="graphing-calculator.html"><img src="images/projectimg-ap.png" alt="Image Picture"/></a>
                     <h2>Graphing Calculator</h2>
                     <p>
                         <a href="graphing-calculator.html">Run Project</a>
@@ -60,7 +71,7 @@
 
             <!-- Start of Project Template-->
             <div class="project">
-                <a href="necker-cube.html"><img src="images/Projectimg-Cube.PNG" alt="Image Picture"/></a>
+                <a href="necker-cube.html"><img src="images/projectimg-cube.png" alt="Image Picture"/></a>
                     <h2>Necker Cube</h2>
                     <p><a href="necker-cube.html">Run Project</a></p>
                     <p>Necker cube illusion. Click on the run project link to run the sketch and see the code.</p>
@@ -70,7 +81,7 @@
 
             <!-- Start of Project Template-->
             <div class="project">
-                    <a href="rolling-cube.html"><img src="images/Projectimg-RollingCube.png" alt="Image Picture"/></a>
+                    <a href="rolling-cube.html"><img src="images/projectimg-rollingcube.png" alt="Image Picture"/></a>
                         <h2>Rolling Square</h2>
                         <p><a href="rolling-cube.html">Run Project</a></p>
                         <p>A square rolls around the inside of a box. Click on the run project link to run the sketch and see the code.</p>
@@ -80,7 +91,7 @@
 
             <!-- Start of Project Template-->
             <div class="project">
-                <a href="traffic-light.html"><img src="images/Projectimg-Traffic.png" alt="Image Picture"/></a>
+                <a href="traffic-light.html"><img src="images/projectimg-traffic.png" alt="Image Picture"/></a>
                     <h2>Traffic Light</h2>
                     <p><a href="traffic-light.html">Project Page</a></p>
                     <p>Rasberry Pi traffic light with pedestrain crossing button. Click on the project page link to see a video and see the code.</p>
@@ -89,5 +100,20 @@
             <!-- End of Project Template-->
 
     </div>
+
+    <script>
+        if('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then(function(registration) {
+                  console.log('Service Worker Registered');
+            });
+  
+          navigator.serviceWorker.ready.then(function(registration) {
+             console.log('Service Worker Ready');
+          });
+        }
+  
+        
+      </script>
 </body>
 </html>

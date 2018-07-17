@@ -1,0 +1,17 @@
+{
+  "name": "Kyle-offline",
+  "short_name": "Kyle",
+  "icons": [
+    {
+      "src": "/images/icon.png",
+      "type": "image/png",
+      "sizes": "225x225"
+    }
+    ],
+  "start_url": "/?homescreen=1",
+  "scope": "/",
+  "display": "fullscreen",
+  "orientation": "landscape-primary",
+  "background_color": "#2196F3",
+  "theme_color": "#2196F3"
+}
