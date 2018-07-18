@@ -1,5 +1,7 @@
-body {
-
+.no-scroll {
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }
 
 h1 {
@@ -83,6 +85,34 @@ h1 {
     border: 3px solid green;
 }
 
+.iframe-sketch-app {
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 57%; /* 56.25% for 16:9 +.75 extra */
+    height: 0px;
+    display: flex;
+    justify-content: center;
+    /* max-width: 1080px; */
+}
+
+.iframe-sketch-16-11 {
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 68.75%; /* 56.25% for 16:9 +.75 extra */
+    height: 0;
+    /* max-width: 1080px; */
+    margin-top: 10px;
+}
+
+.iframe-sketch-app iframe, .iframe-sketch-16-11 iframe {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 96%;
+    height: 100%;
+}
+
 @media all and (orientation:portrait) {
     .rotate-device {
         display: block;
@@ -90,5 +120,13 @@ h1 {
 
     .task-bar {
         display: flex;
+    }
+
+    .iframe-sketch-app iframe {
+        width: 100%;
+    }
+
+    .iframe-sketch-app {
+        width: 100%;
     }
 }

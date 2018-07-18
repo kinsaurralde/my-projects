@@ -43,7 +43,7 @@ function setup() { // creates canvas and setups first game
   removeTiles();
   newGame();
   if (isMobileDevice()) {
-    alert("Open this site on a computer, touch only devices dont work");
+    //alert("Open this site on a computer, touch only devices dont work");
   }
 }
 

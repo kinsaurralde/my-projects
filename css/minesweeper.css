@@ -52,8 +52,19 @@
     background: rgb(150,150,150);
 } 
 
-.tile {
+.mine-buttons {
+    z-index: 2;
+    opacity: .8;
+    background-color: #4CAF50;
+}
 
+#face {
+    position: absolute;
+    top: 1.5vw;
+    left: 47.5vw;
+    width: 5vw;
+    height: 5vw;
+    border-radius: 100%;
 }
 
 #tile0 {

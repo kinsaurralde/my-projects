@@ -17,7 +17,7 @@
  *
  */
 
-const version = "0007";
+const version = "0036"; // 07/18/2018 
 const cacheName = `kyles-projects-${version}`;
 self.addEventListener('install', e => {
   const timeStamp = Date.now();
@@ -29,21 +29,10 @@ self.addEventListener('install', e => {
         `/`,
         `/index.html`,
         `/404.html`,
-        `/pong.html`,
-        `/minesweeper.html`,
-        `/files.html`,
-        `/graphing-calculator.html`,
-        `/necker-cube.html`,
-        `/traffic-light.html`,
 
         /********************  PAGES  ********************/
         `/pages/navbar.html`,
-        `/pages/pong.html`,
-        `/pages/minesweeper.html`,
-        `/pages/files.html`,
-        `/pages/graphing-calculator.html`,
-        `/pages/necker-cube.html`,
-        `/pages/traffic-light.html`,
+        
 
         /********************  CSS  ********************/
         `/css/styles.css`,
@@ -72,8 +61,24 @@ self.addEventListener('install', e => {
 
         '/p5js/minesweeper/index.html',
         '/p5js/minesweeper/minesweeper.js',
+        
+        '/p5js/rollingcube/index.html',
+        '/p5js/rollingcube/rollingcube.js',
+
+        '/p5js/neckercube/index.html',
+        '/p5js/neckercube/neckercube.js',
+
+        /********************  SPLASH  ********************/
+        `/splashscreens/ipadpro1_splash.png`,
+        `/splashscreens/ipadpro2_splash.png`,
+        `/splashscreens/iphone5_splash.png`,
+        `/splashscreens/iphone6_splash.png`,
+        `/splashscreens/iphoneplus_splash.png`,
+        `/splashscreens/iphonex_splash.png`,
+        `/splashscreens/ipad_splash.png`,
 
         /********************  IMAGES  ********************/
+        `/images/icon.png`,
         `/images/icon-pong.png`,
         `/images/icon-cube.png`,
         `/images/icon-minesweeper.PNG`,

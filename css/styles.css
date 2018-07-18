@@ -78,7 +78,6 @@ p {
     padding-bottom: 57%; /* 56.25% for 16:9 +.75 extra */
     height: 0;
     /* max-width: 1080px; */
-    margin-top: 10px;
 }
 
 .iframe-sketch-16-11 {
