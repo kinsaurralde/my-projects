@@ -25,7 +25,7 @@
     <body>
       
         <div id="overlay" >
-            <iframe src="pages/navbar.html" onload="navReset()" id="iframeover"></iframe>
+            <iframe src="pages/navbar.html" onload="navReset(),mobileSite()" id="iframeover"></iframe>
         </div>  
     
         <div class="space-50"></div>
@@ -113,6 +113,16 @@
           });
         }
   
+        function isMobileDevice() {
+        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
+
+        function mobileSite() {
+            if (isMobileDevice()) {
+                window.open("app/index.html", "_parent");
+            }
+        }
+
         
       </script>
 </body>

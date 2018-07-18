@@ -17,8 +17,8 @@
  *
  */
 
-const version = "0.6.11";
-const cacheName = `airhorner-${version}`;
+const version = "0007";
+const cacheName = `kyles-projects-${version}`;
 self.addEventListener('install', e => {
   const timeStamp = Date.now();
   e.waitUntil(
@@ -47,31 +47,46 @@ self.addEventListener('install', e => {
 
         /********************  CSS  ********************/
         `/css/styles.css`,
+        '/css/app-styles.css',
         `/css/reset.css`,
         `/css/pong.css`,
         `/css/minesweeper.css`,
         `/css/tictactoe.css`,
+
+        /********************  APP  ********************/
+        '/app/index.html',
+        '/app/minesweeper.html',
+        '/app/neckercube.html',
+        '/app/pong.html',
+        '/app/rotate-device.html',
 
         /********************  JS  ********************/
         `/js/website.js`,
         `/js/tabletop.js`,
 
         /********************  P5JS  ********************/
+        '/p5js/p5.js',
+       
         '/p5js/pong/index.html',
-        '/p5js/pong/index.txt',
         '/p5js/pong/pong.js',
 
         '/p5js/minesweeper/index.html',
-        '/p5js/minesweeper/index.txt',
-        '/p5js/minesweeper/pong.js',
+        '/p5js/minesweeper/minesweeper.js',
 
         /********************  IMAGES  ********************/
+        `/images/icon-pong.png`,
+        `/images/icon-cube.png`,
+        `/images/icon-minesweeper.PNG`,
+        `/images/icon-rollingcube.png`,
+        `/images/icon-traffic.png`,
+
         `/images/projectimg-pong.PNG`,
         `/images/projectimg-cube.png`,
         `/images/projectimg-minesweeper.PNG`,
         `/images/projectimg-rollingcube.png`,
         `/images/projectimg-ap.png`,
         `/images/projectimg-traffic.png`,
+
         `/images/file.png`
 
       ])
