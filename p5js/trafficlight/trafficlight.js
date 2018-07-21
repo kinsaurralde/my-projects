@@ -4,23 +4,26 @@ var greenStatus;
 var sleepTimer = 0;
 var timer = 0;
 var step = 0;
+var windowScale = 1;
 
 function setup() {
-  createCanvas(windowWidth, 160);
+  mainCanvas = createCanvas(1, 1);
+  setWindowScale();
+  mainCanvas.parent('sketch-holder');
   rectMode(CENTER);
   greenOn();
 }
 
 function draw() {
-  background(255);
+  background(200);
   fill(0);
-  rect(width/2, 80, 80, 160);
+  rect(width/2, height/2, width, height);
   fill(255, 0, 0, redStatus);
-  ellipse(width/2, 30, 45);
+  ellipse(width/2, 30 * windowScale, 45 * windowScale);
   fill(255, 255, 0, yellowStatus);
-  ellipse(width/2, 80, 45);
+  ellipse(width/2, 80 * windowScale, 45 * windowScale);
   fill(0, 255, 0, greenStatus);
-  ellipse(width/2, 130, 45);
+  ellipse(width/2, 130 * windowScale, 45 * windowScale);
   if (millis() - timer > 20000 && step == 0) {
     step = 1;
   }
@@ -53,6 +56,7 @@ function mousePressed() {
 }
 
 function pedestrian() {
+  console.log("Switched")
   if (step == 0) {
     step = 1;
   }
@@ -78,12 +82,17 @@ function redOn() {
 }
 
 function sleep(seconds) {
-  console.log(millis() - sleepTimer);
+  //console.log(millis() - sleepTimer);
   if (millis() - sleepTimer > seconds*1000) {
     step++;
   }
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, 160);
+  setWindowScale();
+}
+
+function setWindowScale() {
+  windowScale = windowHeight / 160;
+  resizeCanvas(windowWidth, windowHeight);
 }
