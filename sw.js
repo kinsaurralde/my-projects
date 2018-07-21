@@ -17,7 +17,7 @@
  *
  */
 
-const version = "0036"; // 07/18/2018 
+const version = "0038"; // 07/18/2018 
 const cacheName = `kyles-projects-${version}`;
 self.addEventListener('install', e => {
   const timeStamp = Date.now();

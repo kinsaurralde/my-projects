@@ -93,7 +93,7 @@ function draw() {
   fill(255);
   //var sketchhh = document.getElementById('defaultCanvas0');
   //scaleText(defaultCanvas0.height,-400,-200);
-  scaleText(windowHeight+" : "+height+" : "+windowWidth+" : "+width,-400,-200);
+  //scaleText(windowHeight+" : "+height+" : "+windowWidth+" : "+width,-400,-200);
 }
 
 function mouseClicked() {

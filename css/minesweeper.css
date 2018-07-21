@@ -44,6 +44,7 @@
 }
 
 .sketch-inputs {
+    z-index: 10;
     display: flex;
     justify-content: center;
 }
@@ -52,10 +53,28 @@
     background: rgb(150,150,150);
 } 
 
+.sketch-buttons {
+    z-index: 10;
+}
+
 .mine-buttons {
     z-index: 2;
-    opacity: .8;
+    opacity: .0;
     background-color: #4CAF50;
+    width: 5vw;
+    height: 5vw;
+    position: absolute;
+}
+
+#screen {
+    z-index: 2;
+    opacity: .0;
+    background-color: aqua;
+    width: 100vw;
+    height: 70vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 #face {

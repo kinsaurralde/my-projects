@@ -113,6 +113,10 @@ h1 {
     height: 100%;
 }
 
+#desktop {
+    visibility: visible;
+}
+
 @media all and (orientation:portrait) {
     .rotate-device {
         display: block;
@@ -128,5 +132,11 @@ h1 {
 
     .iframe-sketch-app {
         width: 100%;
+    }
+}
+
+@media all and (max-width: 1000px) {
+    #desktop {
+        visibility: hidden; 
     }
 }

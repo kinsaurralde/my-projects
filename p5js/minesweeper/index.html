@@ -15,11 +15,12 @@
 <p></p>
 <div id="sketch-holder" oncontextmenu="return false">
   <button type="button" class="mine-buttons" id="face" onclick="newGame()"></button>
+  <button type="button" class="mine-buttons" id="screen" onclick="startTouch()" on-hold="flagTouch()"></button>
 </div>
 <div id="content">
   <div class="sketch-inputs">
-    <button type="button" onclick="beginner();toggleCustom(false)">Beginner</button>
-    <button type="button" onclick="intermediate();toggleCustom(false)">Intermediate</button>
+    <button type="button" class="sketch-button" onclick="beginner();toggleCustom(false)">Beginner</button>
+    <button type="button" class="sketch-button" onclick="intermediate();toggleCustom(false)">Intermediate</button>
     <button type="button" onclick="expert();toggleCustom(false)">Expert</button>
     <button type="button" onclick="toggleCustom(true)">Custom</button>
   </div>

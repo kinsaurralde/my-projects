@@ -21,6 +21,7 @@ var face;
 var maxTiles = 50;
 var height2;
 var testMode = false;
+var asd = "";
 
 
 
@@ -52,6 +53,7 @@ function setup() { // creates canvas and setups first game
 /****************************** Constant drawing / Key checking *******************************/
 
 function draw() {
+  rectMode(CENTER);
   translate(width / 2, height2 / 2);
   background(255);
   stroke(105);
@@ -89,6 +91,13 @@ function draw() {
   text(timer, 270 * windowScale, -465 * windowScale);
   face.displaySmile();
   win();
+  translate(-width/2,-height2/2);
+  rectMode(CORNER);
+ // scaleRect(tiles[0][1].x+width-24,tiles[0][1].y+height2-34,dimension,dimension);
+  //console.log("asdas",tiles[0][1].x+width-24,tiles[0][1].y+height2-34);
+  fill(255,0,0);
+  //scaleRect(0+width,0+height2,100,100);
+  text(asd,400,400);
 }
 
 function keyPressed() { //keys used for testing
@@ -347,6 +356,14 @@ function newTiles() { // Creates new tiles
   }
 }
 
+function startTouch() {
+  checkTiles(mouseX-width/2,mouseY-height2/2,dimension);
+}
+
+function flagTouch() {
+  flagTile(mouseX-width/2,mouseY-height2/2,dimension);
+}
+
 function resizeTiles() { // Resizes tiles to fit in window
   console.log("Resize Tiles")
   reset();
@@ -431,9 +448,20 @@ function check() { // Checks which mouse button was used
   }
 }
 
+function test() {
+  //if (isMobileDevice()) {
+    //console.log("yay",touches[0]);
+    //ellipse(mouseX,mouseY,50,50);
+    //ellipse(touches[0].x,touches[0].y,40,40);
+   // checkTiles(mouseX - width / 2, mouseY - height2 / 2, dimension);
+    //asd = 999;
+  //}
+}
+
 function checkTiles(x, y, d) { // Determines which tile (or restart) was clicked
   var i = -1 * round(-x / (d * windowScale) - numX / 2 + .5);
   var j = -1 * round(-y / (d * windowScale) - numY / 2 + .5);
+  console.log("Clicked:",i,j,x,y,mouseX,mouseY);
   if (i >= 0 && i < numX && j >= 0 && j < numY && tiles[i][j].flag == false) {
     if (first) {
       firstClick(i, j);
