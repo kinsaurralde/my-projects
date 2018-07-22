@@ -58,7 +58,7 @@
 }
 
 .mine-buttons {
-    z-index: 2;
+    z-index: 3;
     opacity: .0;
     background-color: #4CAF50;
     width: 5vw;
@@ -66,14 +66,33 @@
     position: absolute;
 }
 
+.flag-toggle {
+    z-index: 4;
+    opacity: .2;
+    background-color: #FF00F0;
+    width: 4vw;
+    height: 4vw;
+    position: absolute;
+}
+
+#flag-true {
+    top: 2vw;
+    left: 41vw;
+}
+
+#flag-false {
+    top: 2vw;
+    left: 55vw;
+}
+
 #screen {
     z-index: 2;
-    opacity: .0;
+    opacity: .2;
     background-color: aqua;
     width: 100vw;
-    height: 70vh;
+    height: 60vh;
     position: absolute;
-    top: 0px;
+    top: 10vh;
     left: 0px;
 }
 

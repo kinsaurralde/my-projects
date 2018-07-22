@@ -21,7 +21,7 @@ var face;
 var maxTiles = 50;
 var height2;
 var testMode = false;
-var asd = "";
+var touchFlag = false;
 
 
 
@@ -43,9 +43,6 @@ function setup() { // creates canvas and setups first game
   setWindowSize();
   removeTiles();
   newGame();
-  if (isMobileDevice()) {
-    //alert("Open this site on a computer, touch only devices dont work");
-  }
 }
 
 
@@ -90,6 +87,7 @@ function draw() {
   text(nf(countMines(true), 3), -275 * windowScale, -465 * windowScale);
   text(timer, 270 * windowScale, -465 * windowScale);
   face.displaySmile();
+  drawFlagSettings();
   win();
   translate(-width/2,-height2/2);
   rectMode(CORNER);
@@ -97,7 +95,6 @@ function draw() {
   //console.log("asdas",tiles[0][1].x+width-24,tiles[0][1].y+height2-34);
   fill(255,0,0);
   //scaleRect(0+width,0+height2,100,100);
-  text(asd,400,400);
 }
 
 function keyPressed() { //keys used for testing
@@ -356,8 +353,12 @@ function newTiles() { // Creates new tiles
   }
 }
 
-function startTouch() {
-  checkTiles(mouseX-width/2,mouseY-height2/2,dimension);
+function touch() {
+  if (touchFlag) {
+    flagTile(mouseX-width/2,mouseY-height2/2,dimension);
+  } else {
+    checkTiles(mouseX-width/2,mouseY-height2/2,dimension);
+  }
 }
 
 function flagTouch() {
@@ -448,15 +449,6 @@ function check() { // Checks which mouse button was used
   }
 }
 
-function test() {
-  //if (isMobileDevice()) {
-    //console.log("yay",touches[0]);
-    //ellipse(mouseX,mouseY,50,50);
-    //ellipse(touches[0].x,touches[0].y,40,40);
-   // checkTiles(mouseX - width / 2, mouseY - height2 / 2, dimension);
-    //asd = 999;
-  //}
-}
 
 function checkTiles(x, y, d) { // Determines which tile (or restart) was clicked
   var i = -1 * round(-x / (d * windowScale) - numX / 2 + .5);
@@ -588,8 +580,48 @@ function autoClear(x, y) {
   }
 }
 
-function isMobileDevice() {
-  return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+function invertFlag() {
+  touchFlag = !touchFlag;
+}
+
+function drawFlagSettings() {
+  this.x = -135;
+  this.y = -465;
+  this.w = 70;
+  this.h = 70;
+  var dimension = 70;
+  fill(255,255,0);
+  noStroke();
+  if (touchFlag) {
+    scaleRect(this.x,this.y,85,85);
+  } else {
+    scaleRect(this.x * -1,this.y,85,85);
+  }
+
+  fill(200); // left
+  strokeWeight(1 * windowScale);
+  fill(245); // empty tile
+  scaleRect(this.x, this.y, this.w, this.h);
+  fill(165);
+  scaleTriangle(this.x + this.w / 2, this.y + this.w / 2, this.x + this.w / 2, this.y - this.w / 2, this.x - this.w / 2, this.y + this.w / 2);
+  fill(205);
+  scaleRect(this.x, this.y, this.w * .9, this.h * .9);
+  fill(0);
+  scaleRect((this.x), (this.y + 1.6 * dimension / 80), 5 * dimension / 80, 46 * dimension / 80); // flag pole
+  scaleRect((this.x - 2 * dimension / 80), (this.y + 20 * dimension / 80), 25 * dimension / 80, 8 * dimension / 80); // upper base
+  scaleRect((this.x - 2 * dimension / 80), (this.y + 25 * dimension / 80), 45 * dimension / 80, 8 * dimension / 80); // lower base
+  fill(255, 0, 0);
+  scaleTriangle((this.x + 1.6 * dimension / 80) + 1.5, this.y, (this.x + 1.6 * dimension / 80) + 1.5, (this.y - 28 * dimension / 80), (this.x - 20 * dimension / 80), (this.y - 14 * dimension / 80));
+
+  this.x *= -1; // right
+  fill(200);
+  strokeWeight(1 * windowScale);
+  fill(245); // empty tile
+  scaleRect(this.x, this.y, this.w, this.h);
+  fill(165);
+  scaleTriangle(this.x + this.w / 2, this.y + this.w / 2, this.x + this.w / 2, this.y - this.w / 2, this.x - this.w / 2, this.y + this.w / 2);
+  fill(205);
+  scaleRect(this.x, this.y, this.w * .9, this.h * .9);
 }
 
 

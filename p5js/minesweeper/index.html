@@ -13,9 +13,11 @@
 </head>
 <body>
 <p></p>
-<div id="sketch-holder" oncontextmenu="return false">
+<div id="sketch-holder" oncontextmenu="return false" onload="checkMobile()">
   <button type="button" class="mine-buttons" id="face" onclick="newGame()"></button>
-  <button type="button" class="mine-buttons" id="screen" onclick="startTouch()" on-hold="flagTouch()"></button>
+  <button type="button" class="mine-buttons" id="screen" onclick="touch()"></button>
+  <button type="button" class="flag-toggle" id="flag-true" onclick="invertFlag()"></button>
+  <button type="button" class="flag-toggle" id="flag-false" onclick="invertFlag()"></button>
 </div>
 <div id="content">
   <div class="sketch-inputs">
@@ -74,6 +76,16 @@
           x.style.display = "block";
       } else {
           x.style.display = "none";
+      }
+    }
+
+    function isMobileDevice() {
+      return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    }
+
+    function checkMobile() {
+      if (isMobileDevice()) {
+        window.open("app/minesweeper.html", "_parent");
       }
     }
 </script>

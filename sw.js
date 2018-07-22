@@ -17,8 +17,9 @@
  *
  */
 
-const version = "0038"; // 07/18/2018 
+const version = "0042"; // 07/21/2018 
 const cacheName = `kyles-projects-${version}`;
+console.log("Cache Name:",cacheName);
 self.addEventListener('install', e => {
   const timeStamp = Date.now();
   e.waitUntil(
@@ -47,6 +48,8 @@ self.addEventListener('install', e => {
         '/app/minesweeper.html',
         '/app/neckercube.html',
         '/app/pong.html',
+        '/app/rollingcube.html',
+        '/app/traffic.html',
         '/app/rotate-device.html',
 
         /********************  JS  ********************/
@@ -67,6 +70,9 @@ self.addEventListener('install', e => {
 
         '/p5js/neckercube/index.html',
         '/p5js/neckercube/neckercube.js',
+
+        '/p5js/trafficlight/index.html',
+        '/p5js/trafficlight/trafficlight.js',
 
         /********************  SPLASH  ********************/
         `/splashscreens/ipadpro1_splash.png`,

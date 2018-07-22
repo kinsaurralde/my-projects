@@ -69,8 +69,12 @@ h1 {
 
 .task-bar {
     padding-bottom: 4px;
-    display: none;
+    display: flex;
     justify-content: center;
+}
+
+.status-bar {
+    padding-top: 4vh;
 }
 
 .home {
@@ -93,6 +97,8 @@ h1 {
 .iframe-sketch-app {
     overflow: hidden;
     position: relative;
+    top: 0;
+    left: 0;
     padding-bottom: 57%; /* 56.25% for 16:9 +.75 extra */
     height: 0px;
     display: flex;
@@ -119,11 +125,11 @@ h1 {
 }
 
 #traffic-iframe {
-    padding: 0px;
-    width: 100vh;
-    height: 100vw;
-    padding-left: 44vw;
-    transform: rotate(90deg);
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    padding-left: 0vw;
+    transform: rotate(0deg);
 }
 
 #desktop {
@@ -180,5 +186,9 @@ h1 {
 @media all and (max-width: 1000px) {
     #desktop {
         visibility: hidden; 
+    }
+
+    .task-bar {
+        display: flex;
     }
 }
