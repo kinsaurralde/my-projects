@@ -12,15 +12,6 @@ var windowHeight = 100;
 function setup() {
   var canvas = createCanvas(1920, 1080);
   canvas.parent('sketch-holder');
-  if (isMobileDevice()) {
-    var divWidth = windowWidth;
-    var divHeight;
-    winScale = divWidth/1920;
-    divHeight = divWidth*9/16;
-    resizeCanvas(divWidth, divHeight);
-  } else {
-    setWindowSize();
-  }
   background(0);
   fill(255, 255, 100);
   noStroke();
@@ -29,6 +20,8 @@ function setup() {
     starx[i] = int(random(1920));
     stary[i] = int(random(1080));
   }
+
+  setWindowSize();
 }
 
 function draw() {
@@ -150,6 +143,9 @@ function draw() {
   quadScale(353, 148, 337, 161, 337, 352, 353, 359);
   fill(lightblue);
   quadScale(353, 149, 362, 125, 362, 355, 353, 358);
+
+  translate(-x*winScale, -y*winScale);
+  ellipse(-20,-20,60,60);
 }
 
 function isMobileDevice() {
@@ -165,13 +161,15 @@ function windowResized() {
 }
 
 function setWindowSize() {
-  if (!isMobileDevice()) {
+  /*
     var container = document.getElementById('sketch-holder');
     var positionInfo = container.getBoundingClientRect();
     var divWidth = positionInfo.width;
     var divHeight;
     winScale = divWidth/1920;
     divHeight = divWidth*9/16;
-    resizeCanvas(divWidth, divHeight);
-  }
+      resizeCanvas(divWidth, divHeight);
+    */
+  winScale = windowWidth/1920;
+  resizeCanvas(windowWidth, windowWidth * 9/16);
 }

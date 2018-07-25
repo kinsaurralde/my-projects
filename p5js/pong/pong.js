@@ -33,6 +33,7 @@ var lastHit = "5";
 var winningScore = 5;
 var mobile = isMobileDevice();
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1opQvnZCR9N9uIy9Imvaehyle8NQ969iJ-IgA19YBvk4/edit#gid=0';
+var holder;
 
 function setup() {
   getSheetData();
@@ -45,6 +46,7 @@ function setup() {
   reset();
   setWindowSize();
   stats = new Stat();
+  holder = document.getElementById('sketch-holder');
 }
 
 
@@ -637,9 +639,9 @@ function windowResized() { // js function runs when window is resized
 }
 
 function setWindowSize() { // Resizes canvas and sets windowScale
-  console.log("Width:",windowWidth,deviceOrientation);
   windowScale = windowWidth / 1920;
   resizeCanvas(windowWidth, (windowWidth * 9 / 16));
+  console.log("Width:",windowWidth,width,holder);
 }
 
 function fullScreen() {
