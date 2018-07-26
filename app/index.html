@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="../css/reset.css" type="text/css">
         <link rel="stylesheet" href="../css/styles.css" type="text/css">
         <link rel="stylesheet" href="../css/app-styles.css" type="text/css">
+        <script src="../js/website.js"></script>
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="viewport" content="user-scalable=no, viewport-fit=cover">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -27,9 +28,9 @@
         <link href="../splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
     </head>
 
-    <body >
+    <body>
         <div class="status-bar"></div>
-        <h1>Projects</h1>  
+        <h1>Projects</h1>
         <div id="app-projects">
             <div class="app-project-container">
                 <div class="app-project">
@@ -57,9 +58,19 @@
                     <p>Traffic</p>
                 </div>
 
+                <div class="app-project">
+                    <a href="info.html"><img src="../images/icon-info.png"></a>
+                    <p>Info</p>
+                </div>
+
                 <div class="app-project" id="desktop">
                     <a href="../index.html"><img src="../images/icon-desktop.png"></a>
                     <p>Desktop</p>
+                </div>
+
+                
+                <div class="app-project">
+                    <img src="../images/icon-blank.png">
                 </div>
 
             </div>
@@ -71,13 +82,26 @@
                 navigator.serviceWorker.register('/../sw.js', { scope: '/' })
                     .then(function(registration) {
                         console.log('Service Worker App Registered');
+                        console.log("cahce");
+                       // console.log("CacheName",cacheName);  
                     });
         
                 navigator.serviceWorker.ready.then(function(registration) {
                     console.log('Service Worker App Ready');
                 });
-            }  
-          //  console.log("Cache Version:",version); 
+            }
+
+            function redirectHttpToHttps() {
+                var httpURL = window.location.hostname + window.location.pathname;
+                var httpsURL= "https://" + httpURL;
+                if (location.port != 3000 && window.location.protocol == "http:") {
+                    window.location = httpsURL;
+                }
+
+            }
+
+            redirectHttpToHttps();
+
         </script>
 
     </body>

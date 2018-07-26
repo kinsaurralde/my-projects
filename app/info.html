@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Kyle's Projects</title>
+    <link rel="stylesheet" href="../css/reset.css" type="text/css">
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
+    <link rel="stylesheet" href="../css/app-styles.css" type="text/css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="icon" sizes="225x225" href="../images/icon.png">
+    <link rel='apple-touch-icon' sizes="225x225" href='../images/icon.png'>
+</head>
+
+<body onload="json()">
+    <div class="status-bar"></div>
+    <h1>Projects</h1> 
+    <div class="space-10"></div>
+    <div id="page-title" style="font-size: 7vh">Info</div>
+    <div id="app-content">
+        <p class="info-left">Version: </p>
+        <p class="info-right" id="info-version">[ Loading ]</p>
+        <p class="info-left">Last Update:</p>
+        <p class="info-right" id="info-updated">[ Loading ]</p>
+        <p class="info-left">Protocol:</p>
+        <p class="info-right" id="info-protocol">[ Loading ]</p>
+        <p class="info-left">Host:</p>
+        <p class="info-right" id="info-host">[ Loading ]</p>
+        <p class="info-left">Port:</p>
+        <p class="info-right" id="info-port">[ Loading ]</p>
+    </div>
+
+    <div class="task-bar">
+        <a href="index.html"><button class="home"> Main Page </button></a>
+    </div>
+</body>
+
+<script>
+    function loadJSON(callback) {   
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+    xobj.open('GET', '../manifest.json', true); // Replace 'my_data' with the path to your file
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);  
+    }
+
+    function json() {
+        loadJSON(function(response) {
+        // Parse JSON string into object
+            var info = JSON.parse(response);
+            document.getElementById("info-version").innerHTML = info.version;
+            document.getElementById("info-updated").innerHTML = info.Updated;
+            document.getElementById("info-protocol").innerHTML = window.location.protocol;
+            document.getElementById("info-host").innerHTML = window.location.hostname;
+            if (location.port == "") {
+                document.getElementById("info-port").innerHTML = "[ Blank ]"
+            } else {
+                document.getElementById("info-port").innerHTML = location.port;
+            }
+        });
+    }
+
+</script>

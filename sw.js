@@ -17,9 +17,10 @@
  *
  */
 
-const version = "0044"; // 07/21/2018 
+const version = "0046"; // 07/25/2018 
 const cacheName = `kyles-projects-${version}`;
-console.log("Cache Name:",cacheName);
+//console.log("Cache Name:",cacheName);
+//sessionStorage.setItem("version",cacheName);
 self.addEventListener('install', e => {
   const timeStamp = Date.now();
   e.waitUntil(
@@ -48,9 +49,9 @@ self.addEventListener('install', e => {
         '/app/minesweeper.html',
         '/app/neckercube.html',
         '/app/pong.html',
-        '/app/rollingcube.html',
+        '/app/rollingsquare.html',
         '/app/traffic.html',
-        '/app/rotate-device.html',
+        '/app/info.html',
 
         /********************  JS  ********************/
         `/js/website.js`,
@@ -85,6 +86,8 @@ self.addEventListener('install', e => {
 
         /********************  IMAGES  ********************/
         `/images/icon.png`,
+        `/images/icon-info.png`,
+        `/images/icon-blank.png`,
         `/images/icon-pong.png`,
         `/images/icon-cube.png`,
         `/images/icon-minesweeper.PNG`,

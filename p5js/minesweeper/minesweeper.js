@@ -91,10 +91,7 @@ function draw() {
   win();
   translate(-width/2,-height2/2);
   rectMode(CORNER);
- // scaleRect(tiles[0][1].x+width-24,tiles[0][1].y+height2-34,dimension,dimension);
-  //console.log("asdas",tiles[0][1].x+width-24,tiles[0][1].y+height2-34);
   fill(255,0,0);
-  //scaleRect(0+width,0+height2,100,100);
 }
 
 function keyPressed() { //keys used for testing
@@ -453,7 +450,6 @@ function check() { // Checks which mouse button was used
 function checkTiles(x, y, d) { // Determines which tile (or restart) was clicked
   var i = -1 * round(-x / (d * windowScale) - numX / 2 + .5);
   var j = -1 * round(-y / (d * windowScale) - numY / 2 + .5);
-  console.log("Clicked:",i,j,x,y,mouseX,mouseY);
   if (i >= 0 && i < numX && j >= 0 && j < numY && tiles[i][j].flag == false) {
     if (first) {
       firstClick(i, j);
@@ -581,49 +577,56 @@ function autoClear(x, y) {
 }
 
 function invertFlag() {
-  touchFlag = !touchFlag;
+  if (isMobileDevice()) {
+    touchFlag = !touchFlag;
+  }
 }
 
 function drawFlagSettings() {
-  this.x = -135;
-  this.y = -465;
-  this.w = 70;
-  this.h = 70;
-  var dimension = 70;
-  fill(255,255,0);
-  noStroke();
-  if (touchFlag) {
-    scaleRect(this.x,this.y,85,85);
-  } else {
-    scaleRect(this.x * -1,this.y,85,85);
+  if (isMobileDevice()) {
+    this.x = -135;
+    this.y = -465;
+    this.w = 70;
+    this.h = 70;
+    var dimension = 70;
+    fill(255,255,0);
+    noStroke();
+    if (touchFlag) {
+      scaleRect(this.x,this.y,85,85);
+    } else {
+      scaleRect(this.x * -1,this.y,85,85);
+    }
+
+    fill(200); // left
+    strokeWeight(1 * windowScale);
+    fill(245); // empty tile
+    scaleRect(this.x, this.y, this.w, this.h);
+    fill(165);
+    scaleTriangle(this.x + this.w / 2, this.y + this.w / 2, this.x + this.w / 2, this.y - this.w / 2, this.x - this.w / 2, this.y + this.w / 2);
+    fill(205);
+    scaleRect(this.x, this.y, this.w * .9, this.h * .9);
+    fill(0);
+    scaleRect((this.x), (this.y + 1.6 * dimension / 80), 5 * dimension / 80, 46 * dimension / 80); // flag pole
+    scaleRect((this.x - 2 * dimension / 80), (this.y + 20 * dimension / 80), 25 * dimension / 80, 8 * dimension / 80); // upper base
+    scaleRect((this.x - 2 * dimension / 80), (this.y + 25 * dimension / 80), 45 * dimension / 80, 8 * dimension / 80); // lower base
+    fill(255, 0, 0);
+    scaleTriangle((this.x + 1.6 * dimension / 80) + 1.5, this.y, (this.x + 1.6 * dimension / 80) + 1.5, (this.y - 28 * dimension / 80), (this.x - 20 * dimension / 80), (this.y - 14 * dimension / 80));
+
+    this.x *= -1; // right
+    fill(200);
+    strokeWeight(1 * windowScale);
+    fill(245); // empty tile
+    scaleRect(this.x, this.y, this.w, this.h);
+    fill(165);
+    scaleTriangle(this.x + this.w / 2, this.y + this.w / 2, this.x + this.w / 2, this.y - this.w / 2, this.x - this.w / 2, this.y + this.w / 2);
+    fill(205);
+    scaleRect(this.x, this.y, this.w * .9, this.h * .9);
   }
-
-  fill(200); // left
-  strokeWeight(1 * windowScale);
-  fill(245); // empty tile
-  scaleRect(this.x, this.y, this.w, this.h);
-  fill(165);
-  scaleTriangle(this.x + this.w / 2, this.y + this.w / 2, this.x + this.w / 2, this.y - this.w / 2, this.x - this.w / 2, this.y + this.w / 2);
-  fill(205);
-  scaleRect(this.x, this.y, this.w * .9, this.h * .9);
-  fill(0);
-  scaleRect((this.x), (this.y + 1.6 * dimension / 80), 5 * dimension / 80, 46 * dimension / 80); // flag pole
-  scaleRect((this.x - 2 * dimension / 80), (this.y + 20 * dimension / 80), 25 * dimension / 80, 8 * dimension / 80); // upper base
-  scaleRect((this.x - 2 * dimension / 80), (this.y + 25 * dimension / 80), 45 * dimension / 80, 8 * dimension / 80); // lower base
-  fill(255, 0, 0);
-  scaleTriangle((this.x + 1.6 * dimension / 80) + 1.5, this.y, (this.x + 1.6 * dimension / 80) + 1.5, (this.y - 28 * dimension / 80), (this.x - 20 * dimension / 80), (this.y - 14 * dimension / 80));
-
-  this.x *= -1; // right
-  fill(200);
-  strokeWeight(1 * windowScale);
-  fill(245); // empty tile
-  scaleRect(this.x, this.y, this.w, this.h);
-  fill(165);
-  scaleTriangle(this.x + this.w / 2, this.y + this.w / 2, this.x + this.w / 2, this.y - this.w / 2, this.x - this.w / 2, this.y + this.w / 2);
-  fill(205);
-  scaleRect(this.x, this.y, this.w * .9, this.h * .9);
 }
 
+function isMobileDevice() {
+  return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+}
 
 /****************************** Scaled Shapes *******************************/
 
