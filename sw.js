@@ -17,7 +17,7 @@
  *
  */
 
-const version = "0047"; // 07/25/2018 
+const version = "0048"; // 07/27/2018 
 const cacheName = `kyles-projects-${version}`;
 //console.log("Cache Name:",cacheName);
 //sessionStorage.setItem("version",cacheName);
