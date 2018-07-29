@@ -17,7 +17,10 @@
  *
  */
 
-const version = "0048"; // 07/27/2018 
+ /* CHANGE MANIFEST VERSION ALSO */
+const version = "0051"; // 07/28/2018 
+/* CHANGE MANIFEST VERSION ALSO */
+
 const cacheName = `kyles-projects-${version}`;
 //console.log("Cache Name:",cacheName);
 //sessionStorage.setItem("version",cacheName);
@@ -31,11 +34,11 @@ self.addEventListener('install', e => {
         `/`,
         `/index.html`,
         `/404.html`,
+        `/manifest.json`,
 
         /********************  PAGES  ********************/
         `/pages/navbar.html`,
         
-
         /********************  CSS  ********************/
         `/css/styles.css`,
         '/css/app-styles.css',
@@ -52,6 +55,7 @@ self.addEventListener('install', e => {
         '/app/rollingsquare.html',
         '/app/traffic.html',
         '/app/info.html',
+        '/app/tetris.html',
 
         /********************  JS  ********************/
         `/js/website.js`,
@@ -88,11 +92,13 @@ self.addEventListener('install', e => {
         `/images/icon.png`,
         `/images/icon-info.png`,
         `/images/icon-blank.png`,
+        `/images/icon-desktop.png`,
         `/images/icon-pong.png`,
         `/images/icon-cube.png`,
         `/images/icon-minesweeper.PNG`,
         `/images/icon-rollingcube.png`,
         `/images/icon-traffic.png`,
+        `/images/icon-tetris.png`,
 
         `/images/projectimg-pong.PNG`,
         `/images/projectimg-cube.png`,

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Kyle's Projects</title>
+    <link rel="stylesheet" href="../css/reset.css" type="text/css">
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
+</head>
+
+<body>
+    <div id="page-title">
+        <p>Tetris</p>
+    </div>
+    <div class="iframe-sketch">
+        <iframe src="../p5js/pong/index.html" onload="mobileSite()"></iframe>
+    </div>
+    <div class="divider"></div>
+    <div class="title">Description</div>
+    <div class="text">
+        <p></p>
+    </div>
+    <div class="divider"></div>
+    <div class="title">Code</div>
+    <div class="code" id="code-div" style="display: flex; flex-direction: column; height: 725em;">
+        <div class="version-select">
+            <button class="version-select-btn" onclick="myFunction()">Files</button>
+            <div class="version-select-content">
+                <a onclick="js()">pong.js</a>
+                <a onclick="index()">index.html</a>
+                <a onclick="css()">pong.css</a>
+            </div>
+        </div>
+        <iframe src="../p5js/Pong/pong.js" style="width: 100%; flex: 1 1 auto;" id="code-iframe"></iframe>
+    </div>
+    <div class="divider"></div>
+
+    <script>
+        function js() {
+            document.getElementById("code-iframe").src = "../p5js/pong/pong.js";
+            document.getElementById("code-div").style.height = "725em";
+        }
+        function index() {
+            document.getElementById("code-iframe").src = "../p5js/pong/index.txt";
+            document.getElementById("code-div").style.height = "10vh";
+        }
+        function css() {
+            document.getElementById("code-iframe").src = "../css/pongcss";
+            document.getElementById("code-div").style.height = "10vh";
+        }
+
+        function isMobileDevice() {
+        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
+
+        function mobileSite() {
+            if (window.location.pathname != "/p5js/pong/index.html"  && isMobileDevice() && confirm("Go to mobile version")) {
+                window.open("../p5js/pong/index.html", "_parent");
+            }
+        }
+
+    </script>
+</body>

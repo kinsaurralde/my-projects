@@ -101,6 +101,7 @@ h1 {
 
 .task-bar {
     padding-top: 4vh;
+    padding-bottom: 4vh;
     display: flex;
     justify-content: center;
     border-top: .4vh solid rgb(0,134,255);
