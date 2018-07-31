@@ -1,0 +1,40 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+  <link rel="stylesheet" href="../../css/styles.css" type="text/css">
+  <link rel="stylesheet" href="../../css/tetris.css" type="text/css">
+
+  <script language="javascript" type="text/javascript" src="../p5.js"></script>
+  <script language="javascript" type="text/javascript" src="tetris.js"></script>
+  <script src="../../js/tabletop.js"></script>
+
+  <style> body {padding: 0; margin: 0; border: 5px;} canvas {display:block;} </style>
+</head>
+<body class="no-scroll">
+<p></p>
+<div class="holder">
+    <div class="status-bar"></div>
+  <div id="sketch-holder" oncontextmenu="return false">
+    <button type="button" onclick="startGame()" class="setting" id="start"></button>
+    <button type="button" onmousedown="speedUp()" onmouseup="speedNormal()" class="controls" id="speed"></button>
+ 
+  </div>
+</div>
+
+<form id="frm1" action="index.html" target="trash">
+  <input type="text" name="plays" value="0" id="stat-plays"><br>
+  <input type="text" name="Winner" value="0" id="stat-winner"><br>
+  <input type="text" name="Bot Mode" value="0" id="stat-botmode"><br>
+  <input type="text" name="Bot Points" value="0" id="stat-botpoints"><br>
+  <input type="text" name="Player Points" value="0" id="stat-playerpoints"><br>
+  <input type="text" name="FPS" value="0" id="stat-fps"><br>
+  <input type="button" onclick="sendData()" value="Submit">
+</form>
+
+<script>
+  </script>
+
+</body>
+</html>

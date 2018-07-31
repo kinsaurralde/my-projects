@@ -17,14 +17,10 @@
  *
  */
 
-<<<<<<< HEAD
  /* CHANGE MANIFEST VERSION ALSO */
-const version = "0051"; // 07/28/2018 
+const version = "0052"; // 07/29/2018 
 /* CHANGE MANIFEST VERSION ALSO */
 
-=======
-const version = "0048"; // 07/27/2018 
->>>>>>> 1a05549743838fa51618e1a760ea0c2350b25e5a
 const cacheName = `kyles-projects-${version}`;
 //console.log("Cache Name:",cacheName);
 //sessionStorage.setItem("version",cacheName);

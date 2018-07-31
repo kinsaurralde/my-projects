@@ -1,0 +1,26 @@
+.controls {
+    position: absolute;
+    background-color: aqua;
+    opacity: .4;
+    z-index: 2;
+}
+
+#speed {
+    top: 70vh;
+    width: 100vw;
+    height: 30vh;
+}
+
+.setting {
+    position: absolute;
+    background-color: rgb(41, 207, 97);
+    opacity: .4;
+    z-index: 2;
+}
+
+#start{
+    top: 45vh;
+    left: 5vw;
+    width: 25vw;
+    height: 10vh;
+}

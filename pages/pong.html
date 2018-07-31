@@ -50,7 +50,7 @@
             document.getElementById("code-div").style.height = "10vh";
         }
         function css() {
-            document.getElementById("code-iframe").src = "../css/pongcss";
+            document.getElementById("code-iframe").src = "../css/pong.css";
             document.getElementById("code-div").style.height = "10vh";
         }
 
@@ -59,8 +59,8 @@
         }
 
         function mobileSite() {
-            if (window.location.pathname != "/p5js/pong/index.html"  && isMobileDevice() && confirm("Go to mobile version")) {
-                window.open("../p5js/pong/index.html", "_parent");
+            if (window.location.pathname != "/p5js/pong/index.html"  && isMobileDevice()) {
+                window.open("../app/pong.html", "_parent");
             }
         }
 
