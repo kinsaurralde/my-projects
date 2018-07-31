@@ -18,11 +18,17 @@
     <div class="status-bar"></div>
   <div id="sketch-holder" oncontextmenu="return false">
     <button type="button" onclick="startGame()" class="setting" id="start"></button>
+    <button type="button" onclick="pause()" class="setting" id="pause"></button>
     <button type="button" onmousedown="speedUp()" onmouseup="speedNormal()" class="controls" id="speed"></button>
+    <button type="button" onclick="rotateLeft()" class="controls" id="rotate-left"></button>
+    <button type="button" onmousedown="speedUp()" onmouseup="speedNormal()" class="controls" id="rotate-right"></button>
+    <button type="button" onclick="moveLeft()" class="controls" id="move-left"></button>
+    <button type="button" onclick="moveRight()" class="controls" id="move-right"></button>
  
   </div>
 </div>
 
+<!--
 <form id="frm1" action="index.html" target="trash">
   <input type="text" name="plays" value="0" id="stat-plays"><br>
   <input type="text" name="Winner" value="0" id="stat-winner"><br>
@@ -32,6 +38,7 @@
   <input type="text" name="FPS" value="0" id="stat-fps"><br>
   <input type="button" onclick="sendData()" value="Submit">
 </form>
+-->
 
 <script>
   </script>

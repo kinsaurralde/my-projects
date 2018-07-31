@@ -1,26 +1,54 @@
 .controls {
     position: absolute;
+    width: 17vw;
+    left: 65vw;
     background-color: aqua;
-    opacity: .4;
+    opacity: .0;
     z-index: 2;
 }
 
 #speed {
-    top: 70vh;
-    width: 100vw;
-    height: 30vh;
+    top: 74.5vh;
+    height: 24.5vh;
+    width: 34vw;
+}
+
+#rotate-left {
+    top: 0;
+    height: 24.5vh;
+}
+
+#rotate-right {
+    top: 0;
+    left: 82vw;
+    height: 24.5vh;
+}
+
+#move-left {
+    top: 24.5vh;
+    height: 50vh;
+}
+
+#move-right {
+    top: 24.5vh;
+    height: 50vh;
+    left: 82vw;
 }
 
 .setting {
     position: absolute;
+    left: 9vw;
+    width: 20vw;
+    height: 7vh;
     background-color: rgb(41, 207, 97);
-    opacity: .4;
+    opacity: .0;
     z-index: 2;
 }
 
-#start{
-    top: 45vh;
-    left: 5vw;
-    width: 25vw;
-    height: 10vh;
+#start {
+    top: 39vh;
+}
+
+#pause {
+    top: 53vh;
 }
