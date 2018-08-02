@@ -34,22 +34,16 @@ function setupArrays() {
 }
 
 function setupRotate(old) {
-  console.log("Old:",old);
-  var backToStart = new Array(4);
-  for (i = 0; i < 4; i++) {
-    backToStart[i] = new Array(2);
-    backToStart[i][0] = old[i][0] - activeShape.xChange;
-    backToStart[i][1] = old[i][1] - activeShape.yChange;
-  }
+  //console.log("Old:",old);
   for (i = 0; i < 3; i++) {
     for (j = 0; j < 3; j++) {
-      rotateTemp[i][j] = 0;
+      rotateTemp[i][j] = old[i][j];
     }
   }
   for (i = 0; i < 4; i++) {
-    rotateTemp[backToStart[i][1]][backToStart[i][0]] = 1;
+    //rotateTemp[old[i][1]][old[i][0]] = 1;
   }
-  console.log("Step:",rotateTemp);
+ // console.log("Step:",rotateTemp);
   rotateTemp = rotateTemp.reverse();
   for (i = 0; i < 3; i++) {
     for (j = 0; j < i; j++) {
@@ -58,18 +52,19 @@ function setupRotate(old) {
       rotateTemp[j][i] = temp;
     }
   }
-  var k = 0;
+ // var k = 0;
   for (i = 0; i < 3; i++) {
     for (j = 0; j < 3; j++) {
-      if (rotateTemp[i][j] == 1) {
-        console.log(j,i);
-        activeShape.grid[k][0] = j;
-        activeShape.grid[k][1] = i;
-        k++;
-      }
+      //if (rotateTemp[i][j] == 1) {
+      //  console.log(j, i);
+      //  activeShape.grid[k][0] = j;
+      //  activeShape.grid[k][1] = i;
+      //  k++;
+      //}
+      activeShape.grid[i][j] = rotateTemp[i][j]
     }
   }
-  console.log("New:",rotateTemp);
+  //console.log("New:", activeShape.grid);
 }
 
 function reset() {
@@ -77,7 +72,7 @@ function reset() {
   activeShape = new ActiveShape(floor(random(1,8)));
   for (i = 0; i < 10; i++) {
     for (j = 0; j < 20; j++) {
-      cubes[i][j] = new Cube(i,j);
+      cubes[i][j] = new Cube(i, j);
     }
   }
   waitForCycle();
@@ -96,6 +91,7 @@ function draw() {
 function runGame() {
   drawGrid();
   drawSides();
+  drawNextShape();
   if (gameStatus == "waiting") {
     waitForCycle();
   }
@@ -106,11 +102,75 @@ function runGame() {
 }
 
 function waitForCycle() {
-  if (millis() % cycleTime > cycleTime/2) {
+  if (millis() % cycleTime > cycleTime / 2) {
     gameStatus = "active";
   }
 }
 
+function clearRow(i) {
+  console.log("row clearing",i);
+  for (j = 0; j < 10; j++) {
+    cubes[j][i].active = false;
+  }
+  dropRows(i-1);
+}
+
+function dropRows(start) {
+  console.log("Drop rows >",start+1);
+  for (i = 0; i < 10; i++) {
+    for (j = start; j > 0; j--) {
+      if (cubes[i][j].active) {
+        cubes[i][j+1].active = true;
+        cubes[i][j+1].r = cubes[i][j].r;
+        cubes[i][j+1].g = cubes[i][j].g;
+        cubes[i][j+1].b = cubes[i][j].b;
+        cubes[i][j].active = false;
+      }
+    }
+  }
+}
+
+function rotateLine() {
+  console.log(1,activeShape.grid);
+  /*
+  if (activeShape.grid[1][0] == 1) {
+    console.log("UP");
+    activeShape.grid = [
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+      [0, 1, 0, 0]
+    ];
+  } else {
+    if (activeShape.grid[0][1] == 1) {
+      console.log("LEFT");
+      activeShape.grid = [
+        [0, 0, 0, 0],
+        [1, 1, 1, 1],
+        [0, 1, 0, 0],
+        [0, 1, 0, 0]
+      ];
+    }
+  }
+  */
+  var rotateTempLine = activeShape.grid;
+  console.log(rotateTempLine);
+  //for (i = 0; i < 4;i++) {
+  //  for (j = 0; j < 4;j++) {
+  //    activeShape.grid[i][j] = rotateTempLine[j][i];
+  //  }
+  //}
+
+  rotateTempLine = rotateTempLine.reverse();
+  for (i = 0; i < 4; i++) {
+    for (j = 0; j < i; j++) {
+      var temp = rotateTempLine[i][j];
+      rotateTempLine[i][j] = rotateTempLine[j][i];
+      rotateTempLine[j][i] = temp;
+    }
+  }
+  console.log(2,activeShape.grid);
+}
 
 /****************************** Draws *******************************/
 
@@ -153,30 +213,58 @@ function drawSides() {
   /* Left Side Boxes (Info / Setting) */
   scaleRect(-725, -90, 480, 92, 16); // New Game
   scaleRect(-725, 90, 480, 92, 16); // Paused
+  scaleRect(-725,-400,300,300,16); // Next Shape
 
   /* Right Side Boxes (Controls) */
-  scaleRect(550,0,375,650,16); // Move Left
-  scaleRect(950,0,375,650,16); // Move Right
-  scaleRect(550,-495,375,300,16); // Rotate Left
-  scaleRect(950,-495,375,300,16); // Rotate Left
-  scaleRect(750,495,775,300,16); // Speed Up
+  scaleRect(550, 0, 375, 650, 16); // Move Left
+  scaleRect(950, 0, 375, 650, 16); // Move Right
+  scaleRect(550, -495, 375, 300, 16); // Rotate Left
+  scaleRect(950, -495, 375, 300, 16); // Rotate Left
+  scaleRect(750, 495, 775, 300, 16); // Speed Up
 
   noStroke();
   fill(255);
   scaleTextSize(60);
 
   /* Left Side Text (Info / Setting) */
-  scaleText("NEW GAME",-725,-90);
-  scaleText("PAUSE",-725,90);
+  scaleText("NEW GAME", -725, -90);
+  scaleText("PAUSE", -725, 90);
+  scaleTextSize(40);
+  scaleText("Next Shape",-725,-500);
 
   /* Right Side Text (Controls) */
   scaleTextSize(45);
-  scaleText("ROTATE LEFT",550,-495);
-  scaleText("ROTATE RIGHT",950,-495);
-  scaleText("MOVE LEFT",550,0);
-  scaleText("MOVE RIGHT",950,0);
-  scaleText("SPEED UP",750,495);
+  scaleText("ROTATE LEFT", 550, -495);
+  scaleText("ROTATE RIGHT", 950, -495);
+  scaleText("MOVE LEFT", 550, 0);
+  scaleText("MOVE RIGHT", 950, 0);
+  scaleText("SPEED UP", 750, 495);
 
+}
+
+function drawNextShape() {
+  var nextActive = new ActiveShape(activeShape.nextShape);
+  pattern = nextActive.grid;
+  patternColor = color(nextActive.r,nextActive.g,nextActive.b);
+  scaleStrokeWeight(4);
+  stroke(0);
+  fill(patternColor);
+  for (i = 0; i < 4; i++) {
+    for (j = 0; j < 4; j++) {
+      if (pattern[i][j] == 1 && gameStatus != "inactive") {
+        if (activeShape.nextShape < 6) {
+          scaleRect(-780 + j * 60, -410 + i * 60, 58, 58, 0);
+        } else {
+          if (activeShape.nextShape == 6) {
+            scaleRect(-750 + j * 60, -410 + i * 60, 58, 58, 0);
+          } else {
+            scaleRect(-810 + j * 60, -440 + i * 60, 58, 58, 0);
+          }
+        }
+      }
+    } 
+  }
+  //console.log(pattern);
 }
 
 
@@ -189,6 +277,16 @@ function speedUp() {
 
 function speedNormal() {
   cycleChange = 1000;
+}
+
+function speedToggle() {
+  if (isMobileDevice()) {
+    if (cycleChange == 500) {
+      cycleChange = 1000;
+    } else {
+      cycleChange = 500;
+    }
+  }
 }
 
 function startGame() {
@@ -208,44 +306,73 @@ function pause() {
 
 function moveLeft() {
   if (gameStatus == "active") {
-    var undo = false;
-    for (i = 0; i < 4; i++) {
-      activeShape.grid[i][0] -= 1;
-      activeShape.xChange -= 1;
-      if (activeShape.grid[i][0] < 0 || activeShape.grid[i][0] > 9 || cubes[activeShape.grid[i][0]][activeShape.grid[i][1]].active) {
-        undo = true;
+    //var undo = false;
+    //for (i = 0; i < 4; i++) {
+      //activeShape.grid[i][0] -= 1;
+      console.log("Move Left");
+      if (checkMove(-1)) {
+        activeShape.xChange -= 1;
       }
-    }
-    if (undo) {
-      moveRight();
-    }
+    //  if (activeShape.grid[i][0] < 0 || activeShape.grid[i][0] > 9 || cubes[activeShape.grid[i][0]][activeShape.grid[i][1]].active) {
+    //    undo = true;
+    //  }
+    //}
+    //if (undo) {
+    //  moveRight();
+    //}
   }
 }
 
 function moveRight() {
   if (gameStatus == "active") {
-    var undo = false;
-    for (i = 0; i < 4; i++) {
-      activeShape.grid[i][0] += 1;
-      activeShape.xChange += 1;
-      if (activeShape.grid[i][0] < 0 || activeShape.grid[i][0] > 9 || cubes[activeShape.grid[i][0]][activeShape.grid[i][1]].active) {
-        undo = true;
+    //var undo = false;
+    //for (i = 0; i < 4; i++) {
+      //activeShape.grid[i][0] += 1;
+      //activeShape.xChange += 1;
+      console.log("Move Right");
+      if (checkMove(1)) {
+        activeShape.xChange += 1;
+      }
+      //activeShape.xChange += 1;
+    //}
+    //if (undo) {
+    //  moveLeft();
+    //}
+  }
+}
+
+function checkMove(direction) {
+  var undo = false;
+  //console.log("MOVE");
+  for (i = 0; i < 4; i++) {
+    for (j = 0; j < 4; j++) {
+      if (activeShape.grid[j][i] == 1) {
+        //console.log(cubes[j + activeShape.xChange][i + activeShape.yChange + 1].active , cubes[j + activeShape.xChange][i + activeShape.yChange].active);
+        if (i + activeShape.xChange + direction < 0 || i + activeShape.xChange + direction > 9 || cubes[i + activeShape.xChange + direction][j + activeShape.yChange + 1].active) {
+          console.log(activeShape.grid);
+          console.log(i,j,i + activeShape.xChange + direction,j + activeShape.yChange + 1);
+          console.log(activeShape.xChange,activeShape.yChange,direction);
+          // console.log(j + activeShape.xChange  + direction < 0 , j + activeShape.xChange + direction > 9 ,j,i,activeShape.xChange, j + activeShape.xChange,i + activeShape.yChange);
+          return false;
+        }
       }
     }
-    if (undo) {
-      moveLeft();
-    }
   }
+  return true; 
 }
 
 function rotateLeft() {
   if (activeShape.shape < 6) {
-    for (loop = 0; loop < 3; loop++) {
+    for (loops = 0; loops < 3; loops++) {
       console.log("RL");
       setupRotate(activeShape.grid);
     }
   } else {
-    console.log("cant rotate");
+  //  console.log("cant rotate");
+    if (activeShape.shape == 7) {
+      //setupRotate(activeShape.grid, 4);
+      rotateLine();
+    }
   }
 }
 
@@ -254,7 +381,11 @@ function rotateRight() {
     console.log("RR");
     setupRotate(activeShape.grid);
   } else {
-    console.log("cant rotate");
+  //  console.log("cant rotate");
+    if (activeShape.shape == 7) {
+      //setupRotate(activeShape.grid, 4);
+      rotateLine();
+    }
   }
 }
 
@@ -351,116 +482,102 @@ function isMobileDevice() {
 
 class ActiveShape {
   constructor(shape) {
+    this.nextShape = floor(random(1,8));
     this.grid = new Array(4);
     this.shape = shape;
     for (var i = 0; i < 4; i++) {
-      this.grid[i] = new Array(2);
+      this.grid[i] = new Array(4);
     }
 
     
     if (this.shape == 1) { // __-- // S Shape
-      this.grid[0][0] = 0;
-      this.grid[0][1] = 0;
-      this.grid[1][0] = 1;
-      this.grid[1][1] = 0;
-      this.grid[2][0] = 1;
-      this.grid[2][1] = 1;
-      this.grid[3][0] = 2;
-      this.grid[3][1] = 1;
+      this.grid = [
+        [0, 1, 1, 0],
+        [1, 1, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+      ];
       this.r = 0;
       this.g = 255;
       this.b = 0;
     }
 
     if (this.shape == 2) { // --__ // Z Shape
-      this.grid[0][0] = 1;
-      this.grid[0][1] = 0;
-      this.grid[1][0] = 2;
-      this.grid[1][1] = 0;
-      this.grid[2][0] = 0;
-      this.grid[2][1] = 1;
-      this.grid[3][0] = 1;
-      this.grid[3][1] = 1;
+      this.grid = [
+        [1, 1, 0, 0],
+        [0, 1, 1, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+      ];
       this.r = 255;
       this.g = 160;
       this.b = 0;
     }
 
     if (this.shape == 3) { // -___ // J Shape
-      this.grid[0][0] = 0;
-      this.grid[0][1] = 0;
-      this.grid[1][0] = 0;
-      this.grid[1][1] = 1;
-      this.grid[2][0] = 1;
-      this.grid[2][1] = 1;
-      this.grid[3][0] = 2;
-      this.grid[3][1] = 1;
+      this.grid = [
+        [1, 0, 0, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+      ];
       this.r = 0;
       this.g = 0;
       this.b = 255;
     }
 
     if (this.shape == 4) { // ___- // L Shape
-      this.grid[0][0] = 2;
-      this.grid[0][1] = 0;
-      this.grid[1][0] = 0;
-      this.grid[1][1] = 1;
-      this.grid[2][0] = 1;
-      this.grid[2][1] = 1;
-      this.grid[3][0] = 2;
-      this.grid[3][1] = 1;
+      this.grid = [
+        [0, 0, 1, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+      ];
       this.r = 255;
       this.g = 0;
       this.b = 255;
     }
 
     if (this.shape == 5) { // _-_ // T Shape
-      this.grid[0][0] = 1;
-      this.grid[0][1] = 0;
-      this.grid[1][0] = 1;
-      this.grid[1][1] = 1;
-      this.grid[2][0] = 0;
-      this.grid[2][1] = 1;
-      this.grid[3][0] = 2;
-      this.grid[3][1] = 1;
+      this.grid = [
+        [0, 1, 0, 0],
+        [1, 1, 1, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+      ];
       this.r = 0;
       this.g = 255;
       this.b = 255;
     }
 
     if (this.shape == 6) { // O // O Shape
-      this.grid[0][0] = 1;
-      this.grid[0][1] = 0;
-      this.grid[1][0] = 1;
-      this.grid[1][1] = 1;
-      this.grid[2][0] = 0;
-      this.grid[2][1] = 0;
-      this.grid[3][0] = 0;
-      this.grid[3][1] = 1;
+      this.grid = [
+        [1, 1, 0, 0],
+        [1, 1, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+      ];
       this.r = 255;
       this.g = 255;
       this.b = 0;
     }
 
     if (this.shape == 7) { // ---- // Line Shape
-      this.grid[0][0] = 0;
-      this.grid[0][1] = 0;
-      this.grid[1][0] = 1;
-      this.grid[1][1] = 0;
-      this.grid[2][0] = 2;
-      this.grid[2][1] = 0;
-      this.grid[3][0] = 3;
-      this.grid[3][1] = 0;
+      this.grid = [
+        [0, 0, 0, 0],
+        [1, 1, 1, 1],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+      ];
       this.r = 255;
       this.g = 0;
       this.b = 0;
     }
     
-    
-
-    this.drop = 0;
-    this.xChange = 0;
     this.yChange = 0;
+    this.xChange = 0;
+    //console.log(this.grid);
+    this.drop = 0;
     this.moving = false;
     this.active = true;
   }
@@ -473,7 +590,7 @@ class ActiveShape {
   draw() {
     if (this.active) {
       if (gameStatus != "paused" && gameStatus != "waiting") {
-        if (millis() % cycleTime < cycleTime/2 && millis() > cycleTime) {
+        if (millis() % cycleTime < cycleTime / 2 && millis() > cycleTime) {
           this.drop += 60 / (frameRate() / (2000 / cycleTime));
           //console.log(this.drop,60/frameRate()/2);
           this.moving = true;
@@ -481,30 +598,37 @@ class ActiveShape {
           this.drop = 0;
           if (this.moving) {
             cycleTime = cycleChange;
-            this.grid[0][1] += 1;
-            this.grid[1][1] += 1;
-            this.grid[2][1] += 1;
-            this.grid[3][1] += 1;
-            this.yChange += 1;
+            //this.grid[0][1] += 1;
+            //this.grid[1][1] += 1;
+            //this.grid[2][1] += 1;
+            //this.grid[3][1] += 1;
+            this.yChange++;
             this.moving = false;
           }
         }
       }
 
       this.checkPosition();
+      //checkMove("D");
 
       scaleStrokeWeight(4);
       stroke(0);
       fill(this.r, this.g, this.b);
       for (i = 0; i < 4; i++) {
-        scaleRect(-270 + this.grid[i][0] * 60, -570 + this.grid[i][1] * 60 + this.drop, 58, 58, 0);
+        //scaleRect(-270 + this.grid[i][0] * 60, -570 + this.grid[i][1] * 60 + this.drop, 58, 58, 0);
+        for (j = 0; j < 4; j++) {
+          if (this.grid[i][j] == 1) {
+            scaleRect(-270 + (this.xChange + j) * 60, -570 + (this.yChange + i) * 60 + this.drop, 58, 58, 0);
+          }
+        }
       }
     }
   }
 
   checkPosition() {
+    /*
     for (i = 0; i < 4; i++) {
-      if (this.grid[i][1] > 18 || cubes[this.grid[i][0]][this.grid[i][1]+1].active) { // shape hits bottom or other shape
+      if (this.grid[i][1] > 18 || cubes[this.grid[i][0]][this.grid[i][1] + 1].active) { // shape hits bottom or other shape
         this.active = false;
         for (i = 0; i < 4; i++) {
           //console.log(this.grid[i][0],this.grid[i][1])
@@ -514,7 +638,56 @@ class ActiveShape {
           cubes[this.grid[i][0]][this.grid[i][1]].r = this.r;
           cubes[this.grid[i][0]][this.grid[i][1]].g = this.g;
           cubes[this.grid[i][0]][this.grid[i][1]].b = this.b;
-          activeShape = new ActiveShape(floor(random(1,8)));
+          activeShape = new ActiveShape(floor(random(1, 8)));
+        }
+      }
+    }
+    */
+
+   var hit = false;
+   for (i = 0; i < 4; i++) {
+     for (j = 0; j < 4; j++) {
+       if (activeShape.grid[i][j] == 1) {
+        // console.log(j + activeShape.xChange,i + activeShape.yChange);
+       // console.log(j,activeShape.xChange);
+         if (i + activeShape.yChange + 1 > 19 || cubes[j + activeShape.xChange][i + activeShape.yChange + 1].active) {
+          hit = true;
+         }
+       }
+     }
+   }
+   if (hit) {
+    this.hit();
+    this.checkRows();
+    activeShape = new ActiveShape(this.nextShape);
+   }
+
+  }
+
+  checkRows() {
+    var count = 0;
+    for (i = 0; i < 20; i++) {
+      for (j = 0, count = 0; j < 10; j++) {
+        if (cubes[j][i].active) {
+          count++;
+        }
+        if (count > 9) {
+          count = 0;
+          console.log("clear row:",i);
+          clearRow(i);
+        }
+      } 
+    }
+  }
+
+  hit() {
+    for (i = 0; i < 4; i++) {
+      for (j = 0; j < 4; j++) {
+        if (activeShape.grid[i][j] == 1) {
+          cubes[j + activeShape.xChange][i + activeShape.yChange].active = true;
+          cubes[j + activeShape.xChange][i + activeShape.yChange].r = this.r;
+          cubes[j + activeShape.xChange][i + activeShape.yChange].g = this.g;
+          cubes[j + activeShape.xChange][i + activeShape.yChange].b = this.b;
         }
       }
     }
@@ -522,7 +695,7 @@ class ActiveShape {
 }
 
 class Cube {
-  constructor(x,y) {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
     this.r = 255;
