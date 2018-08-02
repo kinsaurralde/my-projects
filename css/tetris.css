@@ -3,7 +3,7 @@
     width: 17vw;
     left: 65vw;
     background-color: aqua;
-    opacity: .0;
+    opacity: .4;
     z-index: 2;
 }
 
@@ -41,7 +41,7 @@
     width: 20vw;
     height: 7vh;
     background-color: rgb(41, 207, 97);
-    opacity: .0;
+    opacity: .4;
     z-index: 2;
 }
 
