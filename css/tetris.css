@@ -46,9 +46,13 @@
 }
 
 #start {
-    top: 39vh;
+    top: 30vh;
 }
 
 #pause {
-    top: 53vh;
+    top: 48vh;
+}
+
+#fullscreen {
+    top: 39vh;
 }

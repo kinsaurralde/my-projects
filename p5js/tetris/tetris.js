@@ -211,9 +211,10 @@ function drawSides() {
   noFill();
 
   /* Left Side Boxes (Info / Setting) */
-  scaleRect(-725, -90, 480, 92, 16); // New Game
-  scaleRect(-725, 90, 480, 92, 16); // Paused
-  scaleRect(-725,-400,300,300,16); // Next Shape
+  scaleRect(-725,-450,300,300,16); // Next Shape
+  scaleRect(-725, -210, 480, 92, 16); // New Game
+  scaleRect(-725, -90, 480, 92, 16); // Fullscreen
+  scaleRect(-725, 35, 480, 92, 16); // Paused
 
   /* Right Side Boxes (Controls) */
   scaleRect(550, 0, 375, 650, 16); // Move Left
@@ -227,10 +228,19 @@ function drawSides() {
   scaleTextSize(60);
 
   /* Left Side Text (Info / Setting) */
-  scaleText("NEW GAME", -725, -90);
-  scaleText("PAUSE", -725, 90);
+  scaleText("NEW GAME", -725, -210);
+  scaleText("FULLSCREEN", -725, -90);
+  scaleText("PAUSE", -725, 35);
+  scaleText("HIGHSCORES", -725, 290);
+  scaleText("1:", -900, 435);
+  scaleText("2:", -900, 505);
+  scaleText("3:", -900, 575);
   scaleTextSize(40);
-  scaleText("Next Shape",-725,-500);
+  scaleText("Next Shape",-725,-545);
+  scaleText("LINES CLEARED:", -725, 140);
+  scaleText("SCORE:", -725, 215);
+  scaleText("SCORE", -775, 360);
+  scaleText("LINES", -600, 360);
 
   /* Right Side Text (Controls) */
   scaleTextSize(45);
@@ -287,6 +297,10 @@ function speedToggle() {
       cycleChange = 500;
     }
   }
+}
+
+function fullScreen() {
+  fullScreen(!fullScreen());
 }
 
 function startGame() {
