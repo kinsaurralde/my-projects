@@ -1,0 +1,50 @@
+.input-top {
+    position: absolute;
+    z-index: 10;
+    background-color: aqua;
+    opacity: .0;
+    width: 4vw;
+    height: 5vh;
+}
+
+.level-0 input {
+    top: 4vh;
+}
+
+.level-1 input {
+    top: 9.6vh;
+}
+
+#parametric {
+    left: 17vw;
+}
+
+#function {
+    left: 21vw;
+}
+
+#polar {
+    left: 25vw;
+}
+
+#input {
+    width: 41vw;
+    left: 29.45vw;
+    text-align: center;
+    font-size: 3vh;
+    opacity: 1;
+    background-color: transparent;
+    border: none;
+}
+
+#points {
+    left: 71vw;
+}
+
+#line {
+    left: 75vw;
+}
+
+#clear {
+    left: 79vw;
+}

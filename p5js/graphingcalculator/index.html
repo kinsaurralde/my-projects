@@ -3,6 +3,10 @@
   <meta charset="UTF-8">
 
   <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
+  <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+  <link rel="stylesheet" href="../../css/styles.css" type="text/css">
+  <link rel="stylesheet" href="../../css/graphingcalculator.css" type="text/css">
+
   <script language="javascript" type="text/javascript" src="../p5.js"></script>
   <script language="javascript" type="text/javascript" src="graphingcalculator2.js"></script>
   <script language="javascript" type="text/javascript" src="../../js/math.js"></script>
@@ -14,7 +18,26 @@
 </head>
 
 <body>
-  <div id="sketch-holder"></div>
+  <div id="sketch-holder">
+    <div class="level-0">
+      <input type="text" class="input-top" id="input" name="input-0" value="x+1" oninput="inputs[0].calculatePoints()"></input>
+      <input type="button" class="input-top" id="parametric" onclick="inputs[0].buttonParametric()"></input>
+      <input type="button" class="input-top" id="function" onclick="inputs[0].buttonFunction()"></input>
+      <input type="button" class="input-top" id="polar" onclick="inputs[0].buttonPolar()"></input>
+      <input type="button" class="input-top" id="points" onclick="inputs[0].buttonPoints()"></input>
+      <input type="button" class="input-top" id="line" onclick="inputs[0].buttonLine()"></input>
+      <input type="button" class="input-top" id="clear" onclick="inputs[0].buttonClear()"></input>
+    </div>
+    <div class="level-1">
+      <input type="text" class="input-top" id="input" name="input-1" value="x-1" oninput="inputs[1].calculatePoints()"></input>
+      <input type="button" class="input-top" id="parametric" onclick="inputs[1].buttonParametric()"></input>
+      <input type="button" class="input-top" id="function" onclick="inputs[1].buttonFunction()"></input>
+      <input type="button" class="input-top" id="polar" onclick="inputs[1].buttonPolar()"></input>
+      <input type="button" class="input-top" id="points" onclick="inputs[1].buttonPoints()"></input>
+      <input type="button" class="input-top" id="line" onclick="inputs[1].buttonLine()"></input>
+      <input type="button" class="input-top" id="clear" onclick="inputs[1].buttonClear()"></input>
+    </div>
+  </div>
   <script>
   </script>
 </body>
