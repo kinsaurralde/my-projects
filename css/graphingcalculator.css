@@ -48,3 +48,52 @@
 #clear {
     left: 79vw;
 }
+
+.input-side {
+    position: absolute;
+    z-index: 10;
+    background-color: green;
+    opacity: .4;
+    width: 11vw;
+    height: 5vh;
+}
+
+.left input {
+    left: 1.75vw;
+}
+
+.right input {
+    left: 87vw;
+}
+
+#side-1 {
+    top: 24vh;
+}
+
+#side-2 {
+    top: 30.4vh;
+}
+
+#side-3 {
+    top: 36.8vh;
+}
+
+#side-4 {
+    top: 43.2vh;
+}
+
+#side-5 {
+    top: 49.6vh;
+}
+
+#side-6 {
+    top: 56vh;
+}
+
+#side-7 {
+    top: 62.4vh;
+}
+
+#side-8 {
+    top: 68.8vh;
+}

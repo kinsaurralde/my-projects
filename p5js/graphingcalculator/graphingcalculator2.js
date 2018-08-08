@@ -1,6 +1,6 @@
 var graphw = 1280, graphh = 720, windowScale = 1.5;                         // Graph settings
 var scroll = 50, translateX = 0, translateY = 0;                            // Transformation settings
-var updateDraw = false;
+var updateDraw = true;
 var graphScale = 100;                                                       // Graph magnifier
 var inputs = new Array(2);                                                  // Input classes with settings
 
@@ -313,7 +313,7 @@ class Equation {
     this.color = color(255, 0, 255);
     this.highlightInput = false;
     this.highlightPoints = false;
-    this.highlightLine = false;
+    this.highlightLine = true;
     this.highlightClear = false;
     this.highlightParametric = false;
     this.highlightFunction = true;
@@ -400,7 +400,7 @@ class Equation {
       }
       try {
         this.x[i] = currentEval
-        this.y[i] = math.eval(this.equationOriginal, scope);
+        this.y[i] = math.eval(this.equationOriginal, scope); console.log("lol");
         this.y[i] *= -1;
       } catch {
         //console.log("Invalid Input");
