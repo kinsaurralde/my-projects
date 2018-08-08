@@ -7,6 +7,8 @@ var cubes = new Array(10);
 var rotateTemp = new Array(3);
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/10KDvI3D-s1Ev3t8t_xiQiyxilwulhu2xJ1fX64N3q0c/edit?usp=sharing';
 
+
+
 /****************************** Setups *******************************/
 
 function setup() {
@@ -34,16 +36,11 @@ function setupArrays() {
 }
 
 function setupRotate(old) {
-  //console.log("Old:",old);
   for (i = 0; i < 3; i++) {
     for (j = 0; j < 3; j++) {
       rotateTemp[i][j] = old[i][j];
     }
   }
-  for (i = 0; i < 4; i++) {
-    //rotateTemp[old[i][1]][old[i][0]] = 1;
-  }
- // console.log("Step:",rotateTemp);
   rotateTemp = rotateTemp.reverse();
   for (i = 0; i < 3; i++) {
     for (j = 0; j < i; j++) {
@@ -52,19 +49,11 @@ function setupRotate(old) {
       rotateTemp[j][i] = temp;
     }
   }
- // var k = 0;
   for (i = 0; i < 3; i++) {
     for (j = 0; j < 3; j++) {
-      //if (rotateTemp[i][j] == 1) {
-      //  console.log(j, i);
-      //  activeShape.grid[k][0] = j;
-      //  activeShape.grid[k][1] = i;
-      //  k++;
-      //}
       activeShape.grid[i][j] = rotateTemp[i][j]
     }
   }
-  //console.log("New:", activeShape.grid);
 }
 
 function reset() {
@@ -131,36 +120,7 @@ function dropRows(start) {
 }
 
 function rotateLine() {
-  console.log(1,activeShape.grid);
-  /*
-  if (activeShape.grid[1][0] == 1) {
-    console.log("UP");
-    activeShape.grid = [
-      [0, 1, 0, 0],
-      [0, 1, 0, 0],
-      [0, 1, 0, 0],
-      [0, 1, 0, 0]
-    ];
-  } else {
-    if (activeShape.grid[0][1] == 1) {
-      console.log("LEFT");
-      activeShape.grid = [
-        [0, 0, 0, 0],
-        [1, 1, 1, 1],
-        [0, 1, 0, 0],
-        [0, 1, 0, 0]
-      ];
-    }
-  }
-  */
   var rotateTempLine = activeShape.grid;
-  console.log(rotateTempLine);
-  //for (i = 0; i < 4;i++) {
-  //  for (j = 0; j < 4;j++) {
-  //    activeShape.grid[i][j] = rotateTempLine[j][i];
-  //  }
-  //}
-
   rotateTempLine = rotateTempLine.reverse();
   for (i = 0; i < 4; i++) {
     for (j = 0; j < i; j++) {
@@ -169,8 +129,9 @@ function rotateLine() {
       rotateTempLine[j][i] = temp;
     }
   }
-  console.log(2,activeShape.grid);
 }
+
+
 
 /****************************** Draws *******************************/
 
@@ -184,10 +145,8 @@ function drawCubes() {
 }
 
 function drawGrid() {
-  //scaleStrokeWeight(10);
   stroke(255);
   noFill();
-  //scaleRect(0, 0, 600, 1200, 10);
   scaleStrokeWeight(1.5);
   stroke(205);
   for (i = -10; i < 11; i++) {
@@ -274,7 +233,6 @@ function drawNextShape() {
       }
     } 
   }
-  //console.log(pattern);
 }
 
 
@@ -320,53 +278,31 @@ function pause() {
 
 function moveLeft() {
   if (gameStatus == "active") {
-    //var undo = false;
-    //for (i = 0; i < 4; i++) {
-      //activeShape.grid[i][0] -= 1;
-      console.log("Move Left");
-      if (checkMove(-1)) {
-        activeShape.xChange -= 1;
-      }
-    //  if (activeShape.grid[i][0] < 0 || activeShape.grid[i][0] > 9 || cubes[activeShape.grid[i][0]][activeShape.grid[i][1]].active) {
-    //    undo = true;
-    //  }
-    //}
-    //if (undo) {
-    //  moveRight();
-    //}
+    console.log("Move Left");
+    if (checkMove(-1)) {
+      activeShape.xChange -= 1;
+    }
   }
 }
 
 function moveRight() {
   if (gameStatus == "active") {
-    //var undo = false;
-    //for (i = 0; i < 4; i++) {
-      //activeShape.grid[i][0] += 1;
-      //activeShape.xChange += 1;
-      console.log("Move Right");
-      if (checkMove(1)) {
-        activeShape.xChange += 1;
-      }
-      //activeShape.xChange += 1;
-    //}
-    //if (undo) {
-    //  moveLeft();
-    //}
+    console.log("Move Right");
+    if (checkMove(1)) {
+      activeShape.xChange += 1;
+    }
   }
 }
 
 function checkMove(direction) {
   var undo = false;
-  //console.log("MOVE");
   for (i = 0; i < 4; i++) {
     for (j = 0; j < 4; j++) {
       if (activeShape.grid[j][i] == 1) {
-        //console.log(cubes[j + activeShape.xChange][i + activeShape.yChange + 1].active , cubes[j + activeShape.xChange][i + activeShape.yChange].active);
         if (i + activeShape.xChange + direction < 0 || i + activeShape.xChange + direction > 9 || cubes[i + activeShape.xChange + direction][j + activeShape.yChange + 1].active) {
           console.log(activeShape.grid);
           console.log(i,j,i + activeShape.xChange + direction,j + activeShape.yChange + 1);
           console.log(activeShape.xChange,activeShape.yChange,direction);
-          // console.log(j + activeShape.xChange  + direction < 0 , j + activeShape.xChange + direction > 9 ,j,i,activeShape.xChange, j + activeShape.xChange,i + activeShape.yChange);
           return false;
         }
       }
@@ -382,9 +318,7 @@ function rotateLeft() {
       setupRotate(activeShape.grid);
     }
   } else {
-  //  console.log("cant rotate");
     if (activeShape.shape == 7) {
-      //setupRotate(activeShape.grid, 4);
       rotateLine();
     }
   }
@@ -395,9 +329,7 @@ function rotateRight() {
     console.log("RR");
     setupRotate(activeShape.grid);
   } else {
-  //  console.log("cant rotate");
     if (activeShape.shape == 7) {
-      //setupRotate(activeShape.grid, 4);
       rotateLine();
     }
   }
@@ -476,7 +408,6 @@ function getSheetData() {
 function sendData() {
   getSheetData();
   stats.update();
-  //console.log("Sending:", stats.sendPlays.value, stats.sendWinner.value, stats.sendBotMode.value, stats.sendFPS.Value);
   //document.getElementById("frm1").submit();
 }
 
@@ -503,7 +434,6 @@ class ActiveShape {
       this.grid[i] = new Array(4);
     }
 
-    
     if (this.shape == 1) { // __-- // S Shape
       this.grid = [
         [0, 1, 1, 0],
@@ -590,7 +520,6 @@ class ActiveShape {
     
     this.yChange = 0;
     this.xChange = 0;
-    //console.log(this.grid);
     this.drop = 0;
     this.moving = false;
     this.active = true;
@@ -606,16 +535,11 @@ class ActiveShape {
       if (gameStatus != "paused" && gameStatus != "waiting") {
         if (millis() % cycleTime < cycleTime / 2 && millis() > cycleTime) {
           this.drop += 60 / (frameRate() / (2000 / cycleTime));
-          //console.log(this.drop,60/frameRate()/2);
           this.moving = true;
         } else {
           this.drop = 0;
           if (this.moving) {
             cycleTime = cycleChange;
-            //this.grid[0][1] += 1;
-            //this.grid[1][1] += 1;
-            //this.grid[2][1] += 1;
-            //this.grid[3][1] += 1;
             this.yChange++;
             this.moving = false;
           }
@@ -623,13 +547,11 @@ class ActiveShape {
       }
 
       this.checkPosition();
-      //checkMove("D");
 
       scaleStrokeWeight(4);
       stroke(0);
       fill(this.r, this.g, this.b);
       for (i = 0; i < 4; i++) {
-        //scaleRect(-270 + this.grid[i][0] * 60, -570 + this.grid[i][1] * 60 + this.drop, 58, 58, 0);
         for (j = 0; j < 4; j++) {
           if (this.grid[i][j] == 1) {
             scaleRect(-270 + (this.xChange + j) * 60, -570 + (this.yChange + i) * 60 + this.drop, 58, 58, 0);
@@ -640,30 +562,10 @@ class ActiveShape {
   }
 
   checkPosition() {
-    /*
-    for (i = 0; i < 4; i++) {
-      if (this.grid[i][1] > 18 || cubes[this.grid[i][0]][this.grid[i][1] + 1].active) { // shape hits bottom or other shape
-        this.active = false;
-        for (i = 0; i < 4; i++) {
-          //console.log(this.grid[i][0],this.grid[i][1])
-          cubes[this.grid[i][0]][this.grid[i][1]].active = true;
-          cubes[this.grid[i][0]][this.grid[i][1]].x = this.grid[i][0];
-          cubes[this.grid[i][0]][this.grid[i][1]].y = this.grid[i][1];
-          cubes[this.grid[i][0]][this.grid[i][1]].r = this.r;
-          cubes[this.grid[i][0]][this.grid[i][1]].g = this.g;
-          cubes[this.grid[i][0]][this.grid[i][1]].b = this.b;
-          activeShape = new ActiveShape(floor(random(1, 8)));
-        }
-      }
-    }
-    */
-
    var hit = false;
    for (i = 0; i < 4; i++) {
      for (j = 0; j < 4; j++) {
        if (activeShape.grid[i][j] == 1) {
-        // console.log(j + activeShape.xChange,i + activeShape.yChange);
-       // console.log(j,activeShape.xChange);
          if (i + activeShape.yChange + 1 > 19 || cubes[j + activeShape.xChange][i + activeShape.yChange + 1].active) {
           hit = true;
          }
@@ -687,7 +589,6 @@ class ActiveShape {
         }
         if (count > 9) {
           count = 0;
-          console.log("clear row:",i);
           clearRow(i);
         }
       } 
@@ -720,7 +621,6 @@ class Cube {
 
   draw() {
     if (this.active) {
-      //console.log(this.x,this.y,-270 + this.x * 60, -570 + this.y * 60);
       scaleStrokeWeight(4);
       stroke(0);
       fill(this.r, this.g, this.b);
