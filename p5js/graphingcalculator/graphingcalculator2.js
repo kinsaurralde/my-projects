@@ -1,8 +1,11 @@
 var graphw = 1280, graphh = 720, windowScale = 1.5;                         // Graph settings
 var scroll = 50, translateX = 0, translateY = 0;                            // Transformation settings
 var updateDraw = true;
+var solveTime = 0;
+var sheet;                                                                  // Google Sheet
 var graphScale = 100;                                                       // Graph magnifier
 var inputs = new Array(2);                                                  // Input classes with settings
+var publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1-NWCOzH_p1rwonypFwjT6pCwmvPlxbFBbmo2TEh-ECs/edit?usp=sharing";
 
 function setup() {
   mainCanvas = createCanvas(1, 1);
@@ -15,6 +18,7 @@ function setup() {
   inputs[1] = new Equation(1);
   setWindowSize();
   setupArrays();
+  getSheetData();
 }
 
 function setupArrays() {
@@ -90,19 +94,10 @@ function drawBoxes() {
   scaleRectHighlight(520, -410, 70, 50, inputs[1].highlightLine, inputs[1].color); // f2(x) Line Button 
   scaleRectHighlight(600, -410, 70, 50, inputs[1].highlightClear, inputs[1].color);  // f2(x) Clear Button
 
-  scaleRectHighlight(-820, -250, 204, 50); // Parametric Example 1
-  scaleRectHighlight(-820, -180, 204, 50); // Parametric Example 2
-  scaleRectHighlight(-820, -110, 204, 50); // Polar Example 1
-  scaleRectHighlight(-820, -40, 204, 50); // Polar Example 2
-  scaleRectHighlight(-820, 30, 204, 50); // f(x) Example 1
-  scaleRectHighlight(-820, 100, 204, 50); // f(x) Example 2
-
-  scaleRectHighlight(820, -250, 204, 50); // Undecided
-  scaleRectHighlight(820, -180, 204, 50); // Undecided
-  scaleRectHighlight(820, -110, 204, 50); // Undecided
-  scaleRectHighlight(820, -40, 204, 50); // Undecided
-  scaleRectHighlight(820, 30, 204, 50); // Undecided
-  scaleRectHighlight(820, 100, 204, 50); // Undecided
+  for (i = 0; i < 8; i++) {
+    scaleRectHighlight(-820, -250 + 70 * i, 204, 50); // Left
+    scaleRectHighlight(820, -250 + 70 * i, 204, 50); // Right
+  }
 
   /*    Text    */
 
@@ -125,12 +120,22 @@ function drawBoxes() {
   scaleText("Line", 520, -410); // f2(x) Line Button 
   scaleText("Clear", 600, -410); // f2(x) Clear Button
 
+  /*
   scaleText("", -820, -250); // Parametric Example 1
   scaleText("", -820, -180); // Parametric Example 2
   scaleText("", -820, -110); // Polar Example 1
   scaleText("", -820, -40); // Polar Example 2
   scaleText("", -820, 30); // f(x) Example 1
   scaleText("", -820, 100); // f(x) Example 2
+  */
+
+  for (i = 0; i < 6; i++) {
+    try {
+      scaleText(sheet[i].Display, -820, -250 + 70 * i);
+    } catch {
+      scaleText("Loading . . .", -820, -250 + 70 * i);
+    }
+  }
 
   scaleText("", 820, -250); // Undecided
   scaleText("", 820, -180); // Undecided
@@ -143,7 +148,7 @@ function drawBoxes() {
   scaleTextSize(15);
   textAlign(CENTER);
   noStroke();
-  scaleText("FPS: "+round(frameRate())+" Scale: "+graphScale+" Points: "+inputs[0].dots, 0, -370);
+  scaleText("FPS: "+round(frameRate())+" Solve Time: "+round(solveTime)+"ms "+" Scale: "+graphScale+" Points: "+inputs[0].dots, 0, -370);
 }
 
 function checkInputs() {
@@ -163,9 +168,50 @@ function checkInputs() {
   inputs[1].checkInput();
 }
 
+function setGraph(setting) {
+  inputs[0].inputHTML[0].children[0].value = setting.Top;
+  inputs[0].highlightPoints = boolean(setting.PointsTop);
+  inputs[0].highlightLine = boolean(setting.LineTop);
+  inputs[0].highlightParametric = boolean(setting.ParametricTop);
+  inputs[0].highlightFunction = boolean(setting.FunctionTop);
+  inputs[0].highlightPolar = boolean(setting.PolarTop);
+
+  inputs[1].inputHTML[0].children[0].value = setting.Bot;
+  inputs[1].highlightPoints = boolean(setting.PointsBot);
+  inputs[1].highlightLine = boolean(setting.LineBot);
+  inputs[1].highlightParametric = boolean(setting.ParametricBot);
+  inputs[1].highlightFunction = boolean(setting.FunctionBot);
+  inputs[1].highlightPolar = boolean(setting.PolarBot);
+
+  inputs[0].calculatePoints();
+  inputs[1].calculatePoints();
+}
+
+/****************************** Sheets *******************************/
+
+function getSheetData() {
+  Tabletop.getSheetData(
+    {
+      key: publicSpreadsheetUrl,
+      callback: showInfo,
+      simpleSheet: true
+    }
+  )
+}
+
+function sendData() {
+  getSheetData();
+  //document.getElementById("frm1").submit();
+}
+
+function showInfo(data, tabletop) {
+  sheet = data;
+  console.log(sheet);
+}
 
 
-/****************************** Events *******************************/
+
+/****************************** Events and Buttons *******************************/
 
 function mouseWheel(event) {
   mX = (mouseX - width / 2) / windowScale;
@@ -215,6 +261,12 @@ function mouseWheel(event) {
     //update();
     updateDraw = true;
     return false;
+  }
+}
+
+function buttonSide(num) {
+  if (num < 6) {
+    setGraph(sheet[num]);
   }
 }
 
@@ -390,7 +442,11 @@ class Equation {
   /* Calculate */
 
   calculatePoints() {
+    var solveTimeStart = millis();
     this.equationOriginal = this.inputHTML[0].children[0].value;
+    var testDerivative = math.derivative(this.equationOriginal, 'x').toString();
+    console.log("Derivative:",testDerivative);
+    console.log("Derivative Value:",testDerivative % 1 == 1);
     var currentEval = this.minX;
     var varChange = (this.maxX - this.minX) / this.dots;
     for (var i = 0; i < this.dots; i++) {
@@ -400,13 +456,14 @@ class Equation {
       }
       try {
         this.x[i] = currentEval
-        this.y[i] = math.eval(this.equationOriginal, scope); console.log("lol");
+        this.y[i] = math.eval(this.equationOriginal, scope);
         this.y[i] *= -1;
       } catch {
         //console.log("Invalid Input");
       }
     }
     updateDraw = true;
+    solveTime = millis() - solveTimeStart;
   }
 
   /* Draw */
