@@ -7,10 +7,20 @@
     z-index: 2;
 }
 
-#speed {
+#speed-1 {
     top: 74.5vh;
+    height: 12.25vh;
+}
+
+#speed-2 {
+    top: 86.75vh;
+    height: 12.25vh;
+}
+
+#drop {
+    top: 74.5vh;
+    left: 82vw;
     height: 24.5vh;
-    width: 34vw;
 }
 
 #rotate-left {

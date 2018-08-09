@@ -1,8 +1,11 @@
 var activeShape;
 var gameStatus = "inactive";
 var gamePaused;
+var dropHit;
 var cycleTime = 1000;
 var cycleChange = 1000;
+var stats;
+var sheet;
 var cubes = new Array(10);
 var rotateTemp = new Array(3);
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/10KDvI3D-s1Ev3t8t_xiQiyxilwulhu2xJ1fX64N3q0c/edit?usp=sharing';
@@ -21,6 +24,9 @@ function setup() {
   mainCanvas.parent('sketch-holder');
   reset();
   setWindowSize();
+  stats = new Stat();
+  getSheetData();
+  gameStatus = "inactive";
 }
 
 function setupArrays() {
@@ -57,6 +63,7 @@ function setupRotate(old) {
 }
 
 function reset() {
+  console.log("Reset",gameStatus);
   gamePaused = false;
   activeShape = new ActiveShape(floor(random(1,8)));
   for (i = 0; i < 10; i++) {
@@ -88,9 +95,11 @@ function runGame() {
     drawCubes();
   }
   drawGridFrame();
+  drawPause();
 }
 
 function waitForCycle() {
+  console.log("Wait for cycle");
   if (millis() % cycleTime > cycleTime / 2) {
     gameStatus = "active";
   }
@@ -155,6 +164,9 @@ function drawGrid() {
       scaleLine(i * 60, -600, i * 60, 600);
     }
   }
+  stroke(255,0,0);
+  scaleStrokeWeight(6);
+  scaleLine(-300,-480,300,-480);
 }
 
 function drawGridFrame() {
@@ -180,7 +192,13 @@ function drawSides() {
   scaleRect(950, 0, 375, 650, 16); // Move Right
   scaleRect(550, -495, 375, 300, 16); // Rotate Left
   scaleRect(950, -495, 375, 300, 16); // Rotate Left
-  scaleRect(750, 495, 775, 300, 16); // Speed Up
+  scaleRect(950, 495, 375, 300, 16); // Drop
+  if (isMobileDevice()) {
+    scaleRect(550, 415, 375, 140, 16); // Speed Up
+    scaleRect(550, 575, 375, 140, 16); // Slow Down
+  } else {
+    scaleRect(550, 495, 375, 300, 16); // Speed Up
+  }
 
   noStroke();
   fill(255);
@@ -200,6 +218,7 @@ function drawSides() {
   scaleText("SCORE:", -725, 215);
   scaleText("SCORE", -775, 360);
   scaleText("LINES", -600, 360);
+  drawMiniHighScores();
 
   /* Right Side Text (Controls) */
   scaleTextSize(45);
@@ -207,8 +226,39 @@ function drawSides() {
   scaleText("ROTATE RIGHT", 950, -495);
   scaleText("MOVE LEFT", 550, 0);
   scaleText("MOVE RIGHT", 950, 0);
-  scaleText("SPEED UP", 750, 495);
+  scaleText("DROP", 950, 495);
+  if (isMobileDevice()) {
+    scaleText("SPEED UP", 550, 420);
+    scaleText("SLOW DOWN", 550, 575);
+  } else {
+    scaleText("SPEED UP", 550, 495);
+  }
+}
 
+function drawMiniHighScores() {
+  for (i = 0; i < 3; i++) {
+    try {
+      scaleText(stats.scores[i], -775, 435 + i * 70); // scores
+      scaleText(stats.lines[i], -600, 435 + i * 70); // lines
+    } catch {
+      scaleText("---", -775, 435 + i * 70); // scores
+      scaleText("---", -600, 435 + i * 70); // lines
+    }
+  }
+}
+
+function drawPause() {
+  if (activeShape.cycleCount < 3 && gameStatus == "active") {
+    scaleStrokeWeight(3);
+    stroke(255);
+    fill(0);
+    scaleRect(0,0,200,200,16);
+    scaleTextSize(150);
+    fill(255);
+    if (activeShape.cycleCount < 3) {
+      scaleText(3-activeShape.cycleCount,0,0);
+    }
+  }
 }
 
 function drawNextShape() {
@@ -247,13 +297,24 @@ function speedNormal() {
   cycleChange = 1000;
 }
 
-function speedToggle() {
+function speedFast() {
   if (isMobileDevice()) {
-    if (cycleChange == 500) {
-      cycleChange = 1000;
-    } else {
-      cycleChange = 500;
-    }
+    cycleChange = 200;
+  }
+}
+
+function speedSlow() {
+  if (isMobileDevice()) {
+    cycleChange = 1000;
+  }
+}
+
+function drop() {
+  console.log("Drop:",activeShape.isHit);
+  dropHit = activeShape.isHit;
+  while (!dropHit) {
+    activeShape.yChange++;
+    activeShape.checkPosition();
   }
 }
 
@@ -262,11 +323,13 @@ function fullScreen() {
 }
 
 function startGame() {
+  console.log("Start Game");
   gameStatus = "waiting";
   reset();
 }
 
 function pause() {
+  console.log("Pause");
   if (gameStatus == "active") {
     gameStatus = "paused";
   } else {
@@ -407,13 +470,14 @@ function getSheetData() {
 
 function sendData() {
   getSheetData();
-  stats.update();
+  //stats.update();
   //document.getElementById("frm1").submit();
 }
 
 function showInfo(data, tabletop) {
   sheet = data;
   stats.update();
+  //console.log(sheet["Read"]["elements"]);
   redraw();
 }
 
@@ -521,8 +585,10 @@ class ActiveShape {
     this.yChange = 0;
     this.xChange = 0;
     this.drop = 0;
+    this.isHit;
     this.moving = false;
     this.active = true;
+    this.cycleCount = 0;
   }
 
   rotateLeft() {
@@ -534,13 +600,18 @@ class ActiveShape {
     if (this.active) {
       if (gameStatus != "paused" && gameStatus != "waiting") {
         if (millis() % cycleTime < cycleTime / 2 && millis() > cycleTime) {
-          this.drop += 60 / (frameRate() / (2000 / cycleTime));
+          if (this.cycleCount > 2) { // 1 less than start delay
+            this.drop += 60 / (frameRate() / (2000 / cycleTime));
+          }
           this.moving = true;
         } else {
           this.drop = 0;
           if (this.moving) {
+            this.cycleCount++;
             cycleTime = cycleChange;
-            this.yChange++;
+            if (this.cycleCount > 3) { // start delay
+              this.yChange++;
+            }
             this.moving = false;
           }
         }
@@ -562,20 +633,23 @@ class ActiveShape {
   }
 
   checkPosition() {
-   var hit = false;
+   this.isHit = false;
    for (i = 0; i < 4; i++) {
      for (j = 0; j < 4; j++) {
        if (activeShape.grid[i][j] == 1) {
          if (i + activeShape.yChange + 1 > 19 || cubes[j + activeShape.xChange][i + activeShape.yChange + 1].active) {
-          hit = true;
+          this.isHit = true;
+          dropHit = true;
          }
        }
      }
    }
-   if (hit) {
+   if (this.isHit) {
     this.hit();
     this.checkRows();
     activeShape = new ActiveShape(this.nextShape);
+    gameStatus = "waiting";
+    waitForCycle();
    }
 
   }
@@ -631,8 +705,19 @@ class Cube {
 
 class Stat {
   constructor() {
+    this.read;
+    this.scores;
+    this.lines;
   }
 
   update() {
+    this.read = sheet["Read"]["elements"];
+    this.scores = new Array(constrain(this.read.length,1,50)); // score list cant be more than 50
+    this.lines = new Array(constrain(this.read.length,1,50)); // line list cant be more than 50
+    for (i = 0; i < this.read.length && i < 50; i++) {
+      this.scores[i] = this.read[i]["Score"];
+      this.lines[i] = this.read[i]["Lines"];
+    }
+    console.log("Scores:",this.scores,this.lines);
   }
 }
