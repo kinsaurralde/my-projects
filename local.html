@@ -21,9 +21,25 @@
         <div class="space-50"></div>
         <div class="space-10"></div>
 
-        <div id="content">
-            <div id="page-title">Login</div>
-            <div data-netlify-identity-menu id="login"></div>
+        <div id="content" onclick="data()">
+            <div id="page-title">Local</div>
+            <iframe src="http://kinsaurralde.ddns.net/getTemp" id="getTemp"></iframe>
+            <iframe src="http://kinsaurralde.ddns.net/cakes" id="testFrame"></iframe>
         </div>
+
+        <script>
+            
+        function data() {
+            cpuTemp = document.getElementById("getTemp");
+
+           
+                testFrame = document.getElementById("testFrame");
+                console.log(testFrame);
+                console.log(testFrame.style.width);
+            
+            
+        }
+
+        </script>
     </body>
 </html>
