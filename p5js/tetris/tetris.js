@@ -2,14 +2,16 @@ var activeShape;
 var gameStatus = "inactive";
 var gamePaused;
 var dropHit;
+var lines = 0;
+var score = 0;
 var cycleTime = 1000;
 var cycleChange = 1000;
 var stats;
 var sheet;
-var rotateHolder;
 var rotateFail = 0;
 var cubes = new Array(10);
 var rotateTemp = new Array(3);
+var shapeBag = new Array(14);
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/10KDvI3D-s1Ev3t8t_xiQiyxilwulhu2xJ1fX64N3q0c/edit?usp=sharing';
 
 
@@ -163,6 +165,11 @@ function rotateLine() {
   }
 }
 
+function updateScore(change) {
+  lines += change;
+  score += change * 100 + constrain((change - 1),0,4) * 50; // 100 for each line + 50 bonus for each line > 1 
+}
+
 
 
 /****************************** Draws *******************************/
@@ -237,8 +244,8 @@ function drawSides() {
   scaleText("3:", -900, 575);
   scaleTextSize(40);
   scaleText("Next Shape", -725, -545);
-  scaleText("LINES CLEARED:", -725, 140);
-  scaleText("SCORE:", -725, 215);
+  scaleText("LINES CLEARED: "+lines, -725, 140);
+  scaleText("SCORE: "+score, -725, 215);
   scaleText("SCORE", -775, 360);
   scaleText("LINES", -600, 360);
   drawMiniHighScores();
@@ -697,6 +704,7 @@ class ActiveShape {
 
   checkRows() {
     var count = 0;
+    var rowsCleared = 0;
     for (i = 0; i < 20; i++) {
       for (j = 0, count = 0; j < 10; j++) {
         if (cubes[j][i].active) {
@@ -705,9 +713,11 @@ class ActiveShape {
         if (count > 9) {
           count = 0;
           clearRow(i);
+          rowsCleared++;
         }
       }
     }
+    updateScore(rowsCleared);
   }
 
   hit() {
