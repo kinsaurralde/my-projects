@@ -43,39 +43,6 @@ function setupArrays() {
   }
 }
 
-function setupRotate(old) {
-  if (rotateFail < 2) {
-    for (i = 0; i < 3; i++) {
-      for (j = 0; j < 3; j++) {
-        rotateTemp[i][j] = old[i][j];
-      }
-    }
-    rotateTemp = rotateTemp.reverse();
-    for (i = 0; i < 3; i++) {
-      for (j = 0; j < i; j++) {
-        var temp = rotateTemp[i][j];
-        rotateTemp[i][j] = rotateTemp[j][i];
-        rotateTemp[j][i] = temp;
-      }
-    }
-    for (i = 0; i < 3; i++) {
-      for (j = 0; j < 3; j++) {
-        activeShape.grid[i][j] = rotateTemp[i][j]
-      }
-    }
-    if (rotateFail == 1) {
-      rotateFail = 10;
-    }
-  }
-  try {
-    activeShape.checkPosition();
-  } catch {
-    console.log("Cant Rotate");
-    rotateFail = 1;
-    return true;
-  }
-}
-
 function reset() {
   console.log("Reset", gameStatus);
   gamePaused = false;
@@ -142,15 +109,57 @@ function dropRows(start) {
   }
 }
 
-function rotateLine() {
-  var rotateTempLine = activeShape.grid;
-  rotateTempLine = rotateTempLine.reverse();
-  for (i = 0; i < 4; i++) {
-    for (j = 0; j < i; j++) {
-      var temp = rotateTempLine[i][j];
-      rotateTempLine[i][j] = rotateTempLine[j][i];
-      rotateTempLine[j][i] = temp;
+function rotateShape(old) {
+  if (rotateFail < 2) {
+    for (i = 0; i < 3; i++) {
+      for (j = 0; j < 3; j++) {
+        rotateTemp[i][j] = old[i][j];
+      }
     }
+    rotateTemp = rotateTemp.reverse();
+    for (i = 0; i < 3; i++) {
+      for (j = 0; j < i; j++) {
+        var temp = rotateTemp[i][j];
+        rotateTemp[i][j] = rotateTemp[j][i];
+        rotateTemp[j][i] = temp;
+      }
+    }
+    for (i = 0; i < 3; i++) {
+      for (j = 0; j < 3; j++) {
+        activeShape.grid[i][j] = rotateTemp[i][j]
+      }
+    }
+    if (rotateFail == 1) {
+      rotateFail = 10;
+    }
+  }
+  try {
+    activeShape.checkPosition();
+  } catch {
+    console.log("Cant Rotate");
+    rotateFail = 1;
+    return true;
+  }
+}
+
+function rotateLine() {
+  if (rotateFail < 2) {
+    var rotateTempLine = activeShape.grid;
+    rotateTempLine = rotateTempLine.reverse();
+    for (i = 0; i < 4; i++) {
+      for (j = 0; j < i; j++) {
+        var temp = rotateTempLine[i][j];
+        rotateTempLine[i][j] = rotateTempLine[j][i];
+        rotateTempLine[j][i] = temp;
+      }
+    }
+  }
+  try {
+    activeShape.checkPosition();
+  } catch {
+    console.log("Cant Rotate");
+    rotateFail = 1;
+    return true;
   }
 }
 
@@ -395,27 +404,19 @@ function rotateLeftStart() {
 
 function rotateLeft() {
   console.log("Rotate Left");
-  //rotateHolder = activeShape.grid;
-  //console.log(rotateHolder);
   if (activeShape.shape < 6) {
     for (loops = 0; loops < 3; loops++) {
-      if (setupRotate(activeShape.grid)) {
+      if (rotateShape(activeShape.grid)) {
         rotateRight();
       }
     }
   } else {
     if (activeShape.shape == 7) {
-      rotateLine();
+      if (rotateLine(activeShape.grid)) {
+        rotateRight();
+      }
     }
   }
-  //try {
-  //  activeShape.checkPosition();
-  //} catch {
-  //  console.log("Cannot rotate");
-  //  activeShape.grid = rotateHolder;
-  //}
-  //activeShape.grid = rotateHolder;
-  //console.log(activeShape.grid,rotateHolder);
 }
 
 function rotateRightStart() {
@@ -425,22 +426,17 @@ function rotateRightStart() {
 
 function rotateRight() {
   console.log("Rotate Right");
- //rotateHolder = activeShape.grid;
   if (activeShape.shape < 6) {
-    if (setupRotate(activeShape.grid)) {
+    if (rotateShape(activeShape.grid)) {
       rotateLeft();
     }
   } else {
     if (activeShape.shape == 7) {
-      rotateLine();
+      if (rotateLine(activeShape.grid)) {
+        rotateLeft();
+      }
     }
   }
-  //try {
-  //  activeShape.checkPosition();
-  //} catch {
-  //  console.log("Cannot Rotate");
-  //  activeShape.grid = rotateHolder;
-  //}
 }
 
 /****************************** Scaled Shapes *******************************/
@@ -637,7 +633,7 @@ class ActiveShape {
   }
 
   rotateLeft() {
-    setupRotate(this.grid);
+    rotateShape(this.grid);
   }
 
 
