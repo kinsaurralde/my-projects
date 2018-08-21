@@ -6,6 +6,8 @@ var cycleTime = 1000;
 var cycleChange = 1000;
 var stats;
 var sheet;
+var rotateHolder;
+var rotateFail = 0;
 var cubes = new Array(10);
 var rotateTemp = new Array(3);
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/10KDvI3D-s1Ev3t8t_xiQiyxilwulhu2xJ1fX64N3q0c/edit?usp=sharing';
@@ -42,30 +44,42 @@ function setupArrays() {
 }
 
 function setupRotate(old) {
-  for (i = 0; i < 3; i++) {
-    for (j = 0; j < 3; j++) {
-      rotateTemp[i][j] = old[i][j];
+  if (rotateFail < 2) {
+    for (i = 0; i < 3; i++) {
+      for (j = 0; j < 3; j++) {
+        rotateTemp[i][j] = old[i][j];
+      }
+    }
+    rotateTemp = rotateTemp.reverse();
+    for (i = 0; i < 3; i++) {
+      for (j = 0; j < i; j++) {
+        var temp = rotateTemp[i][j];
+        rotateTemp[i][j] = rotateTemp[j][i];
+        rotateTemp[j][i] = temp;
+      }
+    }
+    for (i = 0; i < 3; i++) {
+      for (j = 0; j < 3; j++) {
+        activeShape.grid[i][j] = rotateTemp[i][j]
+      }
+    }
+    if (rotateFail == 1) {
+      rotateFail = 10;
     }
   }
-  rotateTemp = rotateTemp.reverse();
-  for (i = 0; i < 3; i++) {
-    for (j = 0; j < i; j++) {
-      var temp = rotateTemp[i][j];
-      rotateTemp[i][j] = rotateTemp[j][i];
-      rotateTemp[j][i] = temp;
-    }
-  }
-  for (i = 0; i < 3; i++) {
-    for (j = 0; j < 3; j++) {
-      activeShape.grid[i][j] = rotateTemp[i][j]
-    }
+  try {
+    activeShape.checkPosition();
+  } catch {
+    console.log("Cant Rotate");
+    rotateFail = 1;
+    return true;
   }
 }
 
 function reset() {
-  console.log("Reset",gameStatus);
+  console.log("Reset", gameStatus);
   gamePaused = false;
-  activeShape = new ActiveShape(floor(random(1,8)));
+  activeShape = new ActiveShape(floor(random(1, 8)));
   for (i = 0; i < 10; i++) {
     for (j = 0; j < 20; j++) {
       cubes[i][j] = new Cube(i, j);
@@ -106,22 +120,22 @@ function waitForCycle() {
 }
 
 function clearRow(i) {
-  console.log("row clearing",i);
+  console.log("row clearing", i);
   for (j = 0; j < 10; j++) {
     cubes[j][i].active = false;
   }
-  dropRows(i-1);
+  dropRows(i - 1);
 }
 
 function dropRows(start) {
-  console.log("Drop rows >",start+1);
+  console.log("Drop rows >", start + 1);
   for (i = 0; i < 10; i++) {
     for (j = start; j > 0; j--) {
       if (cubes[i][j].active) {
-        cubes[i][j+1].active = true;
-        cubes[i][j+1].r = cubes[i][j].r;
-        cubes[i][j+1].g = cubes[i][j].g;
-        cubes[i][j+1].b = cubes[i][j].b;
+        cubes[i][j + 1].active = true;
+        cubes[i][j + 1].r = cubes[i][j].r;
+        cubes[i][j + 1].g = cubes[i][j].g;
+        cubes[i][j + 1].b = cubes[i][j].b;
         cubes[i][j].active = false;
       }
     }
@@ -164,9 +178,9 @@ function drawGrid() {
       scaleLine(i * 60, -600, i * 60, 600);
     }
   }
-  stroke(255,0,0);
+  stroke(255, 0, 0);
   scaleStrokeWeight(6);
-  scaleLine(-300,-480,300,-480);
+  scaleLine(-300, -480, 300, -480);
 }
 
 function drawGridFrame() {
@@ -182,7 +196,7 @@ function drawSides() {
   noFill();
 
   /* Left Side Boxes (Info / Setting) */
-  scaleRect(-725,-450,300,300,16); // Next Shape
+  scaleRect(-725, -450, 300, 300, 16); // Next Shape
   scaleRect(-725, -210, 480, 92, 16); // New Game
   scaleRect(-725, -90, 480, 92, 16); // Fullscreen
   scaleRect(-725, 35, 480, 92, 16); // Paused
@@ -213,7 +227,7 @@ function drawSides() {
   scaleText("2:", -900, 505);
   scaleText("3:", -900, 575);
   scaleTextSize(40);
-  scaleText("Next Shape",-725,-545);
+  scaleText("Next Shape", -725, -545);
   scaleText("LINES CLEARED:", -725, 140);
   scaleText("SCORE:", -725, 215);
   scaleText("SCORE", -775, 360);
@@ -252,11 +266,11 @@ function drawPause() {
     scaleStrokeWeight(3);
     stroke(255);
     fill(0);
-    scaleRect(0,0,200,200,16);
+    scaleRect(0, 0, 200, 200, 16);
     scaleTextSize(150);
     fill(255);
     if (activeShape.cycleCount < 3) {
-      scaleText(3-activeShape.cycleCount,0,0);
+      scaleText(3 - activeShape.cycleCount, 0, 0);
     }
   }
 }
@@ -264,7 +278,7 @@ function drawPause() {
 function drawNextShape() {
   var nextActive = new ActiveShape(activeShape.nextShape);
   pattern = nextActive.grid;
-  patternColor = color(nextActive.r,nextActive.g,nextActive.b);
+  patternColor = color(nextActive.r, nextActive.g, nextActive.b);
   scaleStrokeWeight(4);
   stroke(0);
   fill(patternColor);
@@ -281,7 +295,7 @@ function drawNextShape() {
           }
         }
       }
-    } 
+    }
   }
 }
 
@@ -310,7 +324,7 @@ function speedSlow() {
 }
 
 function drop() {
-  console.log("Drop:",activeShape.isHit);
+  console.log("Drop:", activeShape.isHit);
   dropHit = activeShape.isHit;
   while (!dropHit) {
     activeShape.yChange++;
@@ -364,38 +378,69 @@ function checkMove(direction) {
       if (activeShape.grid[j][i] == 1) {
         if (i + activeShape.xChange + direction < 0 || i + activeShape.xChange + direction > 9 || cubes[i + activeShape.xChange + direction][j + activeShape.yChange + 1].active) {
           console.log(activeShape.grid);
-          console.log(i,j,i + activeShape.xChange + direction,j + activeShape.yChange + 1);
-          console.log(activeShape.xChange,activeShape.yChange,direction);
+          console.log(i, j, i + activeShape.xChange + direction, j + activeShape.yChange + 1);
+          console.log(activeShape.xChange, activeShape.yChange, direction);
           return false;
         }
       }
     }
   }
-  return true; 
+  return true;
+}
+
+function rotateLeftStart() {
+  rotateFail = 0;
+  rotateLeft();
 }
 
 function rotateLeft() {
+  console.log("Rotate Left");
+  //rotateHolder = activeShape.grid;
+  //console.log(rotateHolder);
   if (activeShape.shape < 6) {
     for (loops = 0; loops < 3; loops++) {
-      console.log("RL");
-      setupRotate(activeShape.grid);
+      if (setupRotate(activeShape.grid)) {
+        rotateRight();
+      }
     }
   } else {
     if (activeShape.shape == 7) {
       rotateLine();
     }
   }
+  //try {
+  //  activeShape.checkPosition();
+  //} catch {
+  //  console.log("Cannot rotate");
+  //  activeShape.grid = rotateHolder;
+  //}
+  //activeShape.grid = rotateHolder;
+  //console.log(activeShape.grid,rotateHolder);
+}
+
+function rotateRightStart() {
+  rotateFail = 0;
+  rotateRight();
 }
 
 function rotateRight() {
+  console.log("Rotate Right");
+ //rotateHolder = activeShape.grid;
   if (activeShape.shape < 6) {
-    console.log("RR");
-    setupRotate(activeShape.grid);
+    if (setupRotate(activeShape.grid)) {
+      rotateLeft();
+    }
   } else {
     if (activeShape.shape == 7) {
       rotateLine();
     }
   }
+  //try {
+  //  activeShape.checkPosition();
+  //} catch {
+  //  console.log("Cannot Rotate");
+  //  activeShape.grid = rotateHolder;
+  //}
 }
 
 /****************************** Scaled Shapes *******************************/
@@ -491,7 +536,7 @@ function isMobileDevice() {
 
 class ActiveShape {
   constructor(shape) {
-    this.nextShape = floor(random(1,8));
+    this.nextShape = floor(random(1, 8));
     this.grid = new Array(4);
     this.shape = shape;
     for (var i = 0; i < 4; i++) {
@@ -581,7 +626,7 @@ class ActiveShape {
       this.g = 0;
       this.b = 0;
     }
-    
+
     this.yChange = 0;
     this.xChange = 0;
     this.drop = 0;
@@ -633,24 +678,24 @@ class ActiveShape {
   }
 
   checkPosition() {
-   this.isHit = false;
-   for (i = 0; i < 4; i++) {
-     for (j = 0; j < 4; j++) {
-       if (activeShape.grid[i][j] == 1) {
-         if (i + activeShape.yChange + 1 > 19 || cubes[j + activeShape.xChange][i + activeShape.yChange + 1].active) {
-          this.isHit = true;
-          dropHit = true;
-         }
-       }
-     }
-   }
-   if (this.isHit) {
-    this.hit();
-    this.checkRows();
-    activeShape = new ActiveShape(this.nextShape);
-    gameStatus = "waiting";
-    waitForCycle();
-   }
+    this.isHit = false;
+    for (i = 0; i < 4; i++) {
+      for (j = 0; j < 4; j++) {
+        if (activeShape.grid[i][j] == 1) {
+          if (i + activeShape.yChange + 1 > 19 || cubes[j + activeShape.xChange][i + activeShape.yChange + 1].active) {
+            this.isHit = true;
+            dropHit = true;
+          }
+        }
+      }
+    }
+    if (this.isHit) {
+      this.hit();
+      this.checkRows();
+      activeShape = new ActiveShape(this.nextShape);
+      gameStatus = "waiting";
+      waitForCycle();
+    }
 
   }
 
@@ -665,7 +710,7 @@ class ActiveShape {
           count = 0;
           clearRow(i);
         }
-      } 
+      }
     }
   }
 
@@ -712,12 +757,12 @@ class Stat {
 
   update() {
     this.read = sheet["Read"]["elements"];
-    this.scores = new Array(constrain(this.read.length,1,50)); // score list cant be more than 50
-    this.lines = new Array(constrain(this.read.length,1,50)); // line list cant be more than 50
+    this.scores = new Array(constrain(this.read.length, 1, 50)); // score list cant be more than 50
+    this.lines = new Array(constrain(this.read.length, 1, 50)); // line list cant be more than 50
     for (i = 0; i < this.read.length && i < 50; i++) {
       this.scores[i] = this.read[i]["Score"];
       this.lines[i] = this.read[i]["Lines"];
     }
-    console.log("Scores:",this.scores,this.lines);
+    console.log("Scores:", this.scores, this.lines);
   }
 }
