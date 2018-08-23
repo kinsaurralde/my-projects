@@ -3,6 +3,7 @@ var gameStatus = "inactive";
 var gamePaused;
 var dropHit;
 var lines = 0;
+var level = 0;
 var score = 0;
 var cycleTime = 1000;
 var cycleChange = 1000;
@@ -11,7 +12,7 @@ var sheet;
 var rotateFail = 0;
 var cubes = new Array(10);
 var rotateTemp = new Array(3);
-var shapeBag = new Array(14);
+var shapeBag = new Array(7);
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/10KDvI3D-s1Ev3t8t_xiQiyxilwulhu2xJ1fX64N3q0c/edit?usp=sharing';
 
 
@@ -47,14 +48,22 @@ function setupArrays() {
 
 function reset() {
   console.log("Reset", gameStatus);
+  resetBag();
   gamePaused = false;
-  activeShape = new ActiveShape(floor(random(1, 8)));
+  activeShape = new ActiveShape(pickShape(), true);
   for (i = 0; i < 10; i++) {
     for (j = 0; j < 20; j++) {
       cubes[i][j] = new Cube(i, j);
     }
   }
   waitForCycle();
+}
+
+function resetBag() {
+  console.log("Reset Bag");
+  for (i = 0; i < 7; i++) {
+    shapeBag[i] = 2;
+  }
 }
 
 
@@ -167,7 +176,34 @@ function rotateLine() {
 
 function updateScore(change) {
   lines += change;
-  score += change * 100 + constrain((change - 1),0,4) * 50; // 100 for each line + 50 bonus for each line > 1 
+  score += change * 100 + constrain((change - 1), 0, 4) * 50; // 100 for each line + 50 bonus for each line > 1 
+}
+
+function pickShape() {
+  var tryToPick = floor(random(1, 8));
+  var picking = true;
+  if (bagEmpty()) {
+    resetBag();
+  }
+  while (picking) {
+    if (shapeBag[tryToPick - 1] > 0) {
+      picking = false;
+      shapeBag[tryToPick - 1]--;
+    } else {
+      tryToPick = floor(random(1, 8));
+    }
+  }
+  console.log("Picking Shape:", tryToPick, shapeBag);
+  return tryToPick;
+}
+
+function bagEmpty() {
+  for (i = 0; i < 7; i++) {
+    if (shapeBag[i] > 0 ) {
+      return false;
+    }
+  }
+  return true;
 }
 
 
@@ -244,8 +280,12 @@ function drawSides() {
   scaleText("3:", -900, 575);
   scaleTextSize(40);
   scaleText("Next Shape", -725, -545);
-  scaleText("LINES CLEARED: "+lines, -725, 140);
-  scaleText("SCORE: "+score, -725, 215);
+  scaleText("SCORE", -925, 140);
+  scaleText(score, -925, 200);
+  scaleText("LINES", -725, 140);
+  scaleText(lines, -725, 200);
+  scaleText("LEVEL", -525, 140);
+  scaleText(level, -525, 200);
   scaleText("SCORE", -775, 360);
   scaleText("LINES", -600, 360);
   drawMiniHighScores();
@@ -292,7 +332,7 @@ function drawPause() {
 }
 
 function drawNextShape() {
-  var nextActive = new ActiveShape(activeShape.nextShape);
+  var nextActive = new ActiveShape(activeShape.nextShape, false);
   pattern = nextActive.grid;
   patternColor = color(nextActive.r, nextActive.g, nextActive.b);
   scaleStrokeWeight(4);
@@ -538,8 +578,10 @@ function isMobileDevice() {
 /****************************** Classes *******************************/
 
 class ActiveShape {
-  constructor(shape) {
-    this.nextShape = floor(random(1, 8));
+  constructor(shape, pickNext) {
+    if (pickNext) {
+      this.nextShape = pickShape();
+    }
     this.grid = new Array(4);
     this.shape = shape;
     for (var i = 0; i < 4; i++) {
@@ -695,7 +737,7 @@ class ActiveShape {
     if (this.isHit) {
       this.hit();
       this.checkRows();
-      activeShape = new ActiveShape(this.nextShape);
+      activeShape = new ActiveShape(this.nextShape, true);
       gameStatus = "waiting";
       waitForCycle();
     }
