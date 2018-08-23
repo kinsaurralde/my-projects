@@ -18,7 +18,7 @@
  */
 
  /* CHANGE MANIFEST VERSION ALSO */
-const version = "0058"; // 08/19/2018 
+const version = "0059"; // 08/22/2018 
 /* CHANGE MANIFEST VERSION ALSO */
 
 const cacheName = `kyles-projects-${version}`;

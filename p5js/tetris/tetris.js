@@ -5,6 +5,10 @@ var dropHit;
 var lines = 0;
 var level = 0;
 var score = 0;
+var drops = 0;
+var combo = 0;
+var timerMax = 1;
+var cycleSpeed = 1000;
 var cycleTime = 1000;
 var cycleChange = 1000;
 var stats;
@@ -49,6 +53,12 @@ function setupArrays() {
 function reset() {
   console.log("Reset", gameStatus);
   resetBag();
+  lines = 0;
+  level = 0;
+  score = 0;
+  drops = 0;
+  combo = 0;
+  cycleSpeed = 1000;
   gamePaused = false;
   activeShape = new ActiveShape(pickShape(), true);
   for (i = 0; i < 10; i++) {
@@ -199,13 +209,22 @@ function pickShape() {
 
 function bagEmpty() {
   for (i = 0; i < 7; i++) {
-    if (shapeBag[i] > 0 ) {
+    if (shapeBag[i] > 0) {
       return false;
     }
   }
   return true;
 }
 
+function calculateLevel() {
+  var newLevel = floor(drops / 20) + (lines / 4);
+  //level = (drops / 20) + (lines / 4);
+  if (newLevel > level) {
+    level++;
+  }
+  cycleSpeed = constrain(1000 - (level * 35), 200, 1000);
+  cycleChange = cycleSpeed;
+}
 
 
 /****************************** Draws *******************************/
@@ -285,7 +304,7 @@ function drawSides() {
   scaleText("LINES", -725, 140);
   scaleText(lines, -725, 200);
   scaleText("LEVEL", -525, 140);
-  scaleText(level, -525, 200);
+  scaleText(level+"       "+cycleTime, -525, 200);
   scaleText("SCORE", -775, 360);
   scaleText("LINES", -600, 360);
   drawMiniHighScores();
@@ -318,15 +337,15 @@ function drawMiniHighScores() {
 }
 
 function drawPause() {
-  if (activeShape.cycleCount < 3 && gameStatus == "active") {
+  if (activeShape.cycleCount < timerMax && gameStatus == "active"  && timerMax > 1) {
     scaleStrokeWeight(3);
     stroke(255);
     fill(0);
     scaleRect(0, 0, 200, 200, 16);
     scaleTextSize(150);
     fill(255);
-    if (activeShape.cycleCount < 3) {
-      scaleText(3 - activeShape.cycleCount, 0, 0);
+    if (activeShape.cycleCount < timerMax) {
+      scaleText(timerMax - activeShape.cycleCount, 0, 0);
     }
   }
 }
@@ -364,7 +383,7 @@ function speedUp() {
 }
 
 function speedNormal() {
-  cycleChange = 1000;
+  cycleChange = cycleSpeed;
 }
 
 function speedFast() {
@@ -375,7 +394,7 @@ function speedFast() {
 
 function speedSlow() {
   if (isMobileDevice()) {
-    cycleChange = 1000;
+    cycleChange = cycleSpeed;
   }
 }
 
@@ -690,7 +709,7 @@ class ActiveShape {
     if (this.active) {
       if (gameStatus != "paused" && gameStatus != "waiting") {
         if (millis() % cycleTime < cycleTime / 2 && millis() > cycleTime) {
-          if (this.cycleCount > 2) { // 1 less than start delay
+          if (this.cycleCount > timerMax - 1) { // 1 less than start delay
             this.drop += 60 / (frameRate() / (2000 / cycleTime));
           }
           this.moving = true;
@@ -699,7 +718,7 @@ class ActiveShape {
           if (this.moving) {
             this.cycleCount++;
             cycleTime = cycleChange;
-            if (this.cycleCount > 3) { // start delay
+            if (this.cycleCount > timerMax) { // start delay
               this.yChange++;
             }
             this.moving = false;
@@ -735,6 +754,8 @@ class ActiveShape {
       }
     }
     if (this.isHit) {
+      drops++;
+      calculateLevel();
       this.hit();
       this.checkRows();
       activeShape = new ActiveShape(this.nextShape, true);
