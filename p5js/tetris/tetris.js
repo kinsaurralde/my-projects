@@ -243,6 +243,8 @@ function checkLose() {
       }
     }
   }
+  console.log("Picking Shape:", tryToPick, shapeBag);
+  return tryToPick;
 }
 
 function gameOver() {
@@ -917,6 +919,7 @@ class Stat {
     this.lines = new Array(constrain(this.read.length, 1, 50)); // line list cant be more than 50
     this.names = new Array(constrain(this.read.length, 1, 50)); // line list cant be more than 50
     this.plays = this.read[0]["Plays"];
+    
     for (i = 0; i < this.read.length && i < 50; i++) {
       this.scores[i] = this.read[i]["Score"];
       this.lines[i] = this.read[i]["Lines"];
