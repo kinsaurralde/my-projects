@@ -1,5 +1,6 @@
 var activeShape;
 var gameStatus = "inactive";
+var screen = "game";
 var gamePaused;
 var dropHit;
 var lines = 0;
@@ -13,11 +14,12 @@ var cycleTime = 1000;
 var cycleChange = 1000;
 var stats;
 var sheet;
+var name = "";
 var rotateFail = 0;
 var cubes = new Array(10);
 var rotateTemp = new Array(3);
 var shapeBag = new Array(7);
-var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/10KDvI3D-s1Ev3t8t_xiQiyxilwulhu2xJ1fX64N3q0c/edit?usp=sharing';
+var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1HhVUkSwqbztRn_FPheB7osSViHJio4PeAhYwbkrY5bE/edit?usp=sharing';
 
 
 
@@ -59,6 +61,7 @@ function reset() {
   drops = 0;
   combo = 0;
   cycleSpeed = 1000;
+  cycleChange = 1000;
   gamePaused = false;
   activeShape = new ActiveShape(pickShape(), true);
   for (i = 0; i < 10; i++) {
@@ -87,17 +90,22 @@ function draw() {
 }
 
 function runGame() {
-  drawGrid();
-  drawSides();
-  drawNextShape();
-  if (gameStatus == "waiting") {
-    waitForCycle();
+  if (screen == "game") {
+    drawGrid();
+    drawSides();
+    drawNextShape();
+    if (gameStatus == "waiting") {
+      waitForCycle();
+    }
+    if (gameStatus != "inactive") {
+      drawCubes();
+    }
+    drawGridFrame();
+    drawPause();
+    checkLose();
+  } else {
+    drawHighScores();
   }
-  if (gameStatus != "inactive") {
-    drawCubes();
-  }
-  drawGridFrame();
-  drawPause();
 }
 
 function waitForCycle() {
@@ -226,6 +234,29 @@ function calculateLevel() {
   cycleChange = cycleSpeed;
 }
 
+function checkLose() {
+  for (i = 0; i < 10; i++) {
+    for (j = 0; j < 2; j++) {
+      if (cubes[i][j].active == true) {
+        gameOver();
+        return;
+      }
+    }
+  }
+}
+
+function gameOver() {
+  console.log("game over");
+  pause();
+  highScores();
+  name = prompt("Enter name for scoreboard:");
+  stats.sendScores();
+  reset();
+  gameStatus = "inactive";
+  delayedStats();
+}
+
+
 
 /****************************** Draws *******************************/
 
@@ -271,6 +302,7 @@ function drawSides() {
   scaleRect(-725, -210, 480, 92, 16); // New Game
   scaleRect(-725, -90, 480, 92, 16); // Fullscreen
   scaleRect(-725, 35, 480, 92, 16); // Paused
+  scaleRect(-725, 280, 480, 92, 16); // Highscores
 
   /* Right Side Boxes (Controls) */
   scaleRect(550, 0, 375, 650, 16); // Move Left
@@ -293,18 +325,18 @@ function drawSides() {
   scaleText("NEW GAME", -725, -210);
   scaleText("FULLSCREEN", -725, -90);
   scaleText("PAUSE", -725, 35);
-  scaleText("HIGHSCORES", -725, 290);
+  scaleText("HIGHSCORES", -725, 280);
   scaleText("1:", -900, 435);
   scaleText("2:", -900, 505);
   scaleText("3:", -900, 575);
   scaleTextSize(40);
   scaleText("Next Shape", -725, -545);
-  scaleText("SCORE", -925, 140);
-  scaleText(score, -925, 200);
-  scaleText("LINES", -725, 140);
-  scaleText(lines, -725, 200);
-  scaleText("LEVEL", -525, 140);
-  scaleText(level+"       "+cycleTime, -525, 200);
+  scaleText("SCORE", -925, 130);
+  scaleText(score, -925, 190);
+  scaleText("LINES", -725, 130);
+  scaleText(lines, -725, 190);
+  scaleText("LEVEL", -525, 130);
+  scaleText(level, -525, 190);
   scaleText("SCORE", -775, 360);
   scaleText("LINES", -600, 360);
   drawMiniHighScores();
@@ -324,6 +356,37 @@ function drawSides() {
   }
 }
 
+function drawHighScores() {
+  //if (frameCount % 60 == 0) {
+  //  getSheetData();
+  //}
+  noStroke();
+  fill(255);
+  scaleTextSize(120);
+  scaleText("HIGHSCORES", 0, -460);
+
+  scaleTextSize(60);
+  scaleText("Click anywhere \n to exit", -900, 100);
+  scaleText("Total Plays \n"+stats.plays, 900, 100);
+  scaleText("RANK", -600, -320);
+  scaleText("NAME", -200, -320);
+  scaleText("SCORE", 200, -320);
+  scaleText("LINES", 600, -320);
+
+  for (i = 0; i < 10; i++) {
+    scaleText(i + 1, -600, -200 + i * 85);
+    try {
+      scaleText(stats.names[i], -200, -200 + i * 85); // names
+      scaleText(stats.scores[i], 200, -200 + i * 85); // scores
+      scaleText(stats.lines[i], 600, -200 + i * 85); // lines
+    } catch {
+      scaleText("---", -200, -200 + i * 85); // names
+      scaleText("---", 200, -200 + i * 85); // scores
+      scaleText("---", 600, -200 + i * 85); // lines
+    }
+  }
+}
+
 function drawMiniHighScores() {
   for (i = 0; i < 3; i++) {
     try {
@@ -337,7 +400,7 @@ function drawMiniHighScores() {
 }
 
 function drawPause() {
-  if (activeShape.cycleCount < timerMax && gameStatus == "active"  && timerMax > 1) {
+  if (activeShape.cycleCount < timerMax && gameStatus == "active" && timerMax > 1) {
     scaleStrokeWeight(3);
     stroke(255);
     fill(0);
@@ -409,6 +472,20 @@ function drop() {
 
 function fullScreen() {
   fullScreen(!fullScreen());
+}
+
+function highScores() {
+  var buttonCover = document.getElementById("screen-cover");
+  if (screen == "game") {
+    console.log("score");
+    screen = "scores";
+    getSheetData();
+    buttonCover.style.zIndex = 10;
+  } else {
+    console.log("gaem");
+    screen = "game";
+    buttonCover.style.zIndex = -10;
+  }
 }
 
 function startGame() {
@@ -567,12 +644,18 @@ function fullScreen() {
 /****************************** Other *******************************/
 
 function getSheetData() {
+  console.log("Get Sheet Data");
   Tabletop.getSheetData(
     {
       key: publicSpreadsheetUrl,
       callback: showInfo,
     }
   )
+}
+
+function delayedStats() {
+  setTimeout(function () { getSheetData(); }, 2000);
+  setTimeout(function () { getSheetData(); }, 5000);
 }
 
 function sendData() {
@@ -822,16 +905,33 @@ class Stat {
     this.read;
     this.scores;
     this.lines;
+    this.names;
+    this.plays;
   }
 
   update() {
     this.read = sheet["Read"]["elements"];
     this.scores = new Array(constrain(this.read.length, 1, 50)); // score list cant be more than 50
     this.lines = new Array(constrain(this.read.length, 1, 50)); // line list cant be more than 50
+    this.names = new Array(constrain(this.read.length, 1, 50)); // line list cant be more than 50
+    this.plays = this.read[0]["Plays"];
     for (i = 0; i < this.read.length && i < 50; i++) {
       this.scores[i] = this.read[i]["Score"];
       this.lines[i] = this.read[i]["Lines"];
+      this.names[i] = this.read[i]["Name"];
     }
     console.log("Scores:", this.scores, this.lines);
+  }
+
+  sendScores() {
+    getSheetData();
+    var sendName = document.getElementById("send-name");
+    var sendScore = document.getElementById("send-score");
+    var sendLines = document.getElementById("send-lines");
+    var sendButton = document.getElementById("send");
+    sendName.value = name;
+    sendScore.value = score;
+    sendLines.value = lines;
+    sendButton.click();
   }
 }
