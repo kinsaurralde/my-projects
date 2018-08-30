@@ -18,7 +18,7 @@
  */
 
  /* CHANGE MANIFEST VERSION ALSO */
-const version = "0061"; // 08/23/2018 
+const version = "0062"; // 08/30/2018 
 /* CHANGE MANIFEST VERSION ALSO */
 
 const cacheName = `kyles-projects-${version}`;
@@ -44,6 +44,7 @@ self.addEventListener('install', e => {
         '/css/app-styles.css',
         `/css/reset.css`,
         `/css/pong.css`,
+        `/css/tetris.css`,
         `/css/minesweeper.css`,
         `/css/tictactoe.css`,
 
@@ -52,6 +53,7 @@ self.addEventListener('install', e => {
         '/app/minesweeper.html',
         '/app/neckercube.html',
         '/app/pong.html',
+        '/app/tetris.html',
         '/app/rollingsquare.html',
         '/app/traffic.html',
         '/app/info.html',
@@ -60,12 +62,16 @@ self.addEventListener('install', e => {
         /********************  JS  ********************/
         `/js/website.js`,
         `/js/tabletop.js`,
+        `/js/math.js`,
 
         /********************  P5JS  ********************/
         '/p5js/p5.js',
        
         '/p5js/pong/index.html',
         '/p5js/pong/pong.js',
+
+        '/p5js/tetris/index.html',
+        '/p5js/tetris/tetris.js',
 
         '/p5js/minesweeper/index.html',
         '/p5js/minesweeper/minesweeper.js',
@@ -94,6 +100,7 @@ self.addEventListener('install', e => {
         `/images/icon-blank.png`,
         `/images/icon-desktop.png`,
         `/images/icon-pong.png`,
+        `/images/icon-tetris.png`,
         `/images/icon-cube.png`,
         `/images/icon-minesweeper.PNG`,
         `/images/icon-rollingcube.png`,
