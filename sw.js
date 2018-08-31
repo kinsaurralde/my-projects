@@ -35,7 +35,6 @@ self.addEventListener('install', e => {
         `/index.html`,
         `/404.html`,
         `/manifest.json`,
-        `/sw.js`,
 
         /********************  PAGES  ********************/
         `/pages/navbar.html`,
