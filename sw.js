@@ -96,7 +96,7 @@ self.addEventListener('install', e => {
 
         /********************  IMAGES  ********************/
         `/images/icon.png`,
-        `/images/icon.app`,
+        `/images/icon-app.png`,
         `/images/icon-info.png`,
         `/images/icon-blank.png`,
         `/images/icon-desktop.png`,
