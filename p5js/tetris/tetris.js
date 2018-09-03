@@ -250,6 +250,12 @@ function gameOver() {
   pause();
   highScores();
   name = prompt("Enter name for scoreboard:");
+  console.log(name);
+  if (name == null || name.trim().length == 0) {
+    console.log("NULL");
+    name = "Player "+stats.plays;
+    console.log("Name",name);
+  }
   stats.sendScores();
   reset();
   gameStatus = "inactive";
@@ -477,12 +483,10 @@ function fullScreen() {
 function highScores() {
   var buttonCover = document.getElementById("screen-cover");
   if (screen == "game") {
-    console.log("score");
     screen = "scores";
     getSheetData();
     buttonCover.style.zIndex = 10;
   } else {
-    console.log("gaem");
     screen = "game";
     buttonCover.style.zIndex = -10;
   }
@@ -541,8 +545,10 @@ function checkMove(direction) {
 }
 
 function rotateLeftStart() {
-  rotateFail = 0;
-  rotateLeft();
+  if (gameStatus == "active") {
+    rotateFail = 0;
+    rotateLeft();
+  }
 }
 
 function rotateLeft() {
@@ -563,8 +569,10 @@ function rotateLeft() {
 }
 
 function rotateRightStart() {
-  rotateFail = 0;
-  rotateRight();
+  if (gameStatus == "active") {
+    rotateFail = 0;
+    rotateRight();
+  }
 }
 
 function rotateRight() {
@@ -775,7 +783,7 @@ class ActiveShape {
     }
 
     this.yChange = 0;
-    this.xChange = 0;
+    this.xChange = 4;
     this.drop = 0;
     this.isHit;
     this.moving = false;

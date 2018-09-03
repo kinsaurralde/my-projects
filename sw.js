@@ -18,7 +18,7 @@
  */
 
  /* CHANGE MANIFEST VERSION ALSO */
-const version = "0063"; // 08/30/2018 
+const version = "0066"; // 08/31/2018 
 /* CHANGE MANIFEST VERSION ALSO */
 
 const cacheName = `kyles-projects-${version}`;
@@ -96,6 +96,7 @@ self.addEventListener('install', e => {
 
         /********************  IMAGES  ********************/
         `/images/icon.png`,
+        `/images/icon-app.png`,
         `/images/icon-info.png`,
         `/images/icon-blank.png`,
         `/images/icon-desktop.png`,
@@ -109,6 +110,8 @@ self.addEventListener('install', e => {
 
         `/images/projectimg-pong.PNG`,
         `/images/projectimg-cube.png`,
+        `/images/projectimg-tetris.png`,
+        `/images/projectimg-app.png`,
         `/images/projectimg-minesweeper.PNG`,
         `/images/projectimg-rollingcube.png`,
         `/images/projectimg-ap.png`,
