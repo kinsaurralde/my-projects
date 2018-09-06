@@ -128,6 +128,24 @@ p {
     display: none;
 }
 
+#code-iframe {
+    width: 100%;
+    height: 3600px;
+    flex: 1 1 auto; 
+}
+
+#code-div {
+    display: flex; 
+    flex-direction: column; 
+    height: 4200px;
+}
+
+#pages {
+    width: 100%; 
+    height: 5000px; 
+    border: none;
+}
+
 #content {
     overflow: hidden;
     padding-top: 10px;
@@ -143,27 +161,6 @@ p {
     padding-top: 5px;
     padding-bottom: 15px;
     color: rgb(50,50,50);
-}
-
-.download {
-    overflow: hidden;
-    margin-left: -10px;
-}
-
-.download img {
-    width: 36px;
-    height: 36px;
-    float: left;
-    position: relative;
-    left: 0px;
-    top: 0px;
-    margin: 0px 15px 0px 15px;
-    border: 0px;
-}
-
-.download p {
-    font-size: 1.2em;
-    padding-top: 6px;
 }
 
 .divider {
