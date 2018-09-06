@@ -27,7 +27,7 @@
     </div>
     <div class="divider"></div>
     <div class="title">Code</div>
-    <div class="code" id="code-div" style="display: flex; flex-direction: column; height: 725em;">
+    <div class="code" id="code-div">
         <div class="version-select">
             <button class="version-select-btn" onclick="myFunction()">Files</button>
             <div class="version-select-content">
@@ -36,22 +36,16 @@
                 <a onclick="css()">pong.css</a>
             </div>
         </div>
-        <iframe src="../p5js/Pong/pong.js" style="width: 100%; flex: 1 1 auto;" id="code-iframe"></iframe>
+        <iframe src="../p5js/Pong/pong.js" id="code-iframe"></iframe>
     </div>
     <div class="divider"></div>
 
     <script>
         function js() {
             document.getElementById("code-iframe").src = "../p5js/pong/pong.js";
-            document.getElementById("code-div").style.height = "725em";
-        }
-        function index() {
-            document.getElementById("code-iframe").src = "../p5js/pong/index.txt";
-            document.getElementById("code-div").style.height = "10vh";
         }
         function css() {
             document.getElementById("code-iframe").src = "../css/pong.css";
-            document.getElementById("code-div").style.height = "10vh";
         }
 
         function isMobileDevice() {

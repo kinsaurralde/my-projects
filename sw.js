@@ -18,7 +18,7 @@
  */
 
  /* CHANGE MANIFEST VERSION ALSO */
-const version = "0066"; // 08/31/2018 
+const version = "0067"; // 09/5/2018 
 /* CHANGE MANIFEST VERSION ALSO */
 
 const cacheName = `kyles-projects-${version}`;
@@ -115,9 +115,7 @@ self.addEventListener('install', e => {
         `/images/projectimg-minesweeper.PNG`,
         `/images/projectimg-rollingcube.png`,
         `/images/projectimg-ap.png`,
-        `/images/projectimg-traffic.png`,
-
-        `/images/file.png`
+        `/images/projectimg-traffic.png`
 
       ])
         .then(() => self.skipWaiting());

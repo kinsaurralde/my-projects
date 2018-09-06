@@ -27,26 +27,19 @@
             <button class="version-select-btn" onclick="myFunction()">Files</button>
             <div class="version-select-content">
                 <a onclick="js()">minesweeper.js</a>
-                <a onclick="index()">index.html</a>
                 <a onclick="css()">minesweeper.css</a>
             </div>
         </div>
-        <iframe src="../p5js/minesweeper/minesweeper.js" style="width: 100%; flex: 1 1 auto;" id="code-iframe"></iframe>
+        <iframe src="../p5js/minesweeper/minesweeper.js" id="code-iframe"></iframe>
     </div>  
     <div class="divider"></div>
 
     <script>
         function js() {
             document.getElementById("code-iframe").src = "../p5js/minesweeper/minesweeper.js";
-            document.getElementById("code-div").style.height = "728em";
-        }
-        function index() {
-            document.getElementById("code-iframe").src = "../p5js/minesweeper/index.txt";
-            document.getElementById("code-div").style.height = "10vh";
         }
         function css() {
             document.getElementById("code-iframe").src = "../css/minesweeper.css";
-            document.getElementById("code-div").style.height = "10vh";
         }
 
         function isMobileDevice() {
@@ -54,7 +47,7 @@
         }
 
         function mobileSite() {
-            if (window.location.pathname != "/p5js/minesweeper/index.html"  && isMobileDevice() && confirm("Go to mobile version")) {
+            if (window.location.pathname != "/p5js/minesweeper/index.html"  && isMobileDevice()) {
                 window.open("../p5js/minesweeper/index.html", "_parent");
             }
         }
