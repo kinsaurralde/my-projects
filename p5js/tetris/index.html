@@ -65,6 +65,15 @@
       .then(response => console.log('Success!', response))
       .catch(error => console.error('Error!', error.message))
   })
+
+   window.onbeforeunload = function exitFunction() {
+          console.log("Exiting..");
+          console.log("Score:"+score);
+          if (score > 0) {
+            name = "Page Exited";
+            stats.sendScores();
+          }
+      }
 </script>
 
 </body>

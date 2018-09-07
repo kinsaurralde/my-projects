@@ -230,7 +230,7 @@ function calculateLevel() {
   if (newLevel > level) {
     level++;
   }
-  cycleSpeed = constrain(1000 - (level * 35), 200, 1000);
+  cycleSpeed = constrain(1000 - (level * 40), 200, 1000);
   cycleChange = cycleSpeed;
 }
 
@@ -668,14 +668,11 @@ function delayedStats() {
 
 function sendData() {
   getSheetData();
-  //stats.update();
-  //document.getElementById("frm1").submit();
 }
 
 function showInfo(data, tabletop) {
   sheet = data;
   stats.update();
-  //console.log(sheet["Read"]["elements"]);
   redraw();
 }
 
@@ -800,7 +797,7 @@ class ActiveShape {
     if (this.active) {
       if (gameStatus != "paused" && gameStatus != "waiting") {
         if (millis() % cycleTime < cycleTime / 2 && millis() > cycleTime) {
-          if (this.cycleCount > timerMax - 1) { // 1 less than start delay
+          if (this.cycleCount > timerMax - 1 && cycleChange > 300) { // 1 less than start delay
             this.drop += 60 / (frameRate() / (2000 / cycleTime));
           }
           this.moving = true;
