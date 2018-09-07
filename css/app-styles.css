@@ -4,6 +4,10 @@
     height: 100%;
 }
 
+body {
+    touch-action: manipulation;
+}
+
 #app-page {
     background-color: rgb(0,134,255);
 }
