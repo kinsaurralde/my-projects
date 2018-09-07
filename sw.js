@@ -22,8 +22,6 @@ const version = "0067"; // 09/5/2018
 /* CHANGE MANIFEST VERSION ALSO */
 
 const cacheName = `kyles-projects-${version}`;
-//console.log("Cache Name:",cacheName);
-//sessionStorage.setItem("version",cacheName);
 self.addEventListener('install', e => {
   const timeStamp = Date.now();
   e.waitUntil(

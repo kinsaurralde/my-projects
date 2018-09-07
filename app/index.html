@@ -97,8 +97,7 @@
                 navigator.serviceWorker.register('/../sw.js', { scope: '/' })
                     .then(function(registration) {
                         console.log('Service Worker App Registered');
-                        console.log("cahce");
-                       // console.log("CacheName",cacheName);  
+                        console.log("CacheName",cacheName);  
                     });
         
                 navigator.serviceWorker.ready.then(function(registration) {
