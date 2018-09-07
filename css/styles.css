@@ -90,6 +90,10 @@ a:hover {
 
 /* Modules */
 
+#main-title {
+    text-decoration: none;
+}
+
 #page-title {
     text-align: center;
     font-size: 2em;
