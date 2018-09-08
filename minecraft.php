@@ -46,7 +46,7 @@
     <p>Player 4: <span id="list"><?php echo($list[4]["name"]) ?></span></p>
     <p>Player 5: <span id="list"><?php echo($list[5]["name"]) ?></span></p>
     <p>MOTD: <span id="motd"><?php echo($motd) ?></span></p>
-    <p>Mods: <span id="mods"><?php echo($mods) ?></span></p>
+    <p>Mods:  <span id="mods"><?php echo($mods) ?></span></p>
 </body>
 </html>
 
