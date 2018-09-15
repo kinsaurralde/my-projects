@@ -26,18 +26,21 @@
           <div id="page-title">Minecraft</div>
           <div class="space-20"></div>
 
-          <div class="title">Status: <span class="data" id="online">[ OFFLINE ]</span></div>
+          <div class="title">Status: <span class="data" id="online">[ LOADING ]</span></div>
           <div class="divider"></div>
 
-          <div class="title">Version: <span class="data" id="version">[ OFFLINE ]</span></div>
+          <div class="title">Version: <span class="data" id="version">[ LOADING ]</span></div>
           <div class="divider"></div>
 
-          <div class="title">Players: <span class="data" id="players">[ OFFLINE ]</span><span class="data"> / </span><span class="data" id="max-players">[ OFFLINE ]</span></div>
-          <div class="data" id="current-players">[ OFFLINE ]</div>
+          <div class="title">Players: <span class="data" id="players">[ LOADING ]</span><span class="data"> / </span><span class="data" id="max-players">[ LOADING ]</span></div>
+          <div class="data" id="current-players">[ LOADING ]</div>
+          <div class="divider"></div>
+
+          <div class="title">Last Query: <span class="data" id="cachetime">[ LOADING ]</span><span class="data"> Seconds Ago</span></div>
           <div class="divider"></div>
 
           <div class="title">Full JSON Data:</div>
-          <div class="data" id="json">[ OFFLINE ]</div>
+          <div class="data" id="json">[ LOADING ]</div>
           <div class="divider"></div>
 
 
@@ -45,6 +48,7 @@
 
         <script>
           var info;
+          var cacheTime = Math.round(Date.now() / 1000);
           $.getJSON('https://api.mcsrvstat.us/1/kinsaurralde.ddns.net', function(data) {
             console.log(data);
             info = data;
@@ -58,6 +62,7 @@
               document.getElementById("online").innerHTML = "Online";
               document.getElementById("version").innerHTML = data["software"]+" "+data["version"];
               document.getElementById("players").innerHTML = data["players"]["online"];
+
               document.getElementById("max-players").innerHTML = data["players"]["max"];
               var players = data["players"]["list"];
               try {
@@ -70,6 +75,8 @@
               }
               document.getElementById("current-players").innerHTML = players;
 
+              setInterval(function(){ getCacheTime(data["debug"]["cachetime"]); }, 1000);
+
               status = "online";
             } else {
               document.getElementById("online").innerHTML = "Offline";
@@ -78,6 +85,16 @@
             var dataJSON = JSON.stringify(data, null, 3);
             document.getElementById("json").innerHTML = dataJSON;
           });
+
+          function getCacheTime(time) {
+            var lastQuery;
+            if (time == 0) {
+              time = cacheTime;
+            }
+            lastQuery = Math.round(Date.now() / 1000) - time;
+            console.log(time,lastQuery);
+            document.getElementById("cachetime").innerHTML = lastQuery;
+          }
         </script>
 
     </body>
