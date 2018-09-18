@@ -10,26 +10,11 @@
 
 <body>
     <div id="page-title">
-            <p>Graphing Calculator</p>
+            <p>Graphing Calculator (AP)</p>
     </div>
     <div class="iframe-sketch">
         <iframe src="../p5js/GraphingCalculator/Versions/002/graphingcalculator/index.html" id="sketch"></iframe>
     </div>
-    <!--
-    <div class="divider"></div>
-    <div class="version-select">
-        <button class="version-select-btn" onclick="myFunction()">Previous Verions</button>
-        <div class="version-select-content">
-            <a onclick="newest()">New 06/06/2018</a>
-            <a onclick="version(006)">006 05/16/2018</a>
-            <a onclick="version(005)">005 05/06/2018</a>
-            <a onclick="version(004)">004 05/05/2018</a>
-            <a onclick="version(003)">003 05/03/2018</a>
-            <a onclick="version(002)">002 06/05/2018 AP</a>
-            <a onclick="version(001)">001 04/25/2018 AP</a>
-        </div>
-    </div>
--->
     <div class="divider"></div>
     <div class="title">Description</div>
     <div class="text">
@@ -58,19 +43,6 @@
     <div class="divider"></div>
 
     <script>
-            function newest() {
-                document.getElementById("sketch").src = "../p5js/GraphingCalculator/index.html";
-                document.getElementById("code").src = "../p5js/GraphingCalculator/code.html";
-            }
-            function version(num) {
-                num = String(num);
-                while (num.length < 3) {
-                    num = "0" + num;
-                    console.log("s: " + num.length + " num: " + num);
-                }
-                document.getElementById("sketch").src = "../p5js/GraphingCalculator/Versions/" + num + "/GraphingCalculator/index.html";
-                document.getElementById("code").src = "../p5js/GraphingCalculator/Versions/" + num + "/GraphingCalculator/code.html";
-            }
     </script>
 </body>
 </html>
