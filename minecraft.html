@@ -36,6 +36,9 @@
           <div class="data" id="current-players">[ LOADING ]</div>
           <div class="divider"></div>
 
+          <div class="title">MOTD: <span class="data" id="motd">[ LOADING ]</span></div>
+          <div class="divider"></div>
+
           <div class="title">Last Query: <span class="data" id="cachetime">[ LOADING ]</span><span class="data"> Seconds Ago</span></div>
           <div class="divider"></div>
 
@@ -74,6 +77,8 @@
                 players = "";
               }
               document.getElementById("current-players").innerHTML = players;
+
+              document.getElementById("motd").innerHTML = data["motd"]["clean"].toString().replace(","," ");
 
               setInterval(function(){ getCacheTime(data["debug"]["cachetime"]); }, 1000);
 
