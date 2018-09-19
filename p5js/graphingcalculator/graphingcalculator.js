@@ -2,6 +2,7 @@ var graphw = 1280, graphh = 720, windowScale = 1.5;                         // G
 var scroll = 50, translateX = 0, translateY = 0;                            // Transformation settings
 var updateDraw = true;
 var solveTime = 0;
+var leftSidePage = 0;
 var sheet;                                                                  // Google Sheet
 var graphScale = 100;                                                       // Graph magnifier
 var inputs = new Array(2);                                                  // Input classes with settings
@@ -28,7 +29,6 @@ function draw() {
   translate(width / 2, height / 2);
   checkInputs();
   if (updateDraw) {
-    console.log("ASDASD");
     drawClearedGraph();
     drawGraphWindow();
     drawPoints();
@@ -131,11 +131,14 @@ function drawBoxes() {
 
   for (i = 0; i < 6; i++) {
     try {
-      scaleText(sheet[i].Display, -820, -250 + 70 * i);
+      scaleText(sheet[i + (leftSidePage * 6)].Display, -820, -250 + 70 * i);
     } catch {
       scaleText("Loading . . .", -820, -250 + 70 * i);
     }
   }
+
+  scaleText("Previous Page", -820, 170);
+  scaleText("Next Page", -820, 240);
 
   scaleText("", 820, -250); // Undecided
   scaleText("", 820, -180); // Undecided
@@ -176,12 +179,36 @@ function setGraph(setting) {
   inputs[0].highlightFunction = boolean(setting.FunctionTop);
   inputs[0].highlightPolar = boolean(setting.PolarTop);
 
+  if (inputs[0].highlightParametric) {
+    inputs[0].mode = 1;
+  } else {
+    if (inputs[0].highlightFunction) {
+      inputs[0].mode = 2;
+    } else {
+      if (inputs[0].highlightPolar) {
+        inputs[0].mode = 3;
+      }
+    }
+  }
+
   inputs[1].inputHTML[0].children[0].value = setting.Bot;
   inputs[1].highlightPoints = boolean(setting.PointsBot);
   inputs[1].highlightLine = boolean(setting.LineBot);
   inputs[1].highlightParametric = boolean(setting.ParametricBot);
   inputs[1].highlightFunction = boolean(setting.FunctionBot);
   inputs[1].highlightPolar = boolean(setting.PolarBot);
+
+  if (inputs[1].highlightParametric) {
+    inputs[1].mode = 1;
+  } else {
+    if (inputs[1].highlightFunction) {
+      inputs[1].mode = 2;
+    } else {
+      if (inputs[1].highlightPolar) {
+        inputs[1].mode = 3;
+      }
+    }
+  }
 
   inputs[0].calculatePoints();
   inputs[1].calculatePoints();
@@ -257,8 +284,6 @@ function mouseWheel(event) {
         }
       }
     }
-    //console.log("Graph Scale:", graphScale);
-    //update();
     updateDraw = true;
     return false;
   }
@@ -266,7 +291,20 @@ function mouseWheel(event) {
 
 function buttonSide(num) {
   if (num < 6) {
-    setGraph(sheet[num]);
+    try {
+      setGraph(sheet[num + (leftSidePage * 6)]);
+    } catch {
+      console.log("ERROR: Custom graph data not found");
+    }
+    return;
+  }
+  if (num == 6 ) {
+    leftSidePage = constrain(leftSidePage - 1, 0, 2);
+    console.log("Previous custom graph page: ",leftSidePage);
+  }
+  if (num == 7) {
+    leftSidePage = constrain(leftSidePage + 1, 0, 2);
+    console.log("Next custom graph page: ",leftSidePage);
   }
 }
 
@@ -371,6 +409,8 @@ class Equation {
     this.highlightFunction = true;
     this.highlightPolar = false;
 
+    this.mode = 2;
+
     this.inputText = "";
   }
 
@@ -388,6 +428,8 @@ class Equation {
   buttonFunction() {
     this.highlightFunction = true;
     this.highlightPolar = false;
+    this.mode = 2;
+    this.calculatePoints();
     if (inputs[0].highlightParametric) {
       inputs[0].highlightFunction = true;
       inputs[1].highlightFunction = true;
@@ -399,6 +441,8 @@ class Equation {
   buttonPolar() {
     this.highlightPolar = true;
     this.highlightFunction = false;
+    this.mode = 3;
+     this.calculatePoints();
     if (inputs[0].highlightParametric) {
       inputs[0].highlightPolar = true;
       inputs[1].highlightPolar = true;
@@ -419,17 +463,19 @@ class Equation {
 
   buttonPoints() {
     this.highlightPoints = !this.highlightPoints;
+    updateDraw = true;
   }
 
   buttonLine() {
     this.highlightLine = !this.highlightLine;
+    updateDraw = true;
   }
 
   buttonClear() {
 
   }
 
-  /* Inptus */
+  /* Inputs */
 
   checkInput() {
     if (document.activeElement.name == "input-" + this.number) {
@@ -446,24 +492,58 @@ class Equation {
     this.equationOriginal = this.inputHTML[0].children[0].value;
     var testDerivative = math.derivative(this.equationOriginal, 'x').toString();
     console.log("Derivative:",testDerivative);
-    console.log("Derivative Value:",testDerivative % 1 == 1);
+    if (this.mode == 2) {
+      this.minX = -20;
+      this.maxX = 20;
+      this.calculateFunction();
+    } else {
+      if (this.mode == 3) {
+        this.minX = 0;
+        this.maxX = 2*PI;
+        this.calculatePolar();
+      }
+    }
+    solveTime = millis() - solveTimeStart;
+  }
+
+  calculateFunction() {
     var currentEval = this.minX;
     var varChange = (this.maxX - this.minX) / this.dots;
     for (var i = 0; i < this.dots; i++) {
       currentEval += varChange;
       let scope = {
         x: currentEval
-      }
+      };
       try {
-        this.x[i] = currentEval
+        this.x[i] = currentEval;
         this.y[i] = math.eval(this.equationOriginal, scope);
         this.y[i] *= -1;
-      } catch {
+      }
+      catch {
         //console.log("Invalid Input");
       }
     }
     updateDraw = true;
-    solveTime = millis() - solveTimeStart;
+  }
+
+  calculatePolar() {
+    var currentEval = this.minX;
+    var varChange = (this.maxX - this.minX) / this.dots;
+    for (var i = 0; i < this.dots; i++) {
+      currentEval += varChange;
+      let scope = {
+        x: currentEval
+      };
+      try {
+        this.x[i] = math.eval(this.equationOriginal, scope) * cos(currentEval);
+        this.y[i] = math.eval(this.equationOriginal, scope) * sin(currentEval);
+        this.y[i] *= -1;
+      }
+      catch {
+        //console.log("Invalid Input");
+      }
+    }
+    updateDraw = true;
   }
 
   /* Draw */
