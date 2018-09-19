@@ -1,65 +1,59 @@
 <html>
-<head>
-  <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8">
 
-  <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
-  <link rel="stylesheet" href="../../css/reset.css" type="text/css">
-  <link rel="stylesheet" href="../../css/styles.css" type="text/css">
-  <link rel="stylesheet" href="../../css/graphingcalculator.css" type="text/css">
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" href="../../css/styles.css" type="text/css">
+    <link rel="stylesheet" href="../../css/graphingcalculator.css" type="text/css">
 
-  <script language="javascript" type="text/javascript" src="../p5.js"></script>
-  <script language="javascript" type="text/javascript" src="graphingcalculator.js"></script>
-  <script language="javascript" type="text/javascript" src="../../js/tabletop.js"></script>
-  <script language="javascript" type="text/javascript" src="../../js/math.js"></script>
-  <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
+    <script language="javascript" type="text/javascript" src="../p5.js"></script>
+    <script language="javascript" type="text/javascript" src="graphingcalculator.js"></script>
+    <script language="javascript" type="text/javascript" src="../../js/tabletop.js"></script>
+    <script language="javascript" type="text/javascript" src="../../js/math.js"></script>
 
-  <!-- This line removes any default padding and style. 
-       You might only need one of these values set. -->
-  <style> body {padding: 0; margin: 0; overflow: hidden;} </style>
-</head>
+    <style> body {padding: 0; margin: 0; overflow: hidden;} </style>
+  </head>
 
-<body>
-  <div id="sketch-holder">
-    <div class="level-0">
-      <input type="text" class="input-top" id="input" name="input-0" value="" oninput="inputs[0].calculatePoints()">
-      <input type="button" class="input-top" id="parametric" onclick="inputs[0].buttonParametric()">
-      <input type="button" class="input-top" id="function" onclick="inputs[0].buttonFunction()">
-      <input type="button" class="input-top" id="polar" onclick="inputs[0].buttonPolar()">
-      <input type="button" class="input-top" id="points" onclick="inputs[0].buttonPoints()">
-      <input type="button" class="input-top" id="line" onclick="inputs[0].buttonLine()">
-      <input type="button" class="input-top" id="clear" onclick="inputs[0].buttonClear()">
+  <body>
+    <div id="sketch-holder">
+      <div class="level-0"> <!-- Top Equation Buttons -->
+        <input type="text" class="input-top" id="input" name="input-0" value="" oninput="inputs[0].calculatePoints()">
+        <input type="button" class="input-top" id="parametric" onclick="inputs[0].buttonParametric()">
+        <input type="button" class="input-top" id="function" onclick="inputs[0].buttonFunction()">
+        <input type="button" class="input-top" id="polar" onclick="inputs[0].buttonPolar()">
+        <input type="button" class="input-top" id="points" onclick="inputs[0].buttonPoints()">
+        <input type="button" class="input-top" id="line" onclick="inputs[0].buttonLine()">
+        <input type="button" class="input-top" id="clear" onclick="inputs[0].buttonClear()">
+      </div>
+      <div class="level-1"> <!-- Bottom Equation Buttons -->
+        <input type="text" class="input-top" id="input" name="input-1" value="" oninput="inputs[1].calculatePoints()">
+        <input type="button" class="input-top" id="parametric" onclick="inputs[1].buttonParametric()">
+        <input type="button" class="input-top" id="function" onclick="inputs[1].buttonFunction()">
+        <input type="button" class="input-top" id="polar" onclick="inputs[1].buttonPolar()">
+        <input type="button" class="input-top" id="points" onclick="inputs[1].buttonPoints()">
+        <input type="button" class="input-top" id="line" onclick="inputs[1].buttonLine()">
+        <input type="button" class="input-top" id="clear" onclick="inputs[1].buttonClear()">
+      </div>
+      <div class="left"> <!-- Loaded Equation Buttons -->
+        <input type="button" class="input-side" id="side-1" onclick="buttonSide(0)">
+        <input type="button" class="input-side" id="side-2" onclick="buttonSide(1)">
+        <input type="button" class="input-side" id="side-3" onclick="buttonSide(2)">
+        <input type="button" class="input-side" id="side-4" onclick="buttonSide(3)">
+        <input type="button" class="input-side" id="side-5" onclick="buttonSide(4)">
+        <input type="button" class="input-side" id="side-6" onclick="buttonSide(5)">
+        <input type="button" class="input-side" id="side-7" onclick="buttonSide(6)">
+        <input type="button" class="input-side" id="side-8" onclick="buttonSide(7)">
+      </div>
+      <div class="right"> <!-- Solving Buttons -->
+        <input type="button" class="input-side" id="side-1" onclick="buttonSide(10)">
+        <input type="button" class="input-side" id="side-2" onclick="buttonSide(11)">
+        <input type="button" class="input-side" id="side-3" onclick="buttonSide(12)">
+        <input type="button" class="input-side" id="side-4" onclick="buttonSide(13)">
+        <input type="button" class="input-side" id="side-5" onclick="buttonSide(14)">
+        <input type="button" class="input-side" id="side-6" onclick="buttonSide(15)">
+        <input type="button" class="input-side" id="side-7" onclick="buttonSide(16)">
+        <input type="button" class="input-side" id="side-8" onclick="buttonSide(17)">
+      </div>
     </div>
-    <div class="level-1">
-      <input type="text" class="input-top" id="input" name="input-1" value="" oninput="inputs[1].calculatePoints()">
-      <input type="button" class="input-top" id="parametric" onclick="inputs[1].buttonParametric()">
-      <input type="button" class="input-top" id="function" onclick="inputs[1].buttonFunction()">
-      <input type="button" class="input-top" id="polar" onclick="inputs[1].buttonPolar()">
-      <input type="button" class="input-top" id="points" onclick="inputs[1].buttonPoints()">
-      <input type="button" class="input-top" id="line" onclick="inputs[1].buttonLine()">
-      <input type="button" class="input-top" id="clear" onclick="inputs[1].buttonClear()">
-    </div>
-    <div class="left">
-      <input type="button" class="input-side" id="side-1" onclick="buttonSide(0)">
-      <input type="button" class="input-side" id="side-2" onclick="buttonSide(1)">
-      <input type="button" class="input-side" id="side-3" onclick="buttonSide(2)">
-      <input type="button" class="input-side" id="side-4" onclick="buttonSide(3)">
-      <input type="button" class="input-side" id="side-5" onclick="buttonSide(4)">
-      <input type="button" class="input-side" id="side-6" onclick="buttonSide(5)">
-      <input type="button" class="input-side" id="side-7" onclick="buttonSide(6)">
-      <input type="button" class="input-side" id="side-8" onclick="buttonSide(7)">
-    </div>
-    <div class="right">
-      <input type="button" class="input-side" id="side-1" onclick="buttonSide(10)">
-      <input type="button" class="input-side" id="side-2" onclick="buttonSide(11)">
-      <input type="button" class="input-side" id="side-3" onclick="buttonSide(12)">
-      <input type="button" class="input-side" id="side-4" onclick="buttonSide(13)">
-      <input type="button" class="input-side" id="side-5" onclick="buttonSide(14)">
-      <input type="button" class="input-side" id="side-6" onclick="buttonSide(15)">
-      <input type="button" class="input-side" id="side-7" onclick="buttonSide(16)">
-      <input type="button" class="input-side" id="side-8" onclick="buttonSide(17)">
-    </div>
-  </div>
-  <script>
-  </script>
-</body>
+  </body>
 </html>

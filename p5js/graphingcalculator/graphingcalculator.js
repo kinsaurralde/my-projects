@@ -1,22 +1,20 @@
 var graphw = 1280, graphh = 720, windowScale = 1.5;                         // Graph settings
 var scroll = 50, translateX = 0, translateY = 0;                            // Transformation settings
-var updateDraw = true;
-var solveTime = 0;
-var leftSidePage = 0;
+var updateDraw = true;                                                      // 
+var solveTime = 0;                                                          //
+var leftSidePage = 0;                                                       // Page number for custom equations
 var sheet;                                                                  // Google Sheet
 var graphScale = 100;                                                       // Graph magnifier
 var inputs = new Array(2);                                                  // Input classes with settings
-var publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1-NWCOzH_p1rwonypFwjT6pCwmvPlxbFBbmo2TEh-ECs/edit?usp=sharing";
 
 function setup() {
   mainCanvas = createCanvas(1, 1);
-  background(255, 0, 0);
   rectMode(CENTER);
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
   mainCanvas.parent('sketch-holder');
-  inputs[0] = new Equation(0);
-  inputs[1] = new Equation(1);
+  inputs[0] = new Equation(0); // Top equation
+  inputs[1] = new Equation(1); // Bottom equation
   setWindowSize();
   setupArrays();
   getSheetData();
@@ -63,14 +61,14 @@ function drawClearedGraph() {
   stroke(0);
   scaleStrokeWeight(6);
   fill(255);
-  scaleRect(0, 0, graphw, graphh);
+  scaleRect(0, 0, graphw, graphh); // Erase graph background
 }
 
 function drawGraphFrame() {
   stroke(0);
   scaleStrokeWeight(6);
   noFill();
-  scaleRect(0, 0, graphw, graphh);
+  scaleRect(0, 0, graphw, graphh); // Graph window border
 }
 
 function drawBoxes() {
@@ -95,8 +93,8 @@ function drawBoxes() {
   scaleRectHighlight(600, -410, 70, 50, inputs[1].highlightClear, inputs[1].color);  // f2(x) Clear Button
 
   for (i = 0; i < 8; i++) {
-    scaleRectHighlight(-820, -250 + 70 * i, 204, 50); // Left
-    scaleRectHighlight(820, -250 + 70 * i, 204, 50); // Right
+    scaleRectHighlight(-820, -250 + 70 * i, 204, 50); // Custom equation boxes (left)
+    scaleRectHighlight(820, -250 + 70 * i, 204, 50); // Solving boxes (right)
   }
 
   /*    Text    */
@@ -106,34 +104,25 @@ function drawBoxes() {
   scaleStrokeWeight(1);
   scaleTextSize(20);
 
-  scaleText("r(\u03B8)", -440, -470); // f1(x) Polar Button
+  scaleText("r(\u03B8)", -440, -470); // f1(x) Polar Button (\u03B8 is theta symbol)
   scaleText("f(x)", -520, -470); // f1(x) Function Button
   scaleText("x(t)", -600, -470); // f1(x) Parametric Button
   scaleText("Points", 440, -470); // f1(x) Points Button
   scaleText("Line", 520, -470); // f1(x) Line Button 
   scaleText("Clear", 600, -470);  // f1(x) Clear Button
 
-  scaleText("r(\u03B8)", -440, -410); // f2(x) Polar Button
+  scaleText("r(\u03B8)", -440, -410); // f2(x) Polar Button (\u03B8 is theta symbol)
   scaleText("f(x)", -520, -410); // f2(x) Function Button
   scaleText("y(t)", -600, -410); // f2(x) Parametric Button
   scaleText("Points", 440, -410); // f2(x) Points Button
   scaleText("Line", 520, -410); // f2(x) Line Button 
   scaleText("Clear", 600, -410); // f2(x) Clear Button
 
-  /*
-  scaleText("", -820, -250); // Parametric Example 1
-  scaleText("", -820, -180); // Parametric Example 2
-  scaleText("", -820, -110); // Polar Example 1
-  scaleText("", -820, -40); // Polar Example 2
-  scaleText("", -820, 30); // f(x) Example 1
-  scaleText("", -820, 100); // f(x) Example 2
-  */
-
-  for (i = 0; i < 6; i++) {
+  for (i = 0; i < 6; i++) { // Custom function display name
     try {
       scaleText(sheet[i + (leftSidePage * 6)].Display, -820, -250 + 70 * i);
     } catch {
-      scaleText("Loading . . .", -820, -250 + 70 * i);
+      scaleText("Loading . . .", -820, -250 + 70 * i); // Shown when equations not loading or dont exist
     }
   }
 
@@ -155,63 +144,52 @@ function drawBoxes() {
 }
 
 function checkInputs() {
-  mX = (mouseX - width / 2) / windowScale;
+  mX = (mouseX - width / 2) / windowScale; // Mouse position with 0,0 in center
   mY = (mouseY - height / 2) / windowScale;
   pMX = (pmouseX - width / 2) / windowScale;
   pMY = (pmouseY - height / 2) / windowScale;
   if (mX > -640 && mX < 640 && mY > -360 && mY < 360) {
-    if (mouseButton == LEFT && mouseIsPressed) {
-      //console.log(mouseX, mX);
+    if (mouseButton == LEFT && mouseIsPressed) { // Move inside of graph window
       translateX -= pMX - mX;
       translateY -= pMY - mY;
       updateDraw = true;
     }
   }
-  inputs[0].checkInput();
-  inputs[1].checkInput();
+  inputs[0].checkInput(); // Highlight top textbox if focused
+  inputs[1].checkInput(); // Highlight bottom textbox if focused
 }
 
 function setGraph(setting) {
-  inputs[0].inputHTML[0].children[0].value = setting.Top;
+  inputs[0].inputHTML[0].children[0].value = setting.Top; // Set top input to saved settings
   inputs[0].highlightPoints = boolean(setting.PointsTop);
   inputs[0].highlightLine = boolean(setting.LineTop);
   inputs[0].highlightParametric = boolean(setting.ParametricTop);
   inputs[0].highlightFunction = boolean(setting.FunctionTop);
   inputs[0].highlightPolar = boolean(setting.PolarTop);
 
-  if (inputs[0].highlightParametric) {
-    inputs[0].mode = 1;
-  } else {
-    if (inputs[0].highlightFunction) {
-      inputs[0].mode = 2;
-    } else {
-      if (inputs[0].highlightPolar) {
-        inputs[0].mode = 3;
-      }
-    }
-  }
-
-  inputs[1].inputHTML[0].children[0].value = setting.Bot;
+  inputs[1].inputHTML[0].children[0].value = setting.Bot; // Set bottom input to saved settings
   inputs[1].highlightPoints = boolean(setting.PointsBot);
   inputs[1].highlightLine = boolean(setting.LineBot);
   inputs[1].highlightParametric = boolean(setting.ParametricBot);
   inputs[1].highlightFunction = boolean(setting.FunctionBot);
   inputs[1].highlightPolar = boolean(setting.PolarBot);
 
-  if (inputs[1].highlightParametric) {
-    inputs[1].mode = 1;
-  } else {
-    if (inputs[1].highlightFunction) {
-      inputs[1].mode = 2;
+  for (i = 0; i < 2; i++) { // Change modes to match new settigns
+    if (inputs[i].highlightParametric) {
+      inputs[i].mode = 1;
     } else {
-      if (inputs[1].highlightPolar) {
-        inputs[1].mode = 3;
+      if (inputs[i].highlightFunction) {
+        inputs[i].mode = 2;
+      } else {
+        if (inputs[i].highlightPolar) {
+          inputs[i].mode = 3;
+        }
       }
     }
   }
 
-  inputs[0].calculatePoints();
-  inputs[1].calculatePoints();
+  inputs[0].calculatePoints(); // Solve top equation
+  inputs[1].calculatePoints(); // Solve bottom equation
 }
 
 /****************************** Sheets *******************************/
@@ -219,21 +197,20 @@ function setGraph(setting) {
 function getSheetData() {
   Tabletop.getSheetData(
     {
-      key: publicSpreadsheetUrl,
+      key: "https://docs.google.com/spreadsheets/d/1-NWCOzH_p1rwonypFwjT6pCwmvPlxbFBbmo2TEh-ECs/edit?usp=sharing", // Google sheet public url
       callback: showInfo,
-      simpleSheet: true
+      simpleSheet: true // Delete this line if using more than one sheet
     }
   )
 }
 
 function sendData() {
   getSheetData();
-  //document.getElementById("frm1").submit();
 }
 
 function showInfo(data, tabletop) {
   sheet = data;
-  console.log(sheet);
+  console.log("Data downloaded:",sheet);
 }
 
 
@@ -243,7 +220,7 @@ function showInfo(data, tabletop) {
 function mouseWheel(event) {
   mX = (mouseX - width / 2) / windowScale;
   mY = (mouseY - height / 2) / windowScale;
-  if (mX > -640 && mX < 640 && mY > -360 && mY < 360) {
+  if (mX > -640 && mX < 640 && mY > -360 && mY < 360) { // Only scroll if mouse is hovering over graph window
     if (event.delta > 0) {
       var amount = 1;
     } else {
@@ -285,7 +262,7 @@ function mouseWheel(event) {
       }
     }
     updateDraw = true;
-    return false;
+    return false; // Prevent browser scrolling
   }
 }
 
@@ -298,11 +275,11 @@ function buttonSide(num) {
     }
     return;
   }
-  if (num == 6 ) {
+  if (num == 6 ) { // Previous page button
     leftSidePage = constrain(leftSidePage - 1, 0, 2);
     console.log("Previous custom graph page: ",leftSidePage);
   }
-  if (num == 7) {
+  if (num == 7) { // Next page button
     leftSidePage = constrain(leftSidePage + 1, 0, 2);
     console.log("Next custom graph page: ",leftSidePage);
   }
@@ -451,16 +428,6 @@ class Equation {
     inputs[1].highlightParametric = false;
   }
 
-  buttonInput() {
-    //  if (this.highlightInput) {
-    //    this.highlightInput = false;
-    //  } else {
-    //    inputs[0].highlightInput = false;
-    //    inputs[1].highlightInput = false;
-    //    this.highlightInput = true;
-    //  }
-  }
-
   buttonPoints() {
     this.highlightPoints = !this.highlightPoints;
     updateDraw = true;
@@ -491,13 +458,12 @@ class Equation {
     var solveTimeStart = millis();
     this.equationOriginal = this.inputHTML[0].children[0].value;
     var testDerivative = math.derivative(this.equationOriginal, 'x').toString();
-    console.log("Derivative:",testDerivative);
     if (this.mode == 2) {
       this.minX = -20;
       this.maxX = 20;
       this.calculateFunction();
     } else {
-      if (this.mode == 3) {
+      if (this.mode == 3) { // polar
         this.minX = 0;
         this.maxX = 2*PI;
         this.calculatePolar();
@@ -520,7 +486,7 @@ class Equation {
         this.y[i] *= -1;
       }
       catch {
-        //console.log("Invalid Input");
+        console.log("Invalid Input");
       }
     }
     updateDraw = true;
@@ -540,7 +506,7 @@ class Equation {
         this.y[i] *= -1;
       }
       catch {
-        //console.log("Invalid Input");
+        console.log("Invalid Input");
       }
     }
     updateDraw = true;

@@ -3,7 +3,7 @@
     <title>kinsaurralde</title>
     <meta charset="UTF-8">
     <meta name="description" content="Kyle's Projects">
-    <meta name="keywords" content="Kyle, Insaurralde, weebly, bitballoon">
+    <meta name="keywords" content="Kyle, Insaurralde, weebly, netlify">
     <meta name="author" content="Kyle Insaurralde">
 
     <head>
@@ -32,18 +32,6 @@
         <div class="space-10"></div>
 
         <div id="projects">
-            
-            <!-- Start of Project Template-->
-            <div class="project">
-                <a href="app/index.html"><img src="images/projectimg-app.png" alt="Image Picture"/></a>
-                    <h2>Web App</h2>
-                    <p>
-                        <a href="app/index.html">Run Project</a>
-                    </p>
-                    <p>This is a progressive web app that shows some of the other projects in a mobile friendly view. It also uses service workers so it can run offline.</p>
-                <div class="clear"></div>
-            </div>
-            <!-- End of Project Template-->
 
             <!-- Start of Project Template-->
             <div class="project">
@@ -77,6 +65,18 @@
                         <a href="minesweeper.html">Run Project</a>
                     </p>
                     <p>Minesweeper</p>
+                <div class="clear"></div>
+            </div>
+            <!-- End of Project Template-->
+                        
+            <!-- Start of Project Template-->
+            <div class="project">
+                <a href="app/index.html"><img src="images/projectimg-app.png" alt="Image Picture"/></a>
+                    <h2>Web App / Mobile Site</h2>
+                    <p>
+                        <a href="app/index.html">Run Project</a>
+                    </p>
+                    <p>This is a progressive web app that shows some of the other projects in a mobile friendly view. It also uses service workers so it can run offline.</p>
                 <div class="clear"></div>
             </div>
             <!-- End of Project Template-->
@@ -131,7 +131,7 @@
         }
 
         function mobileSite() {
-            if (isMobileDevice()) {
+            if (isMobileDevice() && confirm("Switch to mobile site?")) {
                 window.open("app/index.html", "_parent");
             }
         }        
