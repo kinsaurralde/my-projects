@@ -214,6 +214,7 @@ function setGraph(setting) {
   inputs[0].highlightParametric = boolean(setting.ParametricTop);
   inputs[0].highlightFunction = boolean(setting.FunctionTop);
   inputs[0].highlightPolar = boolean(setting.PolarTop);
+  inputs[0].dots = setting.Dots;
 
   inputs[1].inputHTML[0].children[0].value = setting.Bot; // Set bottom input to saved settings
   inputs[1].highlightPoints = boolean(setting.PointsBot);
@@ -221,6 +222,7 @@ function setGraph(setting) {
   inputs[1].highlightParametric = boolean(setting.ParametricBot);
   inputs[1].highlightFunction = boolean(setting.FunctionBot);
   inputs[1].highlightPolar = boolean(setting.PolarBot);
+  inputs[1].dots = setting.Dots;
 
   for (i = 0; i < 2; i++) { // Change modes to match new settigns
     if (inputs[i].highlightParametric) {
@@ -365,8 +367,8 @@ function resetTransformations() {
   graphScale = 100;
   xMin = -25;
   xMax = 25;
-  inputs[0].dots = 1000;
-  inputs[1].dots = 1000;
+  inputs[0].dots = 400;
+  inputs[1].dots = 400;
   calculateAllPoints();
   updateDraw = true;
 }
@@ -514,7 +516,7 @@ class Equation {
     this.y = new Array(2000);
     this.minX = xMin;
     this.maxX = xMax;
-    this.dots = 1000;
+    this.dots = 400;
 
     /* HTML */
 
@@ -543,12 +545,16 @@ class Equation {
   /* Buttons */
 
   buttonParametric() {
+    console.log("PARAMETRIC CLOCKED!!!!!!!!!!!!");
     inputs[0].highlightParametric = true;
     inputs[1].highlightParametric = true;
     inputs[0].highlightPolar = false;
     inputs[1].highlightPolar = false;
     inputs[0].highlightFunction = false;
     inputs[1].highlightFunction = false;
+    this.mode = 1;
+    this.calculatePoints();
+    inputs[1].clearPoints();
   }
 
   buttonFunction() {
@@ -588,7 +594,8 @@ class Equation {
   }
 
   buttonClear() {
-
+    this.inputHTML[0].children[0].value = "";
+    calculateAllPoints();
   }
 
   /* Inputs */
@@ -606,16 +613,35 @@ class Equation {
   calculatePoints() {
     var solveTimeStart = millis();
     this.equationOriginal = this.inputHTML[0].children[0].value;
-    //var testDerivative = math.derivative(this.equationOriginal, 'x').toString();
-    if (this.mode == 2) {
-      this.minX = xMin;
-      this.maxX = xMax;
-      this.calculateFunction();
+    try {
+      var testDerivative = math.derivative(this.equationOriginal, 'x').toString();
+      console.log("Derivative (",this.number,") :",testDerivative);
+      if (testDerivative < 100) {
+        console.log("Equation (",this.number,") is a line");
+        //this.dots = 2;
+      } else {
+       // this.dots = 400;
+      }
+    } catch {
+      console.log("Derivative not avalible (",this.number,")");
+    }
+    if (this.mode == 1) {
+      //if (this.number == 0) {
+        this.minX = xMin;
+        this.maxX = xMax;
+        this.calculateParametric();
+      //}
     } else {
-      if (this.mode == 3) { // polar
-        this.minX = (xMin + 25) / 25 * PI;
-        this.maxX = (xMax + 25) / 25 * PI;
-        this.calculatePolar();
+      if (this.mode == 2) {
+        this.minX = xMin;
+        this.maxX = xMax;
+        this.calculateFunction();
+      } else {
+        if (this.mode == 3) { // polar
+          this.minX = (xMin + 25) / 25 * PI;
+          this.maxX = (xMax + 25) / 25 * PI;
+          this.calculatePolar();
+        }
       }
     }
     solveTime = millis() - solveTimeStart;
@@ -623,7 +649,8 @@ class Equation {
 
   calculateFunction() {
     var currentEval = this.minX;
-    var varChange = (this.maxX - this.minX) / this.dots;
+    var varChange = (this.maxX - this.minX) / (this.dots-1);
+    currentEval -= varChange;
     for (var i = 0; i < this.dots; i++) {
       currentEval += varChange;
       let scope = {
@@ -635,7 +662,8 @@ class Equation {
         this.y[i] *= -1;
       }
       catch {
-        console.log("Invalid Input");
+        console.log("Invalid Input (",this.number,")");
+        return;
       }
     }
     updateDraw = true;
@@ -661,15 +689,44 @@ class Equation {
     updateDraw = true;
   }
 
+  calculateParametric() {
+    console.log("Parametric");
+    var currentEval = this.minX;
+    var varChange = (this.maxX - this.minX) / this.dots;
+    for (var i = 0; i < this.dots; i++) {
+      currentEval += varChange;
+      let scope = {
+        x: currentEval
+      };
+      try {
+        this.x[i] = math.eval(inputs[0].equationOriginal, scope);
+        this.y[i] = math.eval(inputs[1].equationOriginal, scope);
+        this.y[i] *= -1;
+      }
+      catch {
+        console.log("Invalid Input");
+      }
+    }
+    updateDraw = true;
+  }
+
+  clearPoints() {
+    for (var i = 0; i < 2000; i++) {
+      this.x[i] = 0;
+      this.y[i] = 0;
+    }
+  }
+
   /* Draw */
 
   draw() {
     stroke(this.color);
-    for (var i = 1; i < this.dots; i++) {
-      scaleStrokeWeight(5);
+    for (var i = 0; i < this.dots; i++) {
+      scaleStrokeWeight(15);
       if (this.highlightPoints) {
         scalePoint((this.x[i] * graphScale * windowScale) + translateX, (this.y[i] * graphScale * windowScale) + translateY);
       }
+      scaleStrokeWeight(5);
       if (this.highlightLine) {
         scaleLine((this.x[i] * graphScale * windowScale) + translateX, (this.y[i] * graphScale * windowScale) + translateY, (this.x[i - 1] * graphScale * windowScale) + translateX, (this.y[i - 1] * graphScale * windowScale) + translateY);
       }
