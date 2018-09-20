@@ -1,8 +1,9 @@
 var graphw = 1280, graphh = 720, windowScale = 1.5;                         // Graph settings
-var scroll = 50, translateX = 0, translateY = 0;                            // Transformation settings
+var scroll = 50, translateX = 0, translateY = 0, current = "none";          // Transformation settings
+var xMin = -25, xMax = 25;
 var updateDraw = true;                                                      // 
 var solveTime = 0;                                                          //
-var leftSidePage = 0;                                                       // Page number for custom equations
+var leftSidePage = 0, bottomPage = 0;                                       // Page number for custom equations
 var sheet;                                                                  // Google Sheet
 var graphScale = 100;                                                       // Graph magnifier
 var inputs = new Array(2);                                                  // Input classes with settings
@@ -25,7 +26,7 @@ function setupArrays() {
 
 function draw() {
   translate(width / 2, height / 2);
-  checkInputs();
+  moveGraph();
   if (updateDraw) {
     drawClearedGraph();
     drawGraphWindow();
@@ -92,6 +93,29 @@ function drawBoxes() {
   scaleRectHighlight(520, -410, 70, 50, inputs[1].highlightLine, inputs[1].color); // f2(x) Line Button 
   scaleRectHighlight(600, -410, 70, 50, inputs[1].highlightClear, inputs[1].color);  // f2(x) Clear Button
 
+  scaleRect(-580, 440, 120, 110); // Previous Page bottom bar
+  scaleRect(580, 440, 120, 110); // Next page bottom bar
+
+  if (bottomPage == 0) {
+    scaleRect(0, 470, 230, 50); // Reset graph transformations
+    scaleRect(-60, 410, 110, 50); // Up arrow transformation
+    scaleRect(60, 410, 110, 50); // Down arrow transformation
+    scaleRect(-180, 440, 110, 110); // Left arrow transformation
+    scaleRect(180, 440, 110, 110); // Right arrow transformation
+
+    //console.log(document.getElementById("side-1"). )
+
+    scaleRect(-320, 410, 110, 50); // Scale +
+    scaleRect(-320, 470, 110, 50); // Scale -
+    scaleRect(320, 410, 110, 50); // Min X +
+    scaleRect(320, 470, 110, 50); // Min X -
+
+    scaleRect(-440, 410, 110, 50); // Dots +
+    scaleRect(-440, 470, 110, 50); // Dots -
+    scaleRect(440, 410, 110, 50); // Max X +
+    scaleRect(440, 470, 110, 50); // Max X -
+  }
+
   for (i = 0; i < 8; i++) {
     scaleRectHighlight(-820, -250 + 70 * i, 204, 50); // Custom equation boxes (left)
     scaleRectHighlight(820, -250 + 70 * i, 204, 50); // Solving boxes (right)
@@ -126,8 +150,8 @@ function drawBoxes() {
     }
   }
 
-  scaleText("Previous Page", -820, 170);
-  scaleText("Next Page", -820, 240);
+  scaleText("Previous Page", -820, 170); // left buttons
+  scaleText("Next Page", -820, 240); // right buttons
 
   scaleText("", 820, -250); // Undecided
   scaleText("", 820, -180); // Undecided
@@ -136,11 +160,35 @@ function drawBoxes() {
   scaleText("", 820, 30); // Undecided
   scaleText("", 820, 100); // Undecided
 
+  scaleText("Previous \nPage", -580, 440);
+  scaleText("Next \nPage", 580, 440);
+
+  if (bottomPage == 0) {
+    scaleText("Reset", 0, 470);
+
+    scaleText("Scale +", -320, 410);
+    scaleText("Scale -", -320, 470);
+    scaleText("Dots +", -440, 410);
+    scaleText("Dots -", -440, 470);
+
+    scaleText("Min X +",320,410);
+    scaleText("Min X -",320,470);
+    scaleText("Max X +",440,410);
+    scaleText("Max X -",440,470);
+
+    scaleTextSize(35);
+    scaleText("\u2191", -60, 405); // Up arrow (bottom buttons)
+    scaleText("\u2193", 60, 405); // Down arrow (bottom buttons)
+    scaleTextSize(50);
+    scaleText("\u2190", -180, 435); // Left arrow (bottom buttons)
+    scaleText("\u2192", 180, 435); // Right arrow (bottom buttons)
+  }
+
   fill(0);
   scaleTextSize(15);
   textAlign(CENTER);
   noStroke();
-  scaleText("FPS: "+round(frameRate())+" Solve Time: "+round(solveTime)+"ms "+" Scale: "+graphScale+" Points: "+inputs[0].dots, 0, -370);
+  scaleText("FPS: " + round(frameRate()) + " Solve Time: " + round(solveTime) + "ms " + " Scale: " + graphScale + " Points: " + inputs[0].dots+" Scroll: "+scroll+" Min X: "+xMin+" Max X: "+xMax, 0, -370);
 }
 
 function checkInputs() {
@@ -188,9 +236,59 @@ function setGraph(setting) {
     }
   }
 
-  inputs[0].calculatePoints(); // Solve top equation
-  inputs[1].calculatePoints(); // Solve bottom equation
+  calculateAllPoints(); // Calculates both equations
 }
+
+function changeScale(scroll) {
+  if (scroll <= 10) {
+    graphScale = scroll * .1;
+  }
+  else {
+    if (scroll <= 20) {
+      graphScale = (scroll - 10) * 1;
+    }
+    else {
+      if (scroll <= 50) {
+        graphScale = ((scroll - 20) * 3) + 10;
+      }
+      else {
+        if (scroll <= 70) {
+          graphScale = (scroll - 30) * 5;
+        }
+        else {
+          if (scroll <= 90) {
+            graphScale = (scroll - 50) * 10;
+          }
+          else {
+            if (scroll <= 100) {
+              graphScale = (scroll - 70) * 20;
+            }
+            else {
+              if (scroll <= 110) {
+                graphScale = (scroll - 85) * 40;
+              }
+              else {
+                if (scroll <= 120) {
+                  graphScale = (scroll - 100) * 100;
+                }
+                else {
+                  graphScale = (scroll - 118) * 1000;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+function calculateAllPoints() {
+  inputs[0].calculatePoints();
+  inputs[1].calculatePoints();
+}
+
+
 
 /****************************** Sheets *******************************/
 
@@ -210,7 +308,7 @@ function sendData() {
 
 function showInfo(data, tabletop) {
   sheet = data;
-  console.log("Data downloaded:",sheet);
+  console.log("Data downloaded:", sheet);
 }
 
 
@@ -228,39 +326,7 @@ function mouseWheel(event) {
     }
     var wheel = -1 * amount;
     scroll = constrain(scroll + wheel, 0, 128);
-    if (scroll <= 10) {
-      graphScale = scroll * .1;
-    } else {
-      if (scroll <= 20) {
-        graphScale = (scroll - 10) * 1;
-      } else {
-        if (scroll <= 50) {
-          graphScale = ((scroll - 20) * 3) + 10;
-        } else {
-          if (scroll <= 70) {
-            graphScale = (scroll - 30) * 5;
-          } else {
-            if (scroll <= 90) {
-              graphScale = (scroll - 50) * 10;
-            } else {
-              if (scroll <= 100) {
-                graphScale = (scroll - 70) * 20;
-              } else {
-                if (scroll <= 110) {
-                  graphScale = (scroll - 85) * 40;
-                } else {
-                  if (scroll <= 120) {
-                    graphScale = (scroll - 100) * 100;
-                  } else {
-                    graphScale = (scroll - 118) * 1000;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+    changeScale(scroll);
     updateDraw = true;
     return false; // Prevent browser scrolling
   }
@@ -275,16 +341,99 @@ function buttonSide(num) {
     }
     return;
   }
-  if (num == 6 ) { // Previous page button
+  if (num == 6) { // Previous page button
     leftSidePage = constrain(leftSidePage - 1, 0, 2);
-    console.log("Previous custom graph page: ",leftSidePage);
+    console.log("Previous custom graph page: ", leftSidePage);
   }
   if (num == 7) { // Next page button
     leftSidePage = constrain(leftSidePage + 1, 0, 2);
-    console.log("Next custom graph page: ",leftSidePage);
+    console.log("Next custom graph page: ", leftSidePage);
   }
 }
 
+function bottomPreviousPage() {
+  bottomPage = constrain(bottomPage - 1, 0, 2);
+}
+
+function bottomNextPage() {
+  bottomPage = constrain(bottomPage + 1, 0, 2);
+}
+
+function resetTransformations() {
+  translateX = 0;
+  translateY = 0;
+  graphScale = 100;
+  xMin = -25;
+  xMax = 25;
+  inputs[0].dots = 1000;
+  inputs[1].dots = 1000;
+  calculateAllPoints();
+  updateDraw = true;
+}
+
+function moveGraph() {
+  checkInputs();
+  if (current == "none") {
+    return;
+  }
+  if (current == "left") {
+    translateX -= 10;
+  }
+  if (current == "right") {
+    translateX += 10;
+  }
+  if (current == "up") {
+    translateY -= 10;
+  }
+  if (current == "down") {
+    translateY += 10;
+  }
+  if (current == "scroll+") {
+    scroll = constrain(scroll+1,0,128);
+    changeScale(scroll);
+  }
+  if (current == "scroll-") {
+    scroll = constrain(scroll-1,0,128);
+    changeScale(scroll);
+  }
+  if (current == "dots+") {
+    inputs[0].dots = constrain(inputs[0].dots + 10, 0, 2000);
+    inputs[1].dots = constrain(inputs[1].dots + 10, 0, 2000);
+    calculateAllPoints();
+  }
+  if (current == "dots-") {
+    inputs[0].dots = constrain(inputs[0].dots - 10, 0, 2000);
+    inputs[1].dots = constrain(inputs[1].dots - 10, 0, 2000);
+    calculateAllPoints();
+  }
+  if (current == "max+") {
+    xMax++;
+    calculateAllPoints();
+  }
+  if (current == "max-") {
+    xMax--;
+    calculateAllPoints();
+  }
+  if (current == "min+") {
+    xMin++;
+    calculateAllPoints();
+  }
+  if (current == "min-") {
+    xMin--;
+    calculateAllPoints();
+  }
+  updateDraw = true;
+}
+
+function moveStart(direction) {
+  current = direction;
+  return false;
+}
+
+function moveEnd() {
+  current = "none";
+  return false;
+}
 
 
 /****************************** Scaled Shapes *******************************/
@@ -363,8 +512,8 @@ class Equation {
     /* Graph */
     this.x = new Array(2000);
     this.y = new Array(2000);
-    this.minX = -20;
-    this.maxX = 20;
+    this.minX = xMin;
+    this.maxX = xMax;
     this.dots = 1000;
 
     /* HTML */
@@ -419,7 +568,7 @@ class Equation {
     this.highlightPolar = true;
     this.highlightFunction = false;
     this.mode = 3;
-     this.calculatePoints();
+    this.calculatePoints();
     if (inputs[0].highlightParametric) {
       inputs[0].highlightPolar = true;
       inputs[1].highlightPolar = true;
@@ -457,15 +606,15 @@ class Equation {
   calculatePoints() {
     var solveTimeStart = millis();
     this.equationOriginal = this.inputHTML[0].children[0].value;
-    var testDerivative = math.derivative(this.equationOriginal, 'x').toString();
+    //var testDerivative = math.derivative(this.equationOriginal, 'x').toString();
     if (this.mode == 2) {
-      this.minX = -20;
-      this.maxX = 20;
+      this.minX = xMin;
+      this.maxX = xMax;
       this.calculateFunction();
     } else {
       if (this.mode == 3) { // polar
-        this.minX = 0;
-        this.maxX = 2*PI;
+        this.minX = (xMin + 25) / 25 * PI;
+        this.maxX = (xMax + 25) / 25 * PI;
         this.calculatePolar();
       }
     }
@@ -516,13 +665,13 @@ class Equation {
 
   draw() {
     stroke(this.color);
-    for (var i = 1; i < 1000; i++) {
+    for (var i = 1; i < this.dots; i++) {
       scaleStrokeWeight(5);
       if (this.highlightPoints) {
         scalePoint((this.x[i] * graphScale * windowScale) + translateX, (this.y[i] * graphScale * windowScale) + translateY);
       }
       if (this.highlightLine) {
-        scaleLine((this.x[i] * graphScale * windowScale) + translateX, (this.y[i] * graphScale * windowScale) + translateY, (this.x[i-1] * graphScale * windowScale) + translateX, (this.y[i-1] * graphScale * windowScale) + translateY);
+        scaleLine((this.x[i] * graphScale * windowScale) + translateX, (this.y[i] * graphScale * windowScale) + translateY, (this.x[i - 1] * graphScale * windowScale) + translateX, (this.y[i - 1] * graphScale * windowScale) + translateY);
       }
     }
     updateDraw = false;

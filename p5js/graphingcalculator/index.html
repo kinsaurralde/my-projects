@@ -15,7 +15,7 @@
   </head>
 
   <body>
-    <div id="sketch-holder">
+    <div id="sketch-holder" oncontextmenu="return false">
       <div class="level-0"> <!-- Top Equation Buttons -->
         <input type="text" class="input-top" id="input" name="input-0" value="" oninput="inputs[0].calculatePoints()">
         <input type="button" class="input-top" id="parametric" onclick="inputs[0].buttonParametric()">
@@ -54,6 +54,47 @@
         <input type="button" class="input-side" id="side-7" onclick="buttonSide(16)">
         <input type="button" class="input-side" id="side-8" onclick="buttonSide(17)">
       </div>
+      <div class="bottom">
+        <div class="all-pages">
+          <input type="button" class="input-bottom" id="previous" onclick="bottomPreviousPage()">
+          <input type="button" class="input-bottom" id="next" onclick="bottomNextPage()">
+        </div>
+        <div id="bottom-page-1">
+            <div class="level-10">
+              <input type="button" class="input-bottom" id="up-arrow" ontouchstart="moveStart('up')" ontouchend="moveEnd()" onmousedown="moveStart('up')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+              <input type="button" class="input-bottom" id="down-arrow" ontouchstart="moveStart('down')" ontouchend="moveEnd()" onmousedown="moveStart('down')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+              <input type="button" class="input-bottom" id="left-arrow" ontouchstart="moveStart('left')" ontouchend="moveEnd()" onmousedown="moveStart('left')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+              <input type="button" class="input-bottom" id="right-arrow" ontouchstart="moveStart('right')" ontouchend="moveEnd()" onmousedown="moveStart('right')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+              
+              <input type="button" class="input-bottom" id="scale" ontouchstart="moveStart('scroll+')" ontouchend="moveEnd()" onmousedown="moveStart('scroll+')" onmouseout="moveEnd()" onmouseup="moveEnd()">             
+              <input type="button" class="input-bottom" id="dots" ontouchstart="moveStart('dots+')" ontouchend="moveEnd()" onmousedown="moveStart('dots+')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+             
+              <input type="button" class="input-bottom" id="max-x" ontouchstart="moveStart('max+')" ontouchend="moveEnd()" onmousedown="moveStart('max+')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+              <input type="button" class="input-bottom" id="min-x" ontouchstart="moveStart('min+')" ontouchend="moveEnd()" onmousedown="moveStart('min+')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+            </div>
+          <div class="level-11">
+            <input type="button" class="input-bottom" id="reset-transformations" onclick="resetTransformations()">
+
+            <input type="button" class="input-bottom" id="scale" ontouchstart="moveStart('scroll-')" ontouchend="moveEnd()" onmousedown="moveStart('scroll-')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+            <input type="button" class="input-bottom" id="dots" ontouchstart="moveStart('dots-')" ontouchend="moveEnd()" onmousedown="moveStart('dots-')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+            
+            <input type="button" class="input-bottom" id="max-x" ontouchstart="moveStart('max-')" ontouchend="moveEnd()" onmousedown="moveStart('max-')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+            <input type="button" class="input-bottom" id="min-x" ontouchstart="moveStart('min-')" ontouchend="moveEnd()" onmousedown="moveStart('min-')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+          </div>
+        </div>
+      </div>
     </div>
+      <script>
+        function touchEnd() {
+          output.innerHTML = "END";
+          return false;
+        }
+
+        function touchStart() {
+          output.innerHTML = "START";
+          return false;
+        }
+    </script>
+    <!--<input type="button" ontouchstart="touchStart()" ontouchend="touchEnd()" onmousedown="touchStart()" onmouseout="touchEnd()" onmouseup="touchEnd()" height="200px;">-->
   </body>
 </html>
