@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <title>Postfix | kinsaurralde</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Postfix Calculator">
+    <meta name="keywords" content="Kyle, Insaurralde, weebly, netlify, postfix">
+    <meta name="author" content="Kyle Insaurralde">
+    <meta name="viewport" content="width=device-width">
+
+    <head>
+    </head>
+    <body>
+        <link rel="stylesheet" href="css/reset.css" type="text/css">
+        <link rel="stylesheet" href="css/styles.css" type="text/css">
+        <link rel="stylesheet" href="css/postfix.css" type="text/css">
+        <script language="javascript" type="text/javascript" src="js/website.js"></script>
+
+        <div id="overlay" >
+            <iframe src="pages/navbar.html" onload="navReset()" id="iframeover"></iframe>
+        </div>  
+  
+        <div class="space-50"></div>
+        <div class="space-10"></div>
+
+        <div id="content">
+            <div id="page-title">
+                <p>Postfix Calculator</p>
+            </div>
+            <div class="space-20"></div>
+            <div class="title-center">Input</div>
+            <div class="space-10"></div>
+            <div class="postfix-center">
+                <input type="text" id="input">
+                <div class="space-10"></div>
+                <input type="button" id="calculate" value="Calculate" onclick="send()">
+                <div class="space-10"></div>
+                <div class="title-center">Output</div>
+                <div class="space-10"></div>
+                <div id="output">[ None ]</div>
+                <div class="space-10"></div>
+                <div class="title-center">Description</div>
+                <div class="space-5"></div>
+                <p>
+                    This is a calculator that reads its input in postfix notation. 
+                    <br>All inputs must be valid postfix expressions, contain valid numbers and operators, and cant divide by 0 
+                    <br>Valid numbers are 32 bit signed integers and valid operators are +, -, *, and / (floor division)
+                    <br>An example equation is: 2147483647 2147483647 - -2147483646 -2147483646 - + 1 1 1 1 1 1 1 1 1 1 + + + + + + + + + 10 - + 1 2 / + 2 1 / + 3 *
+                </p>
+                <div class="space-10"></div>
+                <div class="title-center">Advanced</div>
+                <div class="space-5"></div>
+                <div class="advanced">Raw Input:<div id="raw-input">[ None ]</div></div>
+                <div class="advanced">Encoded Input:<div id="encoded-input">[ None ]</div></div>
+                <div class="advanced">Error Message:<div id="error-message">[ None ]</div></div>
+                <div class="advanced">Status Code:<div id="status-code">[ None ]</div></div>
+                <div class="space-10"></div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <script>
+        function send() {
+            console.log("\n\nSending equation");
+            document.getElementById("output").innerHTML = "[ Loading ]";
+            getJSON(formatInput());
+        }
+        
+        function formatInput() {
+            raw = document.getElementById("input").value;
+            document.getElementById("raw-input").innerHTML = raw;
+            console.log("Raw Input:",raw);
+            encoded = encodeURIComponent(raw);
+            document.getElementById("encoded-input").innerHTML = encoded;
+            console.log("Encoded Input:",encoded);
+            full = "https://kjtx1motz8.execute-api.us-west-1.amazonaws.com/prod?string="+encoded;
+            return full;
+        }
+
+        function getJSON(url) { // From http://youmightnotneedjquery.com/
+            var request = new XMLHttpRequest();
+            request.open('GET', url, true);
+
+            request.onload = function() {
+                document.getElementById("status-code").innerHTML = request.status;
+                if (request.status >= 200 && request.status < 400) {
+                    var data = JSON.parse(request.responseText);
+                    console.log("Data:",data);
+                    if (data["output"] == undefined) {
+                        document.getElementById("output").innerHTML = "[ Error: See Below ]";
+                    } else {
+                        document.getElementById("output").innerHTML = data["output"];
+                    }
+                    console.log("Output:",data["output"]);
+                    if (data["errorMessage"] == undefined) {
+                        document.getElementById("error-message").innerHTML = "[ None ]";
+                    } else {
+                        document.getElementById("error-message").innerHTML = data["errorMessage"];
+                    }
+                } else { // We reached our target server, but it returned an error
+                console.log("Wrong status code")
+                document.getElementById("output").innerHTML = "[ Wrong Status Code ]";
+                document.getElementById("error-message").innerHTML = "Wrong Status Code";
+                }
+            };
+
+            request.onerror = function() {
+                // There was a connection error of some sort
+                console.log("Connection Error");
+                document.getElementById("output").innerHTML = "[ Connection Error ]";
+                document.getElementById("error-message").innerHTML = " Connection Error";
+            };
+
+            request.send();
+        }
+        </script>
+    </body>
+</html>

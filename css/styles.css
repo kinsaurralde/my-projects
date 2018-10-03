@@ -115,6 +115,12 @@ a:hover {
     padding-bottom: 5px;
 }
 
+.title-center {
+    text-align: center;
+    font-size: 2em;
+    font-weight: 100;
+}
+
 .text {
     text-align: left;
     font-size: 1em;
