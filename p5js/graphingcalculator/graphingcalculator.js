@@ -1,6 +1,7 @@
 var graphw = 1280, graphh = 720, windowScale = 1.5;                         // Graph settings
 var scroll = 50, translateX = 0, translateY = 0, current = "none";          // Transformation settings
-var xMin = -25, xMax = 25;
+var xMin = -25, xMax = 25, xMin1 = -25, xMax1 = 25;
+var manualDots = false;
 var updateDraw = true;                                                      // 
 var solveTime = 0;                                                          //
 var leftSidePage = 0, bottomPage = 0;                                       // Page number for custom equations
@@ -102,19 +103,27 @@ function drawBoxes() {
     scaleRect(60, 410, 110, 50); // Down arrow transformation
     scaleRect(-180, 440, 110, 110); // Left arrow transformation
     scaleRect(180, 440, 110, 110); // Right arrow transformation
-
-    //console.log(document.getElementById("side-1"). )
-
-    scaleRect(-320, 410, 110, 50); // Scale +
-    scaleRect(-320, 470, 110, 50); // Scale -
-    scaleRect(320, 410, 110, 50); // Min X +
-    scaleRect(320, 470, 110, 50); // Min X -
-
-    scaleRect(-440, 410, 110, 50); // Dots +
-    scaleRect(-440, 470, 110, 50); // Dots -
-    scaleRect(440, 410, 110, 50); // Max X +
-    scaleRect(440, 470, 110, 50); // Max X -
   }
+
+  if (bottomPage == 1) {
+    scaleRect(-200, 440, 110, 110); // Dots top
+    scaleRect(-80, 440, 110, 110); // Reset top
+    scaleRect(80, 440, 110, 110); // Reset bot
+    scaleRect(200, 440, 110, 110); // Dots bot
+    if (manualDots) {
+      stroke(inputs[0].color); // Left boxes highlighted same as top
+      scaleRect(-260, 440, 480, 120);
+      stroke(inputs[1].color); // Right boxes highlighted same as bot
+      scaleRect(260, 440, 480, 120);
+    }
+    stroke(0);
+  }
+
+  scaleRect(-320, 440, 110, 110); // Scale + // Min x top
+  scaleRect(320, 440, 110, 110); // fullscreen // Min x bot
+
+  scaleRect(-440, 440, 110, 110); // Scale - // Max x top
+  scaleRectHighlight(440, 440, 110, 110, manualDots && bottomPage == 0, color(255, 255, 0)); // toggle manual // Max x bot
 
   for (i = 0; i < 8; i++) {
     scaleRectHighlight(-820, -250 + 70 * i, 204, 50); // Custom equation boxes (left)
@@ -160,35 +169,44 @@ function drawBoxes() {
   scaleText("", 820, 30); // Undecided
   scaleText("", 820, 100); // Undecided
 
+  scaleTextSize(25);
   scaleText("Previous \nPage", -580, 440);
   scaleText("Next \nPage", 580, 440);
 
   if (bottomPage == 0) {
     scaleText("Reset", 0, 470);
 
-    scaleText("Scale +", -320, 410);
-    scaleText("Scale -", -320, 470);
-    scaleText("Dots +", -440, 410);
-    scaleText("Dots -", -440, 470);
-
-    scaleText("Min X +",320,410);
-    scaleText("Min X -",320,470);
-    scaleText("Max X +",440,410);
-    scaleText("Max X -",440,470);
+    scaleText("Scale \n-", -440, 440);
+    scaleText("Scale \n+", -320, 440);
+    scaleText("Full \nscreen", 320, 440);
+    scaleText("Manual \nDots", 440, 440);
 
     scaleTextSize(35);
     scaleText("\u2191", -60, 405); // Up arrow (bottom buttons)
     scaleText("\u2193", 60, 405); // Down arrow (bottom buttons)
-    scaleTextSize(50);
+    scaleTextSize(60);
     scaleText("\u2190", -180, 435); // Left arrow (bottom buttons)
     scaleText("\u2192", 180, 435); // Right arrow (bottom buttons)
+
+
+  }
+  if (bottomPage == 1) {
+    scaleText("Max X", -440, 410);
+    scaleText("Min X", -320, 410);
+    scaleText("Dots", -200, 410);
+    scaleText("Reset", -80, 440);
+    scaleText("Reset", 80, 440);
+    scaleText("Dots", 200, 410);
+    scaleText("Min X", 320, 410);
+    scaleText("Max X", 440, 410);
   }
 
   fill(0);
   scaleTextSize(15);
   textAlign(CENTER);
   noStroke();
-  scaleText("FPS: " + round(frameRate()) + " Solve Time: " + round(solveTime) + "ms " + " Scale: " + graphScale + " Points: " + inputs[0].dots+" Scroll: "+scroll+" Min X: "+xMin+" Max X: "+xMax, 0, -370);
+  scaleText("FPS: " + round(frameRate()) + " Solve Time: " + round(solveTime) + "ms " + " Scale: " + graphScale + " Top Dots: " + inputs[0].dots + " Bot Dots: " + inputs[1].dots + " Scroll: " + scroll + " Min/Max X Top: " + inputs[0].minX +","+inputs[0].maxX  + " Min/Max X Bot: " + inputs[1].minX +","+inputs[1].maxX + " Manual: " + manualDots, 0, -370);
+  noFill();
 }
 
 function checkInputs() {
@@ -290,6 +308,23 @@ function calculateAllPoints() {
   inputs[1].calculatePoints();
 }
 
+function bottomPageVisibility() {
+  document.getElementById("bottom-page-0").style.visibility = "hidden";
+  document.getElementById("bottom-page-1").style.visibility = "hidden";
+  document.getElementById("bottom-page-" + bottomPage).style.visibility = "visible";
+}
+
+function updateFromInputs() {
+  inputs[0].maxXUnits = document.getElementById("max-x-top").value;
+  inputs[0].minXUnits = document.getElementById("min-x-top").value;
+  inputs[0].dots = document.getElementById("dots-top").value;
+  inputs[1].maxXUnits = document.getElementById("max-x-bot").value;
+  inputs[1].minXUnits = document.getElementById("min-x-bot").value;
+  inputs[1].dots = document.getElementById("dots-bot").value;
+  manualDots = true;
+  calculateAllPoints();
+}
+
 
 
 /****************************** Sheets *******************************/
@@ -355,20 +390,18 @@ function buttonSide(num) {
 
 function bottomPreviousPage() {
   bottomPage = constrain(bottomPage - 1, 0, 2);
+  bottomPageVisibility();
 }
 
 function bottomNextPage() {
   bottomPage = constrain(bottomPage + 1, 0, 2);
+  bottomPageVisibility();
 }
 
 function resetTransformations() {
   translateX = 0;
   translateY = 0;
   graphScale = 100;
-  xMin = -25;
-  xMax = 25;
-  inputs[0].dots = 400;
-  inputs[1].dots = 400;
   calculateAllPoints();
   updateDraw = true;
 }
@@ -391,38 +424,12 @@ function moveGraph() {
     translateY += 10;
   }
   if (current == "scroll+") {
-    scroll = constrain(scroll+1,0,128);
+    scroll = constrain(scroll + 1, 0, 128);
     changeScale(scroll);
   }
   if (current == "scroll-") {
-    scroll = constrain(scroll-1,0,128);
+    scroll = constrain(scroll - 1, 0, 128);
     changeScale(scroll);
-  }
-  if (current == "dots+") {
-    inputs[0].dots = constrain(inputs[0].dots + 10, 0, 2000);
-    inputs[1].dots = constrain(inputs[1].dots + 10, 0, 2000);
-    calculateAllPoints();
-  }
-  if (current == "dots-") {
-    inputs[0].dots = constrain(inputs[0].dots - 10, 0, 2000);
-    inputs[1].dots = constrain(inputs[1].dots - 10, 0, 2000);
-    calculateAllPoints();
-  }
-  if (current == "max+") {
-    xMax++;
-    calculateAllPoints();
-  }
-  if (current == "max-") {
-    xMax--;
-    calculateAllPoints();
-  }
-  if (current == "min+") {
-    xMin++;
-    calculateAllPoints();
-  }
-  if (current == "min-") {
-    xMin--;
-    calculateAllPoints();
   }
   updateDraw = true;
 }
@@ -436,6 +443,15 @@ function moveEnd() {
   current = "none";
   return false;
 }
+
+function toggleManual() {
+  manualDots = !manualDots;
+  if (manualDots) {
+    updateFromInputs();
+  }
+  calculateAllPoints();
+}
+
 
 
 /****************************** Scaled Shapes *******************************/
@@ -500,6 +516,7 @@ function setWindowSize() { // Resizes canvas and sets windowScale
 function fullScreen() {
   fs = fullscreen();
   fullscreen(!fs);
+  setTimeout(function () { updateDraw = true; }, 500);
 }
 
 
@@ -514,8 +531,10 @@ class Equation {
     /* Graph */
     this.x = new Array(2000);
     this.y = new Array(2000);
-    this.minX = xMin;
-    this.maxX = xMax;
+    this.minXUnits = -25;
+    this.maxXUnits = 25;
+    this.minX = this.minXUnits;
+    this.maxX = this.maxXUnits;
     this.dots = 400;
 
     /* HTML */
@@ -528,7 +547,11 @@ class Equation {
     this.equationOriginal = this.inputHTML[0].children[0].value;
 
     /* Outputs */
-    this.color = color(255, 0, 255);
+    if (this.number == 0) {
+      this.color = color(255, 0, 0);
+    } else {
+      this.color = color(0, 0, 255);
+    }
     this.highlightInput = false;
     this.highlightPoints = false;
     this.highlightLine = true;
@@ -545,7 +568,6 @@ class Equation {
   /* Buttons */
 
   buttonParametric() {
-    console.log("PARAMETRIC CLOCKED!!!!!!!!!!!!");
     inputs[0].highlightParametric = true;
     inputs[1].highlightParametric = true;
     inputs[0].highlightPolar = false;
@@ -615,31 +637,37 @@ class Equation {
     this.equationOriginal = this.inputHTML[0].children[0].value;
     try {
       var testDerivative = math.derivative(this.equationOriginal, 'x').toString();
-      console.log("Derivative (",this.number,") :",testDerivative);
-      if (testDerivative < 100) {
-        console.log("Equation (",this.number,") is a line");
-        //this.dots = 2;
-      } else {
-       // this.dots = 400;
+      console.log("Derivative (", this.number, ") :", testDerivative);
+      if (!manualDots && this.mode == 2) {
+        if (testDerivative < 100) {
+          console.log("Equation (", this.number, ") is a line");
+          this.dots = 2;
+          this.minXUnits = -100000;
+          this.maxXUnits = 100000;
+        } else {
+          this.dots = 400;
+          this.minXUnits = -25;
+          this.maxXUnits = 25;
+        }
       }
     } catch {
-      console.log("Derivative not avalible (",this.number,")");
+      console.log("Derivative not avalible (", this.number, ")");
     }
     if (this.mode == 1) {
       //if (this.number == 0) {
-        this.minX = xMin;
-        this.maxX = xMax;
-        this.calculateParametric();
+      this.minX = this.minXUnits;
+      this.maxX = this.maxXUnits;
+      this.calculateParametric();
       //}
     } else {
       if (this.mode == 2) {
-        this.minX = xMin;
-        this.maxX = xMax;
+        this.minX = this.minXUnits;
+        this.maxX = this.maxXUnits;
         this.calculateFunction();
       } else {
         if (this.mode == 3) { // polar
-          this.minX = (xMin + 25) / 25 * PI;
-          this.maxX = (xMax + 25) / 25 * PI;
+          this.minX = (this.minXUnits + 25) / 25 * PI;
+          this.maxX = (this.maxXUnits + 25) / 25 * PI;
           this.calculatePolar();
         }
       }
@@ -649,7 +677,7 @@ class Equation {
 
   calculateFunction() {
     var currentEval = this.minX;
-    var varChange = (this.maxX - this.minX) / (this.dots-1);
+    var varChange = (this.maxX - this.minX) / (this.dots - 1);
     currentEval -= varChange;
     for (var i = 0; i < this.dots; i++) {
       currentEval += varChange;
@@ -662,7 +690,7 @@ class Equation {
         this.y[i] *= -1;
       }
       catch {
-        console.log("Invalid Input (",this.number,")");
+        console.log("Invalid Input (", this.number, ")");
         return;
       }
     }

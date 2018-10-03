@@ -59,27 +59,32 @@
           <input type="button" class="input-bottom" id="previous" onclick="bottomPreviousPage()">
           <input type="button" class="input-bottom" id="next" onclick="bottomNextPage()">
         </div>
-        <div id="bottom-page-1">
+        <div id="bottom-page-0">
             <div class="level-10">
               <input type="button" class="input-bottom" id="up-arrow" ontouchstart="moveStart('up')" ontouchend="moveEnd()" onmousedown="moveStart('up')" onmouseout="moveEnd()" onmouseup="moveEnd()">
               <input type="button" class="input-bottom" id="down-arrow" ontouchstart="moveStart('down')" ontouchend="moveEnd()" onmousedown="moveStart('down')" onmouseout="moveEnd()" onmouseup="moveEnd()">
               <input type="button" class="input-bottom" id="left-arrow" ontouchstart="moveStart('left')" ontouchend="moveEnd()" onmousedown="moveStart('left')" onmouseout="moveEnd()" onmouseup="moveEnd()">
               <input type="button" class="input-bottom" id="right-arrow" ontouchstart="moveStart('right')" ontouchend="moveEnd()" onmousedown="moveStart('right')" onmouseout="moveEnd()" onmouseup="moveEnd()">
               
-              <input type="button" class="input-bottom" id="scale" ontouchstart="moveStart('scroll+')" ontouchend="moveEnd()" onmousedown="moveStart('scroll+')" onmouseout="moveEnd()" onmouseup="moveEnd()">             
-              <input type="button" class="input-bottom" id="dots" ontouchstart="moveStart('dots+')" ontouchend="moveEnd()" onmousedown="moveStart('dots+')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+              <input type="button" class="input-bottom" id="scale-p" ontouchstart="moveStart('scroll+')" ontouchend="moveEnd()" onmousedown="moveStart('scroll+')" onmouseout="moveEnd()" onmouseup="moveEnd()">             
+              <input type="button" class="input-bottom" id="scale-m" ontouchstart="moveStart('scroll-')" ontouchend="moveEnd()" onmousedown="moveStart('scroll-')" onmouseout="moveEnd()" onmouseup="moveEnd()">
              
-              <input type="button" class="input-bottom" id="max-x" ontouchstart="moveStart('max+')" ontouchend="moveEnd()" onmousedown="moveStart('max+')" onmouseout="moveEnd()" onmouseup="moveEnd()">
-              <input type="button" class="input-bottom" id="min-x" ontouchstart="moveStart('min+')" ontouchend="moveEnd()" onmousedown="moveStart('min+')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+              <input type="button" class="input-bottom" id="fullscreen" onclick="fullScreen()">
+              <input type="button" class="input-bottom" id="manual" onclick="toggleManual()">
             </div>
+            <div class="level-11">
+              <input type="button" class="input-bottom" id="reset-transformations" onclick="resetTransformations()">
+            </div>
+        </div>
+        <div id="bottom-page-1">
           <div class="level-11">
-            <input type="button" class="input-bottom" id="reset-transformations" onclick="resetTransformations()">
+            <input type="number" class="input-bottom-num" value="25" min="0" max="10000" id="max-x-top" oninput="updateFromInputs()">
+            <input type="number" class="input-bottom-num" value="-25" min="-10000" max="0" id="min-x-top" oninput="updateFromInputs()">
+            <input type="number" class="input-bottom-num" value="200" min="0" max="2000" id="dots-top" oninput="updateFromInputs()">
 
-            <input type="button" class="input-bottom" id="scale" ontouchstart="moveStart('scroll-')" ontouchend="moveEnd()" onmousedown="moveStart('scroll-')" onmouseout="moveEnd()" onmouseup="moveEnd()">
-            <input type="button" class="input-bottom" id="dots" ontouchstart="moveStart('dots-')" ontouchend="moveEnd()" onmousedown="moveStart('dots-')" onmouseout="moveEnd()" onmouseup="moveEnd()">
-            
-            <input type="button" class="input-bottom" id="max-x" ontouchstart="moveStart('max-')" ontouchend="moveEnd()" onmousedown="moveStart('max-')" onmouseout="moveEnd()" onmouseup="moveEnd()">
-            <input type="button" class="input-bottom" id="min-x" ontouchstart="moveStart('min-')" ontouchend="moveEnd()" onmousedown="moveStart('min-')" onmouseout="moveEnd()" onmouseup="moveEnd()">
+            <input type="number" class="input-bottom-num" value="200" id="dots-bot" oninput="updateFromInputs()">
+            <input type="number" class="input-bottom-num" value="-25" id="min-x-bot" oninput="updateFromInputs()">
+            <input type="number" class="input-bottom-num" value="25" id="max-x-bot" oninput="updateFromInputs()">
           </div>
         </div>
       </div>
