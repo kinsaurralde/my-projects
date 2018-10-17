@@ -3,7 +3,7 @@
     <title>kinsaurralde</title>
     <meta charset="UTF-8">
     <meta name="description" content="Kyle's Projects">
-    <meta name="keywords" content="Kyle, Insaurralde, weebly, bitballoon">
+    <meta name="keywords" content="Kyle, Insaurralde, weebly, netlify">
     <meta name="author" content="Kyle Insaurralde">
 
     <head>
@@ -32,19 +32,18 @@
         <div class="space-10"></div>
 
         <div id="projects">
-            
             <!-- Start of Project Template-->
             <div class="project">
-                <a href="app/index.html"><img src="images/projectimg-app.png" alt="Image Picture"/></a>
-                    <h2>Web App</h2>
+                <a href="https://weather.kinsaurralde.com"><img src="images/projectimg-weather.png" alt="Image Picture"/></a>
+                    <h2>Weather</h2>
                     <p>
-                        <a href="app/index.html">Run Project</a>
+                        <a href="https://weather.kinsaurralde.com">Run Project</a><span>&nbsp&nbsp</span><a href="https://github.com/kinsaurralde/website/releases">More Information</a><span>&nbsp&nbsp</span><a href="https://github.com/kinsaurralde/website/tree/weather">Code</a>
                     </p>
-                    <p>This is a progressive web app that shows some of the other projects in a mobile friendly view. It also uses service workers so it can run offline.</p>
+                    <p>This page displays the weather at your current location. It can also get the weather at user inputted coordinates. It displays todays high, low, and current temperatures, and has a second row that provides more options.</p>
                 <div class="clear"></div>
             </div>
             <!-- End of Project Template-->
-
+            
             <!-- Start of Project Template-->
             <div class="project">
                 <a href="tetris.html"><img src="images/projectimg-tetris.png" alt="Image Picture"/></a>
@@ -80,13 +79,37 @@
                 <div class="clear"></div>
             </div>
             <!-- End of Project Template-->
+                        
+            <!-- Start of Project Template-->
+            <div class="project">
+                <a href="app/index.html"><img src="images/projectimg-app.png" alt="Image Picture"/></a>
+                    <h2>Web App / Mobile Site</h2>
+                    <p>
+                        <a href="app/index.html">Run Project</a>
+                    </p>
+                    <p>This is a progressive web app that shows some of the other projects in a mobile friendly view.</p>
+                <div class="clear"></div>
+            </div>
+            <!-- End of Project Template-->
+           
+            <!-- Start of Project Template-->
+            <div class="project">
+                <a href="postfix.html"><img src="images/projectimg-postfix.png" alt="Image Picture"/></a>
+                    <h2>Postfix Calculator</h2>
+                    <p>
+                        <a href="postfix.html">Run Project</a>
+                    </p>
+                    <p>This is a calculator that reads its input in postfix notation</p>
+                <div class="clear"></div>
+            </div>
+            <!-- End of Project Template-->
 
             <!-- Start of Project Template-->
             <div class="project">
-                <a href="graphing-calculator.html"><img src="images/projectimg-ap.png" alt="Image Picture"/></a>
+                <a href="graphing-calculator-ap.html"><img src="images/projectimg-ap.png" alt="Image Picture"/></a>
                     <h2>Graphing Calculator</h2>
                     <p>
-                        <a href="graphing-calculator.html">Run Project</a>
+                        <a href="graphing-calculator-ap.html">Run Project</a>
                     </p>
                     <p>This is a graphing calculator made for my AP project. Click on the run project link to run the sketch and see the code.</p>
                 <div class="clear"></div>
@@ -131,7 +154,7 @@
         }
 
         function mobileSite() {
-            if (isMobileDevice()) {
+            if (isMobileDevice() && confirm("Switch to mobile site?")) {
                 window.open("app/index.html", "_parent");
             }
         }        

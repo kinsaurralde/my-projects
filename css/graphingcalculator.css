@@ -1,3 +1,8 @@
+input {
+    border-radius: 0px;
+    text-align: center;
+}
+
 .input-top {
     position: absolute;
     z-index: 10;
@@ -96,4 +101,137 @@
 
 #side-8 {
     top: 68.8vh;
+}
+
+.input-bottom {
+    position: absolute;
+    z-index: 10;
+    background-color: rgb(255, 255, 0);
+    opacity: .0;
+    width: 6vw;
+    height: 10.5vh;
+}
+
+.input-bottom-num {
+    position: absolute;
+    z-index: 10;
+    width: 5vw;
+    font-size: 3vh;
+    background-color: transparent;
+    border: none;
+}
+
+.all-pages input {
+    top: 84vh;
+    height: 10.5vh;
+    width: 7vw;
+}
+
+#previous {
+    left: 16.25vw;
+}
+
+#next {
+    left: 76.75vw;
+}
+
+.level-10 input {
+    top: 84vh;
+}
+
+.level-11 input {
+    top: 90vh;
+}
+
+#reset-transformations {
+    left: 44vw;
+    width: 12vw;
+    height: 5vh;
+}
+
+#up-arrow {
+    left: 44vw;
+    height: 5vh;
+}
+
+#down-arrow {
+    left: 50vw;
+    height: 5vh;
+}
+
+#left-arrow {
+    left: 37.5vw;
+}
+
+#right-arrow {
+    left: 56.5vw;
+}
+
+#scale-p {
+    left: 30.5vw;
+}
+
+#scale-m {
+    left: 24vw;
+}
+
+#fullscreen {
+    left: 63.75vw;
+}
+
+#manual {
+    left: 70vw;
+}
+
+#dots {
+    left: 24vw;
+    visibility: hidden;
+}
+
+#min-x {
+    left: 63.5vw;
+    visibility: hidden;
+}
+
+#max-x {
+    left: 70vw;
+    visibility: hidden;
+}
+
+#max-x-top {
+    left: 25.25vw;
+    height: 4.5vh;
+}
+
+#min-x-top {
+    left: 31.25vw;
+    height: 4.5vh;
+}
+
+#dots-top {
+    left: 37.75vw;
+    height: 4.5vh;
+}
+
+#dots-bot {
+    left: 58.75vw;
+    height: 4.5vh;
+}
+
+#min-x-bot {
+    left: 64.75vw;
+    height: 4.5vh;
+}
+
+#max-x-bot {
+    left: 71.25vw;
+    height: 4.5vh;
+}
+
+#bottom-page-0 {
+    visibility: visible;
+}
+
+#bottom-page-1 {
+    visibility: hidden;
 }

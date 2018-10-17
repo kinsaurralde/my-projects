@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <title>Minecraft | kinsaurralde</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Game">
+    <meta name="keywords" content="Kyle, Insaurralde, weebly, netlify, minecraft">
+    <meta name="author" content="Kyle Insaurralde">
+
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <link rel="stylesheet" href="css/reset.css" type="text/css">
+        <link rel="stylesheet" href="css/styles.css" type="text/css">
+        <link rel="stylesheet" href="css/minecraft.css" type="text/css">
+        <script language="javascript" type="text/javascript" src="js/website.js"></script>
+
+        <div id="overlay" >
+            <iframe src="pages/navbar.html" onload="navReset()" id="iframeover"></iframe>
+        </div>  
+  
+        <div class="space-50"></div>
+        <div class="space-10"></div>
+
+        <div id="content">
+          <div id="page-title">Minecraft</div>
+          <div class="space-20"></div>
+
+          <div class="title">Status: <span class="data" id="online">[ LOADING ]</span></div>
+          <div class="divider"></div>
+
+          <div class="title">Version: <span class="data" id="version">[ LOADING ]</span></div>
+          <div class="divider"></div>
+
+          <div class="title">Players: <span class="data" id="players">[ LOADING ]</span><span class="data"> / </span><span class="data" id="max-players">[ LOADING ]</span></div>
+          <div class="data" id="current-players">[ LOADING ]</div>
+          <div class="divider"></div>
+
+          <div class="title">MOTD: <span class="data" id="motd">[ LOADING ]</span></div>
+          <div class="divider"></div>
+
+          <div class="title">Last Query: <span class="data" id="cachetime">[ LOADING ]</span><span class="data"> Seconds Ago</span></div>
+          <div class="divider"></div>
+
+          <div class="title">Full JSON Data:</div>
+          <div class="data" id="json">[ LOADING ]</div>
+          <div class="divider"></div>
+
+
+        </div>
+
+        <script>
+          var info;
+          var cacheTime = Math.round(Date.now() / 1000);
+          $.getJSON('https://api.mcsrvstat.us/1/kinsaurralde.ddns.net', function(data) {
+            console.log(data);
+            info = data;
+            var status;
+            if (data["offline"] == true) {
+              status = "offline";
+            } else {
+              status = "online";
+            }
+            if (status == "online") {
+              document.getElementById("online").innerHTML = "Online";
+              document.getElementById("version").innerHTML = data["software"]+" "+data["version"];
+              document.getElementById("players").innerHTML = data["players"]["online"];
+
+              document.getElementById("max-players").innerHTML = data["players"]["max"];
+              var players = data["players"]["list"];
+              try {
+                players = players.toString();
+                for (i = 0; i < players.length; i++) {
+                  players = players.replace(",","<br />");
+                }
+              } catch {
+                players = "";
+              }
+              document.getElementById("current-players").innerHTML = players;
+
+              document.getElementById("motd").innerHTML = data["motd"]["clean"].toString().replace(","," ");
+
+              setInterval(function(){ getCacheTime(data["debug"]["cachetime"]); }, 1000);
+
+              status = "online";
+            } else {
+              document.getElementById("online").innerHTML = "Offline";
+              status = "offline";
+            }
+            var dataJSON = JSON.stringify(data, null, 3);
+            document.getElementById("json").innerHTML = dataJSON;
+          });
+
+          function getCacheTime(time) {
+            var lastQuery;
+            if (time == 0) {
+              time = cacheTime;
+            }
+            lastQuery = Math.round(Date.now() / 1000) - time;
+            console.log(time,lastQuery);
+            document.getElementById("cachetime").innerHTML = lastQuery;
+          }
+        </script>
+
+    </body>
+</html>
+
+

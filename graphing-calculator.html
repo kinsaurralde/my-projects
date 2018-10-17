@@ -2,8 +2,8 @@
 <html lang="en">
     <title>Graphing Calculator | kinsaurralde</title>
     <meta charset="UTF-8">
-    <meta name="description" content="This is a graphing calculator made for my AP projec">
-    <meta name="keywords" content="Kyle, Insaurralde, weebly, netlify, graphing calculator">
+    <meta name="description" content="This is the updated graphing calculator">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify, graphing calculator">
     <meta name="author" content="Kyle Insaurralde">
 
     <head>
@@ -21,7 +21,38 @@
         <div class="space-10"></div>
         
         <div id="content">
-            <iframe src="pages/graphing-calculator.html" id="pages"></iframe>
+            <div id="page-title">
+                <p>Graphing Calculator</p>
+            </div>
+            <div class="iframe-sketch">
+                <iframe src="p5js/GraphingCalculator/index.html" id="sketch"></iframe>
+            </div>
+            <div class="divider"></div>
+            <div class="title">Description</div>
+            <div class="text">
+                <p>This program is the javascript version of my AP project. It uses the p5js library. It can graph regular equations,
+                    polar equations, or parametric equations. Click the example buttons to see preset graphs or type your own
+                    by clicking on one of the textboxes. To enter a custom equation, click on one of the text boxes, type the
+                    equation, then press enter. Equations can use single digit positive numbers, x for the variable, p for pi,
+                    +, -, *, /, (, ), sin, cos, or tan. If a key isn't working, click anywhere on the canvas then try again.
+                    The original processing code can be downloaded by clicking the link below.</p>
+            </div>
+            <a href="p5js/GraphingCalculator/Versions/000/GraphingCalculator/GraphingCalculator.pde">Processing Version Download(.pde)</a>
+            <div class="divider"></div>
+            <div class="title">Controls</div>
+            <div class="text">
+                <p>• Space Bar: Reset scale and point 0,0 to center</p>
+                <p>• Left/Right Arrows: Increase/Decrease number of graphing dots</p>
+                <p>• Enter: Update graph</p>
+                <p>• F: Fullscreen</p>
+                <p>• Scroll Wheel: Change scale</p>
+            </div>
+            <div class="divider"></div>
+            <div class="code" id="code-div">
+                <div class="title">Code</div>
+                <iframe src="p5js/GraphingCalculator/GraphingCalculator.js" id="code-iframe"></iframe>
+            </div>
+            <div class="divider"></div>
         </div>
     </body>
 </html>

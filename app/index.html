@@ -108,7 +108,7 @@
             function redirectHttpToHttps() {
                 var httpURL = window.location.hostname + window.location.pathname;
                 var httpsURL= "https://" + httpURL;
-                if (location.port != 3000  && location.port != 25565 && window.location.protocol == "http:") {
+                if (location.port != 4000  && location.port != 25565 && window.location.protocol == "http:") {
                     window.location = httpsURL;
                 }
 
