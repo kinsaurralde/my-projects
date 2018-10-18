@@ -1,0 +1,108 @@
+html {
+    --testing: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+
+a {
+    color: rgb(255,81,0);
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(0,134,255);
+}
+
+/* Containers */
+
+#navbar-container {
+    width: 100vw;
+    height: 7.5vw;
+    position: absolute;
+    z-index: 10;
+}
+
+.project-container {
+    width: 20vw;
+    height: 20vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    background-color: rgba(0,255,0,var(--testing));
+    border: .1vw solid rgb(0,134,255);
+    border-radius: 10%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Spacers */
+
+.navbar-space {
+    padding-top: 15vh;
+}
+
+/* Page Layout */
+
+#content {
+    overflow: hidden;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    margin: 0 auto; /* centers projects div */
+    width: 90%; /* adds space on both sides */
+    max-width: 1080px; /* keeps div from being too wide */
+    background-color: rgba(255,0,0,var(--testing));
+}
+
+.content-flex {
+    background-color: rgba(0,255,255,var(--testing));
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Project Boxes */
+
+.project-title {
+    width: 90%;
+    height: 15%;
+    font-size: 2vw;
+    text-align: center;
+    padding-top: 1vw;
+    background-color: rgba(0,0,255,var(--testing));
+}
+
+.project-img {
+    position: relative;
+    top: -5vh;
+    width: 90%;
+    height: 15%;
+    background-color: rgba(255,0,255,var(--testing));
+}
+
+.project-img img {
+    width: 100%;
+}
+
+.project-link {
+    position: relative;
+    top: 4vh;
+    width: 90%;
+    height: 15%;
+    font-size: 2vw;
+    text-align: center;
+    padding-top: 1vw;
+    background-color: rgba(0,0,255,var(--testing));
+}
