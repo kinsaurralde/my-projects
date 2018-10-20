@@ -40,8 +40,8 @@
 
 .options a {
     display: block;
-    padding-top: .25rem;
-    padding-bottom: .25rem;
+    padding-top: .5vw;
+    padding-bottom: .5vw;
 }
 
 .options a:hover {
