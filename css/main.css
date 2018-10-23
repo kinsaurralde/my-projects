@@ -36,7 +36,9 @@ a:hover {
 .project-container {
     transition: height .1s;
     width: 20vw;
+    min-width: 200px;
     height: 20vw;
+    min-height: 200px;
     margin: 1vw 1vw 1vw 1vw;
     background-color: rgba(0,255,0,var(--testing));
     border: .1vw solid rgb(0,134,255);
