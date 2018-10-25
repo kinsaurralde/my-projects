@@ -1,0 +1,41 @@
+input {
+    border: .15vw solid rgb(0, 0, 0);
+}
+
+/* 02 Tower of Hanoi */
+
+#ecs036a-02-run {
+    border: .15vw solid rgb(175, 175, 175);
+    background-color: rgb(225, 225, 225);
+    width: 5vw;
+}
+
+.ecs036a-02-manual {
+    border: .15vw solid rgb(175, 175, 175);
+    background-color: rgb(225, 225, 225);
+    width: 3vw;
+}
+
+.ecs036a-02-manual-spacer {
+    padding-left: .6vw;
+    padding-right: .6vw;
+}
+
+.ecs036a-02-auto {
+    border: .15vw solid rgb(175, 175, 175);
+    background-color: rgb(225, 225, 225);
+    width: 6.2vw;
+}
+
+#ecs036a-02-output {
+    border: .1vw solid rgb(0, 0, 0);
+    width: 40%;
+    min-width: 20%;
+    max-width: 80%;
+    height: auto;
+    min-height: 20vw;
+    max-height: 100vw;
+    margin: 0 auto;
+    font-family: sans-serif;
+    font-size: 1vw;
+}

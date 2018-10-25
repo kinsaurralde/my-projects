@@ -14,7 +14,6 @@ iframe {
     height: 100%;
 }
 
-
 a {
     color: rgb(255,81,0);
     text-decoration: none;
@@ -24,6 +23,12 @@ a:hover {
     color: rgb(0,134,255);
 }
 
+input {
+    text-align: center;
+    font-size: 1.25vw;
+    height: 2vw;
+}
+
 /* Containers */
 
 #navbar-container {
@@ -31,6 +36,11 @@ a:hover {
     height: 7.5vw;
     position: absolute;
     z-index: 10;
+}
+
+#footer-container {
+    width: 100vw;
+    height: 15vw;
 }
 
 .project-container {
@@ -59,7 +69,27 @@ a:hover {
 /* Spacers */
 
 .navbar-space {
-    padding-top: 15vh;
+    padding-top: 8vw;
+}
+
+.space-10 {
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+}
+
+.space-5 {
+    padding-top: 2.5vw;
+    padding-bottom: 2.5vw;
+}
+
+.space-2 {
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+}
+
+.space-1 {
+    padding-top: .5vw;
+    padding-bottom: .5vw;
 }
 
 /* Page Layout */
@@ -87,6 +117,10 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+}
+
+.content-centered {
+    text-align: center;
 }
 
 /* Project Boxes */
@@ -125,4 +159,46 @@ a:hover {
     text-align: center;
     padding-top: 1vw;
     background-color: rgba(0,0,255,var(--testing));
+}
+
+/* Blocks */
+
+.page-title {
+    text-align: center;
+    font-size: 2vw;
+    color: rgb(50,50,50);
+}
+
+.section-title {
+    text-align: left;
+    font-size: 1.5vw;
+    font-weight: bold;
+    padding-bottom: 1vw;
+}
+
+.center-title {
+    text-align: center;
+    font-size: 1.5vw;
+}
+
+.center-text {
+    text-align: center;
+    font-size: 1vw;
+}
+
+/* Inputs */
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+/* Sketch Holders */
+
+.sketch-holder-small {
+    width: 24vw;
+    height: 13.5vw;
+    border: .0vw solid rgb(0,0,0);
+    margin: 0 auto;
 }

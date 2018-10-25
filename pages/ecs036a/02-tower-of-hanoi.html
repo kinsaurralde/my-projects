@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Tower of Hanoi | kinsaurralde</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kyle's Projects">
+    <meta name="keywords" content="Kyle, Insaurralde, weebly, netlify">
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/ecs036a.css" />
+
+    <script src="../../p5/p5.min.js"></script>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/ecs036a.js"></script>
+    <script src="../../p5/ecs036a/ecs036a-02.js"></script>
+</head>
+
+<body>
+
+    <div id="navbar-container">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="navbar-space"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>Tower of Hanoi</p>
+        </div>
+
+        <div class="content-centered">
+            <div class="space-2"></div>
+            <div class="center-title">Number of Disks</div>
+            <div class="space-1"></div>
+
+            <input type="number" value="3" min="1" max="100" class="ecs036a-input" id="ecs036a-02-input" oninput="reset()">
+            <div class="space-1"></div>
+            <input type="button" value="Run" id="ecs036a-02-run" onclick="run()">
+
+            <div class="space-2"></div>
+            <div class="center-title">Results</div>
+            <div class="space-1"></div>
+
+            <textarea id="ecs036a-02-output" readonly></textarea>
+
+            <div class="space-2"></div>
+            <div class="center-text">Disks Calcluated: <span id="ecs036a-02-output-disks"></span></div>
+            <div class="space-1"></div>
+            <div class="center-text">Calculation Time: <span id="ecs036a-02-output-time-calc">0</span>ms
+                &nbsp&nbsp&nbsp Total Time: <span id="ecs036a-02-output-time-total">0</span>ms</div>
+
+            <div class="space-2"></div>
+            <div class="center-title">Interactive</div>
+            <div class="space-1"></div>
+
+            <div class="sketch-holder-small" id="sketch-holder"></div>
+
+            <div class="space-1"></div>
+            <div class="center-text">Move top disk to</div>
+            <div class="space-1"></div>
+
+            <input type="button" value="B" class="ecs036a-02-manual" onclick="move(0,1,true)">
+            <input type="button" value="C" class="ecs036a-02-manual" onclick="move(0,2,true)">
+            <span class="ecs036a-02-manual-spacer"></span>
+            <input type="button" value="A" class="ecs036a-02-manual" onclick="move(1,0,true)">
+            <input type="button" value="C" class="ecs036a-02-manual" onclick="move(1,2,true)">
+            <span class="ecs036a-02-manual-spacer"></span>
+            <input type="button" value="A" class="ecs036a-02-manual" onclick="move(2,0,true)">
+            <input type="button" value="B" class="ecs036a-02-manual" onclick="move(2,1,true)">
+
+            <div class="space-1"></div>
+            <div class="center-text">Use Generated Results</div>
+            <div class="space-1"></div>
+
+            <input type="button" value="Auto" class="ecs036a-02-auto" onclick="autoStart()">
+            <span class="ecs036a-02-manual-spacer"></span>
+            <input type="button" value="Reset" class="ecs036a-02-auto" onclick="reset()">
+            <span class="ecs036a-02-manual-spacer"></span>
+            <input type="button" value="Next Step" class="ecs036a-02-auto" onclick="nextStep()">
+
+            <div class="space-1"></div>
+            <div class="center-text">Steps Completed: <span id="ecs036a-02-auto-step-count"></span></div>
+            <div class="space-1"></div>
+            <div class="center-text"><span id="ecs036a-02-auto-step"></span></div>
+
+
+        </div>
+
+
+    </div>
+
+    <div id="footer-container">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        var num;
+        var waiting = false;
+        var startTime = Date.now();
+        var recievedTime;
+        var outputList = new Array();
+        var outputBox = document.getElementById("ecs036a-02-output");
+
+        function run() {
+            if (waiting) {
+                outputBox.innerHTML = "Please wait for previous request ( < 5 seconds) ";
+                return
+            }
+            num = document.getElementById("ecs036a-02-input").value;
+            if (num > 0 && num < 13) {
+                waiting = true;
+                startTime = Date.now();
+                getJSON("https://bitb07jgul.execute-api.us-west-1.amazonaws.com/prod?string=2," + num);
+                outputBox.innerHTML = "Waiting For Response";
+            } else {
+                outputBox.innerHTML = "Number of Disks must be greater than 0 and less than 13";
+            }
+
+        }
+
+        function next() {
+            outputBox.innerHTML = "";
+            recievedTime = Date.now() - startTime;
+            outputList = new Array();
+            try {
+                rows = body.length;
+            } catch (e) {
+                rows = 0;
+                outputBox.innerHTML += "Task timedout";
+            }
+            for (i = 0; i < rows; i++) {
+                try {
+                    outputBox.innerHTML += "Move Disk From " + body[i][0] + " to " + body[i][1] + "\n";
+                    outputList.push([body[i][0], body[i][1]]);
+                } catch (e) {
+                    console.log("ERROR:", e);
+                    outputBox.innerHTML += "ERROR";
+                }
+            }
+            waiting = false;
+            totalTime = Date.now() - startTime;
+            console.log("Total Time:", totalTime);
+            console.log("Recieved Time:", recievedTime);
+            resetAuto();
+
+            document.getElementById("ecs036a-02-output-disks").innerHTML = num;
+            document.getElementById("ecs036a-02-output-time-calc").innerHTML = recievedTime;
+            document.getElementById("ecs036a-02-output-time-total").innerHTML = totalTime;
+        }
+    </script>
+</body>
+
+</html>
