@@ -10,7 +10,7 @@
     width: 98vw;
     padding-bottom: .5vw;
     padding-top: .5vw;
-    border-bottom: .1vw solid rgb(0,134,255);
+    border-bottom: 1px solid rgb(0,134,255);
     background-color: rgb(255, 255, 255);
 }
 

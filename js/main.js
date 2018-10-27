@@ -1,8 +1,8 @@
 function navExpand() {
     var iframe = window.parent.document.getElementById("navbar-container");
-    iframe.style.height = "40vh"; 
+    iframe.style.height = "20vw"; 
 }       
 function navReset() {
     var iframe = window.parent.document.getElementById("navbar-container");
-    iframe.style.height = "15vh"; 
+    iframe.style.height = "9vw"; 
 }
