@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Game of Life | kinsaurralde</title> 
+    <title>Pong | kinsaurralde</title> 
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Conway's Game of Life"> 
-    <meta name="keywords" content="Kyle, Insaurralde, netlify, conway, game"> 
+    <meta name="description" content="Pong Game"> 
+    <meta name="keywords" content="Kyle, Insaurralde, netlify, pong, game"> 
     <meta name="author" content="Kyle Insaurralde">
 
     <link rel="stylesheet" href="../../css/reset.css" type="text/css">
@@ -26,34 +26,33 @@
 
     <div id="content">
         <div class="page-title">
-            <p>Conway's Game of Life</p> 
+            <p>Pong</p> 
         </div>
         <div class="space-1"></div>
 
         <div class="sketch-holder-norm">
-            <iframe src="../p5/game-of-life/index.html"></iframe> 
+            <iframe src="../p5/pong/index.html"></iframe> 
         </div>
         <div class="divider"></div>
 
         <div class="section-title">Description</div>
         <div class="text">
-            
-        
+            <p>Pong Game</p>
         </div>
         <div class="divider"></div>
 
         <div class="section-title">Code</div>
         <div class="space-1"></div>
         <div class="code-iframe">
-            <iframe src="../p5/game-of-life/game.js" id="code-display"></iframe>
+            <iframe src="../p5/pong/pong.js" id="code-display"></iframe>
             <div class="code-iframe-footer">
                 <select name="file" oninput="selectCode()" id="code-select">
                     <option value="JS">JS</option>
                     <option value="CSS">CSS</option>
                 </select>
-                <div class="code-iframe-footer-title-wide">Game of Life</div>
+                <div class="code-iframe-footer-title-wide">Pong</div>
                 <div class="code-iframe-footer-button">
-                    <a href="https://github.com/kinsaurralde/website/tree/master/p5/game-of-life"><input type="button" value="View on Github"></a>
+                    <a href="https://github.com/kinsaurralde/website/tree/master/p5/pong"><input type="button" value="View on Github"></a>
                 </div>
             </div>
         </div>
@@ -70,17 +69,15 @@
                     <th>Link</th>
                 </tr>
                 <tr>
-                    <td>10/29/2018</td>
+                    <td>Summer 2018</td>
                     <td>1.0.0</td>
                     <td>Initial</td>
-                    <td><a href="https://github.com/kinsaurralde/website/tree/master/p5/game-of-life">https://github.com/kinsaurralde/website/tree/master/p5/game-of-life</a></td>
+                    <td><a href="https://github.com/kinsaurralde/website/tree/master/p5/pong">https://github.com/kinsaurralde/website/tree/master/p5/pong</a></td>
                 </tr>
             </table>
         </div>
 
     </div>
-
-    <div class="space-2"></div>
 
     <div id="container-footer">
         <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
@@ -91,9 +88,9 @@
             var current = document.getElementById("code-select").value;
             var display = document.getElementById("code-display");
             if (current == "JS") {
-                display.src = "../p5/game-of-life/game.js";
+                display.src = "../p5/pong/pong.js";
             }  else if (current == "CSS") {
-                display.src = "../css/game-of-life.css";
+                display.src = "../css/pong.css";
             }
         }
     </script>

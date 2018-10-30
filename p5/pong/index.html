@@ -1,0 +1,90 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+  <link rel="stylesheet" href="../../css/main.css" type="text/css">
+  <link rel="stylesheet" href="../../css/pong.css" type="text/css">
+
+  <script language="javascript" type="text/javascript" src="../p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="pong.js"></script>
+  <script src="../../js/tabletop.js"></script>
+
+  <style> body {padding: 0; margin: 0; border: 5px;} canvas {display:block;} </style>
+</head>
+<body class="no-scroll">
+<p></p>
+<div class="holder">
+    <div class="status-bar"></div>
+  <div id="sketch-holder" oncontextmenu="return false">
+      <button type="button" onclick="play()" class="main-button" id="play"></button>
+      <button type="button" onclick="statistics()" class="main-button"id="statistics"></button>
+
+      <button type="button" onclick="reset()" class="main-button"id="mainMenu"></button>
+      <button type="button" onclick="fullScreen()" class="main-button"id="fullScreen"></button>
+
+      <div class="setting-left">
+        <div class="setting-l">
+          <input type="radio" checked="checked" name="left-player" class="radio" id="playerL">
+        </div>
+        <div class="setting-l">
+          <input type="radio" name="left-player" class="radio" id="botL">
+        </div>
+        <div class="setting-l">
+          <input type="radio"  checked="checked" name="left-bot-mode" class="radio" id="easyL">
+        </div>
+        <div class="setting-l">
+            <input type="radio" name="left-bot-mode" class="radio" id="normalL">
+          </div>
+          <div class="setting-l">
+              <input type="radio" name="left-bot-mode" class="radio" id="impossibleL">
+          </div>
+        </div>
+
+        <div class="setting-right">
+          <div class="setting-r">
+            <input type="radio" checked="checked" name="right-player" class="radio" id="playerR">
+          </div>
+          <div class="setting-r">
+            <input type="radio" name="right-player" class="radio" id="botR">
+          </div>
+          <div class="setting-r">
+            <input type="radio"  checked="checked" name="right-bot-mode" class="radio" id="easyR">
+          </div>
+          <div class="setting-r">
+            <input type="radio" name="right-bot-mode" class="radio" id="normalR">
+          </div>
+          <div class="setting-r">
+              <input type="radio" name="right-bot-mode" class="radio" id="impossibleR">
+          </div>
+        </div>
+
+        <input type="range" min="10" max="40" value="20" class="slider" id="paddle-speed">
+        <input type="range" min="10" max="80" value="20" class="slider" id="ball-speed">
+
+        <button type="button" onclick="pause()" id="pause-button"></button>
+        <button type="button" onmousedown="startInput('left-up')" onmouseup="endInput('left-up')" ontouchstart="startInput('left-up')" ontouchend="endInput('left-up')" class="movement" id="left-up"></button>
+        <button type="button" onmousedown="startInput('left-down')" onmouseup="endInput('left-down')" ontouchstart="startInput('left-down')" ontouchend="endInput('left-down')" class="movement" id="left-down"></button>
+        <button type="button" onmousedown="startInput('right-up')" onmouseup="endInput('right-up')" ontouchstart="startInput('right-up')" ontouchend="endInput('right-up')" class="movement" id="right-up"></button>
+        <button type="button" onmousedown="startInput('right-down')" onmouseup="endInput('right-down')" ontouchstart="startInput('right-down')" ontouchend="endInput('right-down')" class="movement" id="right-down"></button>
+    
+            
+        <iframe name="trash" id="trash"></iframe>
+  </div>
+</div>
+
+<form id="frm1" action="index.html" target="trash" netlify>
+  <input type="text" name="plays" value="0" id="stat-plays"><br>
+  <input type="text" name="Winner" value="0" id="stat-winner"><br>
+  <input type="text" name="Bot Mode" value="0" id="stat-botmode"><br>
+  <input type="text" name="Bot Points" value="0" id="stat-botpoints"><br>
+  <input type="text" name="Player Points" value="0" id="stat-playerpoints"><br>
+  <input type="text" name="FPS" value="0" id="stat-fps"><br>
+  <input type="button" onclick="sendData()" value="Submit">
+</form>
+
+<script>
+  </script>
+
+</body>
+</html>
