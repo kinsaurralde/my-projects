@@ -11,6 +11,7 @@
     <meta name="author" content="Kyle Insaurralde">
 
     <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
     <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="../../css/ecs036a.css" />
 
@@ -23,11 +24,11 @@
 
 <body>
 
-    <div id="navbar-container">
+    <div id="container-navbar">
         <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
     </div>
 
-    <div class="navbar-space"></div>
+    <div class="space-navbar"></div>
 
     <div id="content">
         <div class="page-title">
@@ -88,6 +89,29 @@
             <div class="center-text">Steps Completed: <span id="ecs036a-02-auto-step-count"></span></div>
             <div class="space-1"></div>
             <div class="center-text"><span id="ecs036a-02-auto-step"></span></div>
+            <div class="divider"></div>
+
+            <div class="section-title">Description</div>
+            <div class="text">
+               This project runs python on AWS Lambda.
+            </div>
+            <div class="divider"></div>
+
+            <div class="section-title">Code</div>
+            <div class="space-1"></div>
+            <div class="code-iframe">
+                <iframe src="../../py/036a_02_tower_of_hanoi.py" id="code-display"></iframe>
+                <div class="code-iframe-footer">
+                    <select name="file" oninput="selectCode()" id="code-select">
+                        <option value="JS">PY</option>
+                    </select>
+                    <div class="code-iframe-footer-title-wide">Tetris</div>
+                    <div class="code-iframe-footer-button">
+                        <a href="https://github.com/kinsaurralde/ECS-036A-Lecture/blob/master/02_tower_of_hanoi.py"><input type="button" value="View on Github"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
 
 
         </div>
@@ -95,7 +119,7 @@
 
     </div>
 
-    <div id="footer-container">
+    <div id="container-footer">
         <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
     </div>
 
