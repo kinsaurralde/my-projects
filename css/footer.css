@@ -1,3 +1,37 @@
 body {
     border-top: 1px solid rgb(0,134,255);
+    background-color: rgb(225,225,225);
+}
+
+.footer-row {
+    width: 80vw;
+    height: 2vw;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.25vw;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-row a {
+    padding-left: 4vw;
+    padding-right: 4vw;
+}
+
+.footer-item {
+    width: 15vw;
+}
+
+.footer-main {
+    width: 80vw;
+    height: 8vw;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-column {
+    width: 10vw;
+    height: 9vw;
+    margin: .5vw;
 }

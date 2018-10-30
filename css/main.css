@@ -40,7 +40,7 @@ input {
 
 #container-footer {
     width: 100vw;
-    height: 15vw;
+    height: 8vw;
 }
 
 /* Spacers */
@@ -193,6 +193,8 @@ input {
 }
 
 .code-iframe-footer select {
+    appearance: none;
+    -webkit-appearance: none;
     width: 12vw;
     height: 1.2vw;
     margin: .15vw;
@@ -237,7 +239,8 @@ input {
 .version-history td, .version-history th{
     border: 1px solid rgb(200,200,200);
     text-align: left;
-    padding: 8px;
+    font-size: 1vw;
+    padding: .5vw;
 }
 
 .version-history tr:nth-child(even) {
