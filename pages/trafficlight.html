@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Tetris | kinsaurralde</title> 
+    <title>Traffic Light | kinsaurralde</title> 
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Tetris Game"> 
-    <meta name="keywords" content="Kyle, Insaurralde, netlify, tetris, game"> 
+    <meta name="description" content="trafficlight Game"> 
+    <meta name="keywords" content="Kyle, Insaurralde, netlify, trafficlight, game"> 
     <meta name="author" content="Kyle Insaurralde">
 
     <link rel="stylesheet" href="../../css/reset.css" type="text/css">
@@ -26,34 +26,33 @@
 
     <div id="content">
         <div class="page-title">
-            <p>Tetris</p> 
+            <p>Traffic Light</p> 
         </div>
         <div class="space-1"></div>
 
         <div class="sketch-holder-norm">
-            <iframe src="../p5/tetris/index.html"></iframe> 
+            <iframe src="https://www.youtube.com/embed/WN59b-VI5YE?rel=0&loop=1&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
         <div class="divider"></div>
 
         <div class="section-title">Description</div>
         <div class="text">
-            <p>Tetris Game</p>
-            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSqKu5OJMcJpO2i4xZkzcBqmLD8-ml7-kPgnnIqlNrU5P0vUkbX7k7mUCDYudtlsQqFcrSBj5rElp7B/pubhtml?gid=508503833&single=true" target="_blank">Click here to see full scoreboard</a>
+            <p>Traffic Light</p>
         </div>
         <div class="divider"></div>
 
         <div class="section-title">Code</div>
         <div class="space-1"></div>
         <div class="code-iframe">
-            <iframe src="../p5/tetris/tetris.js" id="code-display"></iframe>
+            <iframe src="../p5/trafficlight/trafficlight.js" id="code-display"></iframe>
             <div class="code-iframe-footer">
                 <select name="file" oninput="selectCode()" id="code-select">
                     <option value="JS">JS</option>
-                    <option value="CSS">CSS</option>
+                    <option value="PY">PY</option>
                 </select>
-                <div class="code-iframe-footer-title-wide">Tetris</div>
+                <div class="code-iframe-footer-title-wide">Traffic Light</div>
                 <div class="code-iframe-footer-button">
-                    <a href="https://github.com/kinsaurralde/website/tree/master/p5/tetris"><input type="button" value="View on Github"></a>
+                    <a href="https://github.com/kinsaurralde/website/tree/master/p5/trafficlight"><input type="button" value="View on Github"></a>
                 </div>
             </div>
         </div>
@@ -70,10 +69,10 @@
                     <th>Link</th>
                 </tr>
                 <tr>
-                    <td>Summer 2018</td>
+                    <td>Highschool</td>
                     <td>1.0.0</td>
                     <td>Initial</td>
-                    <td><a href="https://github.com/kinsaurralde/website/tree/master/p5/tetris">https://github.com/kinsaurralde/website/tree/master/p5/tetris</a></td>
+                    <td><a href="https://github.com/kinsaurralde/website/tree/master/p5/trafficlight">https://github.com/kinsaurralde/website/tree/master/p5/trafficlight</a></td>
                 </tr>
             </table>
         </div>
@@ -91,9 +90,9 @@
             var current = document.getElementById("code-select").value;
             var display = document.getElementById("code-display");
             if (current == "JS") {
-                display.src = "../p5/tetris/tetris.js";
-            }  else if (current == "CSS") {
-                display.src = "../css/tetris.css";
+                display.src = "../p5/trafficlight/trafficlight.js";
+            }  else if (current == "PY") {
+                display.src = "../p5/trafficlight/pycode.html";
             }
         }
     </script>
