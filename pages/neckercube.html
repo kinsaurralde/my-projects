@@ -37,17 +37,19 @@
 
         <div class="section-title">Description</div>
         <div class="text">
-            <p>Neckercube</p>
+            <p>This is a necker cube illusion. This program was originally written in processing. The program shown here is written in javascript using the p5js library. The original processing code can be viewed and downloaded in the code section below.</p>
         </div>
         <div class="divider"></div>
 
         <div class="section-title">Code</div>
         <div class="space-1"></div>
         <div class="code-iframe">
-            <iframe src="../p5/neckercube/neckercube.js" id="code-display"></iframe>
+            <iframe src="../p5/neckercube/neckercube.txt" id="code-display"></iframe>
             <div class="code-iframe-footer">
                 <select name="file" oninput="selectCode()" id="code-select">
+                    <option value="TXT">Processing</option>
                     <option value="JS">JS</option>
+                    <option value="PDE">.pde Download</option>
                 </select>
                 <div class="code-iframe-footer-title-wide">Neckercube</div>
                 <div class="code-iframe-footer-button">
@@ -90,6 +92,14 @@
             var display = document.getElementById("code-display");
             if (current == "JS") {
                 display.src = "../p5/neckercube/neckercube.js";
+            } else if (current == "PDE") {
+                if (confirm("Do you want to download this .pde file? \n(Click cancel to view as text)")) {
+                    display.src = "../p5/neckercube/neckercube.pde";
+                }
+                document.getElementById("code-select").value = "TXT";
+                setTimeout(function() {selectCode();}, 1000);
+            } else if (current == "TXT") {
+                display.src = "../p5/neckercube/neckercube.txt";
             }
         }
     </script>

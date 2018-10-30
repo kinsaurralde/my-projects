@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Graphing Calculator (AP) | kinsaurralde</title> 
+    <title>Graphing Calculator (AP) | kinsaurralde</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="graphingcalculatorap Game"> 
-    <meta name="keywords" content="Kyle, Insaurralde, netlify, graphingcalculatorap, game"> 
+    <meta name="description" content="graphingcalculatorap Game">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify, graphingcalculatorap, game">
     <meta name="author" content="Kyle Insaurralde">
 
     <link rel="stylesheet" href="../../css/reset.css" type="text/css">
@@ -26,18 +26,24 @@
 
     <div id="content">
         <div class="page-title">
-            <p>Graphing Calculator (AP)</p> 
+            <p>Graphing Calculator (AP)</p>
         </div>
         <div class="space-1"></div>
 
         <div class="sketch-holder-norm">
-            <iframe src="../p5/graphingcalculatorap/index.html"></iframe> 
+            <iframe src="../p5/graphingcalculatorap/index.html"></iframe>
         </div>
         <div class="divider"></div>
 
         <div class="section-title">Description</div>
         <div class="text">
-            <p>Graphing Calculator (AP)</p>
+            <p>This program is the javascript version of my AP project. It uses the p5js library. It can graph regular
+                equations, polar equations, or parametric equations. Click the example buttons to see preset graphs or
+                type your own by clicking on one of the textboxes. To enter a custom equation, click on one of the text
+                boxes, type the equation, then press enter. Equations can use single digit positive numbers, x for the
+                variable, p for pi, +, -, *, /, (, ), sin, cos, or tan. If a key isn't working, click anywhere on the
+                canvas then try again. The original processing code can be viewed and downloaded in the code section below.
+            </p>
         </div>
         <div class="divider"></div>
 
@@ -53,7 +59,8 @@
                 </select>
                 <div class="code-iframe-footer-title-wide">Graphing Calculator (AP)</div>
                 <div class="code-iframe-footer-button">
-                    <a href="https://github.com/kinsaurralde/website/tree/master/p5/graphingcalculatorap"><input type="button" value="View on Github"></a>
+                    <a href="https://github.com/kinsaurralde/website/tree/master/p5/graphingcalculatorap"><input type="button"
+                            value="View on Github"></a>
                 </div>
             </div>
         </div>
@@ -81,7 +88,7 @@
     </div>
 
     <div class="space-1"></div>
-    
+
     <div id="container-footer">
         <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
     </div>
@@ -92,12 +99,12 @@
             var display = document.getElementById("code-display");
             if (current == "JS") {
                 display.src = "../p5/graphingcalculatorap/graphingcalculatorap.js";
-            }  else if (current == "PS") {
+            } else if (current == "PS") {
                 if (confirm("Do you want to download this .pde file? \n(Click cancel to view as text)")) {
                     display.src = "../p5/graphingcalculatorap/graphingcalculatorap.pde";
-                } 
+                }
                 document.getElementById("code-select").value = "TXT";
-                selectCode();
+                setTimeout(function() {selectCode();}, 1000);
             } else if (current == "TXT") {
                 display.src = "../p5/graphingcalculatorap/graphingcalculatorap.txt";
             }
