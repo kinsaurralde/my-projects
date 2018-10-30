@@ -1,0 +1,80 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+  <link rel="stylesheet" href="../../css/main.css" type="text/css">
+  <link rel="stylesheet" href="../../css/tetris.css" type="text/css">
+
+  <script language="javascript" type="text/javascript" src="../p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="tetris.js"></script>
+  <script src="../../js/tabletop.js"></script>
+
+  <style> body {padding: 0; margin: 0; border: 5px;} canvas {display:block;} </style>
+</head>
+<body class="no-scroll">
+<p></p>
+<div class="holder">
+    <div class="status-bar"></div>
+  <div id="sketch-holder" oncontextmenu="return false">
+    <button type="button" onclick="highScores()" id="screen-cover"></button>
+    <button type="button" onclick="startGame()" class="setting" id="start"></button>
+    <button type="button" onclick="pause()" class="setting" id="pause"></button>
+    <button type="button" onclick="fullScreen()" class="setting" id="fullscreen"></button>
+    <button type="button" onclick="highScores()" class="setting" id="high-scores"></button>
+    <button type="button" onclick="speedFast()" onmousedown="speedUp()" onmouseup="speedNormal()" class="controls" id="speed-1"></button>
+    <button type="button" onclick="speedSlow()" onmousedown="speedUp()" onmouseup="speedNormal()" class="controls" id="speed-2"></button>
+    <button type="button" onclick="drop()" class="controls" id="drop"></button>
+    <button type="button" onclick="rotateLeftStart()" class="controls" id="rotate-left"></button>
+    <button type="button" onclick="rotateRightStart()" class="controls" id="rotate-right"></button>
+    <button type="button" onclick="moveLeft()" class="controls" id="move-left"></button>
+    <button type="button" onclick="moveRight()" class="controls" id="move-right"></button>
+ 
+  </div>
+</div>
+
+<iframe name="trash" id="trash"></iframe>
+
+
+<!--
+<form id="frm1" action="index.html" target="trash">
+  <input type="text" name="plays" value="0" id="stat-plays"><br>
+  <input type="text" name="Winner" value="0" id="stat-winner"><br>
+  <input type="text" name="Bot Mode" value="0" id="stat-botmode"><br>
+  <input type="text" name="Bot Points" value="0" id="stat-botpoints"><br>
+  <input type="text" name="Player Points" value="0" id="stat-playerpoints"><br>
+  <input type="text" name="FPS" value="0" id="stat-fps"><br>
+  <input type="button" onclick="sendData()" value="Submit">
+</form>
+-->
+
+<form name="submit-to-google-sheet" id="form" action="index.html" target="trash">
+  <input name="Name" id="send-name" type="text" placeholder="Name" required>
+  <input name="Score" id="send-score" type="number" placeholder="Score" required>
+  <input name="Lines" id="send-lines" type="number" placeholder="Lines" required>
+  <button type="submit" id="send">Send</button>
+</form>
+
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyfMACFcHB9rKrqxe48K1iWIAEjI6ae-xR515EEqjq3nyKs8Ran/exec'
+  const form = document.forms['submit-to-google-sheet']
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => console.log('Success!', response))
+      .catch(error => console.error('Error!', error.message))
+  })
+
+   window.onbeforeunload = function exitFunction() {
+          console.log("Exiting..");
+          console.log("Score:"+score);
+          if (score > 0) {
+            name = "Page Exited";
+            stats.sendScores();
+          }
+      }
+</script>
+
+</body>
+</html>

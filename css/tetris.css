@@ -1,0 +1,98 @@
+#screen-cover {
+    background-color: blueviolet;
+    opacity: .0;
+    z-index: -10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.controls {
+    position: absolute;
+    width: 17vw;
+    left: 65vw;
+    background-color: aqua;
+    opacity: .0;
+    z-index: 2;
+}
+
+#speed-1 {
+    top: 74.5vh;
+    height: 12.25vh;
+}
+
+#speed-2 {
+    top: 86.75vh;
+    height: 12.25vh;
+}
+
+#drop {
+    top: 74.5vh;
+    left: 82vw;
+    height: 24.5vh;
+}
+
+#rotate-left {
+    top: 0;
+    height: 24.5vh;
+}
+
+#rotate-right {
+    top: 0;
+    left: 82vw;
+    height: 24.5vh;
+}
+
+#move-left {
+    top: 24.5vh;
+    height: 50vh;
+}
+
+#move-right {
+    top: 24.5vh;
+    height: 50vh;
+    left: 82vw;
+}
+
+.setting {
+    position: absolute;
+    left: 9vw;
+    width: 20vw;
+    height: 7vh;
+    background-color: rgb(41, 207, 97);
+    opacity: .0;
+    z-index: 2;
+}
+
+#start {
+    top: 30vh;
+}
+
+#pause {
+    top: 48vh;
+}
+
+#fullscreen {
+    top: 39vh;
+}
+
+#high-scores {
+    top: 67vh;
+}
+
+#form {
+    z-index: -5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+}
+
+#trash {
+    width: 0%;
+    height: 0;
+    position: relative;
+    top: 0vw;
+}

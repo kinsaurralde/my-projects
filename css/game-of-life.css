@@ -1,0 +1,41 @@
+textarea {
+    position: absolute;
+    z-index: 10;
+    top: 88vh;
+    left: 10vw;
+    width: 80vw;
+    height: 10vh;
+    resize: none;
+}
+
+input {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 1vw;
+    width: 10vw;
+    background-color: rgb(225,225,225);
+    border: .1vw solid rgb(200,200,200);
+}
+
+.half-input {
+    width: 5vw;
+}
+
+.setting-spacer {
+    width: 2vw;
+}
+
+#sketch-holder {
+    position: absolute;
+    z-index: 3;
+}
+
+.settings-bar {
+    display: flex;
+    justify-content: center;
+    width: 99vw;
+    height: 1.5vw;
+    position: absolute;
+    z-index: 10;
+    top: 5vw;
+}

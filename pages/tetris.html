@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Tetris | kinsaurralde</title> 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tetris Game"> 
+    <meta name="keywords" content="Kyle, Insaurralde, netlify, tetris, game"> 
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css" />
+
+    <script src="../../js/main.js"></script>
+</head>
+
+<body>
+
+    <div id="container-navbar">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="space-navbar"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>Tetris</p> 
+        </div>
+        <div class="space-1"></div>
+
+        <div class="sketch-holder-norm">
+            <iframe src="../p5/tetris/index.html"></iframe> 
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Description</div>
+        <div class="text">
+            <p>Tetris Game</p>
+            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSqKu5OJMcJpO2i4xZkzcBqmLD8-ml7-kPgnnIqlNrU5P0vUkbX7k7mUCDYudtlsQqFcrSBj5rElp7B/pubhtml?gid=508503833&single=true" target="_blank">Click here to see full scoreboard</a>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Code</div>
+        <div class="space-1"></div>
+        <div class="code-iframe">
+            <iframe src="../p5/tetris/tetris.js" id="code-display"></iframe>
+            <div class="code-iframe-footer">
+                <select name="file" oninput="selectCode()" id="code-select">
+                    <option value="JS">JS</option>
+                    <option value="CSS">CSS</option>
+                </select>
+                <div class="code-iframe-footer-title-wide">Tetris</div>
+                <div class="code-iframe-footer-button">
+                    <a href="https://github.com/kinsaurralde/website/tree/main/p5js/tetris"><input type="button" value="View on Github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Version History</div>
+        <div class="space-1"></div>
+        <div class="version-history">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Link</th>
+                </tr>
+                <tr>
+                    <td>Date</td>
+                    <td>Description</td>
+                    <td>Link</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div id="container-footer">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        function selectCode() {
+            var current = document.getElementById("code-select").value;
+            var display = document.getElementById("code-display");
+            if (current == "JS") {
+                display.src = "../p5/tetris/tetris.js";
+            }  else if (current == "CSS") {
+                display.src = "../css/tetris.css";
+            }
+        }
+    </script>
+</body>
+
+</html>

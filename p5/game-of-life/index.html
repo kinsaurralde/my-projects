@@ -1,0 +1,37 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <script language="javascript" type="text/javascript" src="../p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="../game-of-life/game.js"></script>
+
+  <link rel="stylesheet" type="text/css" media="screen" href="../../css/game-of-life.css" />
+
+
+</head>
+
+<body>
+    <div id="sketch-holder">
+      <!-- Our sketch will go here! -->
+      <div class="settings-bar">
+        <!--
+        <input type="submit" value="Speed:" class="half-input">
+        <input type="number" value="100" oninput="setSpeed()" class="half-input" id="setting-speed">
+        -->
+        <div class="setting-spacer"></div>
+        <input type="button" value="Start" onclick="start()">
+        <div class="setting-spacer"></div>
+        <input type="button" value="Stop" onclick="stop()">
+        <div class="setting-spacer"></div>
+        <input type="button" value="Reset" onclick="reset()">
+        <div class="setting-spacer"></div>
+        <!--
+        <input type="submit" value="Columns:" class="half-input">
+        <input type="number" value="40" min="2" max="100" step="2" oninput="setSize()" class="half-input" id="setting-size">
+        -->
+      </div>
+      <textarea id="console" readonly></textarea>
+    </div>
+
+</body>
+</html>

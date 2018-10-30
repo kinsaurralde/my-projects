@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Weather | kinsaurralde</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kyle's Projects">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify">
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css" />
+
+    <script src="../../js/main.js"></script>
+</head>
+
+<body>
+
+    <div id="container-navbar">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="space-navbar"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>Weather</p>
+        </div>
+        <div class="space-1"></div>
+
+        <div class="sketch-holder-norm">
+            <iframe src="https://weather.kinsaurralde.com"></iframe>
+        </div>
+        <div class="divider"></div>
+
+        <div class="text-center">
+            <a href="https://weather.kinsaurralde.com">! This project is meant to be run in its own window !</a><br>
+            <a href="https://weather.kinsaurralde.com">Click Here to open in new window</a>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Description</div>
+        <div class="text">
+            This page displays the weather at your current location. It can also get the weather at user inputted
+            coordinates. It displays todays high, low, and current temperatures, and has a second row that provides
+            more options.
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Code</div>
+        <div class="space-1"></div>
+        <div class="code-iframe">
+            <iframe src="../projects/weather/index.txt" id="code-display"></iframe>
+            <div class="code-iframe-footer">
+                <select name="file" oninput="selectCode()" id="code-select">
+                    <option value="index.txt">index.html</option>
+                    <option value="js/weather.js">weather.js</option>
+                    <option value="js/functions.js">functions.js</option>
+                    <option value="js/footer.js">footer.js</option>
+                    <option value="css/main.css">main.css</option>
+                    <option value="css/secondary.css">secondary.css</option>
+                    <option value="css/footer.css">footer.css</option>
+                </select>
+                <div class="code-iframe-footer-title-wide">Weather</div>
+                <div class="code-iframe-footer-button">
+                    <a href="https://github.com/kinsaurralde/weather"><input type="button" value="View more on Github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Version History</div>
+        <div class="space-1"></div>
+        <div class="version-history">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Version</th>
+                    <th>Name</th>
+                    <th>Link</th>
+                </tr>
+                <tr>
+                    <td>10/20/2018</td>
+                    <td>1.1.0</td>
+                    <td>Hourly Weather</td>
+                    <td><a href="https://github.com/kinsaurralde/weather/releases/tag/v1.1.0">https://github.com/kinsaurralde/weather/releases/tag/v1.1.0</a></td>
+                </tr>
+                <tr>
+                    <td>10/20/2018</td>
+                    <td>1.0.0</td>
+                    <td>Initial</td>
+                    <td><a href="https://github.com/kinsaurralde/weather/releases/tag/v1.0.0">https://github.com/kinsaurralde/weather/releases/tag/v1.0.0</a></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div id="container-footer">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        function selectCode() {
+            var current = document.getElementById("code-select").value;
+            var display = document.getElementById("code-display");
+            var src = "../projects/weather/";
+            display.src = src+current;
+        }
+    </script>
+</body>
+
+</html>

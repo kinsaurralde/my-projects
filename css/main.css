@@ -31,21 +31,21 @@ input {
 
 /* Containers */
 
-#navbar-container {
+#container-navbar {
     width: 100vw;
     height: 7.5vw;
     position: absolute;
     z-index: 10;
 }
 
-#footer-container {
+#container-footer {
     width: 100vw;
     height: 15vw;
 }
 
 /* Spacers */
 
-.navbar-space {
+.space-navbar {
     padding-top: 8vw;
 }
 
@@ -142,7 +142,6 @@ input {
     text-align: left;
     font-size: 1.5vw;
     font-weight: bold;
-    padding-bottom: 1vw;
 }
 
 .center-title {
@@ -154,6 +153,96 @@ input {
     text-align: center;
     font-size: 1vw;
 }
+
+.divider {
+    margin-top: 10px;
+    border-bottom: 1px solid rgb(200,200,200);
+    margin-bottom: 10px;
+}
+
+.text {
+    text-align: left;
+    font-size: 1.25vw;
+    line-height: 1.5vw;
+}
+
+.text-center {
+    text-align: center;
+    font-size: 1.25vw;
+    line-height: 1.5vw;
+}
+
+/* Code Display */
+.code-iframe {
+    border: 1px solid rgb(200,200,200);
+}
+
+.code-iframe iframe {
+    resize: vertical;
+    height: 80vh;
+    min-height: 10vw;
+}
+
+.code-iframe-footer {
+    display: flex;
+    width: 100%;
+    height: 1.5vw;
+    padding-right: 0.02vw;
+    background-color: rgb(225, 225, 225);
+}
+
+.code-iframe-footer select {
+    width: 12vw;
+    height: 1.2vw;
+    margin: .15vw;
+    font-size: 1vw;
+    text-align: center;
+    background-color: rgb(240,240,240);
+    border: none;
+}
+
+.code-iframe-footer-title-wide {
+    width: 46vw;
+    height: 1.2vw;
+    margin: .15vw;
+    font-size: 1.25vw;
+    text-align: center;
+}
+
+.code-iframe-footer-button {
+    width: 12vw;
+    height: 1.2vw;
+    margin: .15vw;
+}
+
+.code-iframe-footer-button input {
+    width: 12vw;
+    height: 1.2vw;
+    font-size: 1vw;
+    border: none;
+    background-color: rgb(240,240,240);
+}
+
+/* Table */
+.version-history table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.version-history th{
+    font-weight: bold;
+}
+
+.version-history td, .version-history th{
+    border: 1px solid rgb(200,200,200);
+    text-align: left;
+    padding: 8px;
+}
+
+.version-history tr:nth-child(even) {
+    background-color: rgb(240,240,240);
+}
+
 
 /* Inputs */
 
@@ -170,4 +259,23 @@ input[type=number]::-webkit-outer-spin-button {
     height: 13.5vw;
     border: .0vw solid rgb(0,0,0);
     margin: 0 auto;
+}
+
+.sketch-holder-norm {
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 57%; /* 56.25% for 16:9 +.75 extra */
+    height: 0;
+    border: 1px solid rgb(200,200,200);
+    /* max-width: 1080px; */
+}
+
+
+.sketch-holder-norm iframe {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
