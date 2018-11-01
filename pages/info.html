@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Site Info | kinsaurralde</title> 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="neckercube"> 
+    <meta name="keywords" content="Kyle, Insaurralde, netlify, neckercube, game"> 
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css" />
+
+    <script src="../../js/main.js"></script>
+</head>
+
+<body>
+
+    <div id="container-navbar">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="space-navbar"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>Site Info</p> 
+        </div>
+        <div class="space-1"></div>
+
+        <div class="section-title">Active Urls</div>
+        <div class="space-1"></div>
+        <div class="version-history">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Url</th>
+                    <th>Code</th>
+                    <th>Release</th>
+                </tr>
+                <tr>
+                    <td>Main</td>
+                    <td><a href="https://kinsaurralde.com/">https://kinsaurralde.com/</a></td>
+                    <td><a href="https://github.com/kinsaurralde/website">https://github.com/kinsaurralde/website</a></td>
+                    <td><a href="https://github.com/kinsaurralde/website/releases">https://github.com/kinsaurralde/website/releases</a></td>
+                </tr>
+                <tr>
+                    <td>Weather</td>
+                    <td><a href="https://weather.kinsaurralde.com/">https://weather.kinsaurralde.com/</a></td>
+                    <td><a href="https://github.com/kinsaurralde/weather">https://github.com/kinsaurralde/weather</a></td>
+                    <td><a href="https://github.com/kinsaurralde/weather/releases">https://github.com/kinsaurralde/weather/releases</a></td>
+                </tr>
+                <tr>
+                    <td>Testing</td>
+                    <td><a href="https://testing.kinsaurralde.com/">https://testing.kinsaurralde.com/</a></td>
+                    <td><a href="https://github.com/kinsaurralde/website/testing">https://github.com/kinsaurralde/website/testing</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Old</td>
+                    <td><a href="https://old.kinsaurralde.com/">https://old.kinsaurralde.com/</a></td>
+                    <td><a href="https://github.com/kinsaurralde/website/old">https://github.com/kinsaurralde/website/old</a></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="divider"></div>
+
+        <div class="space-5"></div>
+
+        <div class="section-title">Version History</div>
+        <div class="space-1"></div>
+        <div class="version-history">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Version</th>
+                    <th>Name</th>
+                    <th>Code</th>
+                </tr>
+                <tr>
+                    <td>10/31/2019</td>
+                    <td><a href="https://kinsaurralde.com/">1.0.0</a></td>
+                    <td>New Site</td>
+                    <td><a href="https://github.com/kinsaurralde/website/tree/v1.0.0">https://github.com/kinsaurralde/website/tree/v1.0.0</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><a href="https://v0-0-0.kinsaurralde.com/">0.0.0</a></td>
+                    <td>Old Site</td>
+                    <td><a href="https://github.com/kinsaurralde/website/tree/v0.0.0">https://github.com/kinsaurralde/website/tree/v0.0.0</a></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="space-1"></div>
+    
+    <div id="container-footer">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        function selectCode() {
+            var current = document.getElementById("code-select").value;
+            var display = document.getElementById("code-display");
+            if (current == "JS") {
+                display.src = "../p5/neckercube/neckercube.js";
+            } else if (current == "PDE") {
+                if (confirm("Do you want to download this .pde file? \n(Click cancel to view as text)")) {
+                    display.src = "../p5/neckercube/neckercube.pde";
+                }
+                document.getElementById("code-select").value = "TXT";
+                setTimeout(function() {selectCode();}, 1000);
+            } else if (current == "TXT") {
+                display.src = "../p5/neckercube/neckercube.txt";
+            }
+        }
+    </script>
+</body>
+
+</html>

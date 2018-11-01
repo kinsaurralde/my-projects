@@ -104,9 +104,15 @@ input {
 
 
 .project {
+    transition: all .2s;
     margin-bottom: 20px;
     border-bottom: 1px solid rgb(0,134,255);
     width: 80%;
+}
+
+.project:hover {
+    margin-bottom: 18px;
+    border-bottom: 3px solid rgb(0,134,255);
 }
 
 .project a {
@@ -122,8 +128,9 @@ input {
 }
 
 .project-title {
+    transition: all .2s;
     font-size: 1.5em;
-    margin-bottom: 3px;
+    margin-bottom: .5vw;
 }
 
 .project p {

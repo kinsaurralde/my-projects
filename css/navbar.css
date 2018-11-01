@@ -40,8 +40,11 @@
 
 .options a {
     display: block;
-    padding-top: .5vw;
-    padding-bottom: .5vw;
+}
+
+.navbar-link {
+    padding-top: .75vw;
+    padding-bottom: .75vw;
 }
 
 .options a:hover {
