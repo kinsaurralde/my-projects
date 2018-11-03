@@ -93,7 +93,25 @@
 
             <div class="section-title">Description</div>
             <div class="text">
-               This project runs python on AWS Lambda.
+                The tower of Hanoi is a mathematical game where the goal is to move a tower of disks of different sizes from one rod to another rod. It can be solved using recursion.
+                The least number of steps required to solve the puzzle with n disks is 2<sup>n</sup>-1. The interactive portion is run with p5js in your webrowser while the solution solver is run with python in an AWS Lambda server
+            </div>
+            <div class="divider"></div>
+
+            <div class="text">
+                <b>Objective:</b> Move tower from A to B<br>
+                <b>Controls:</b><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&bull; Use the buttons under each tower to move the top disk to another stack<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&bull; Run Button: Get steps for solution<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&bull; Auto Button: Runs steps in results box<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&bull; Reset Button: Resets tower to stack A<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&bull; Next Step Button: Runs next step from results box<br>
+                <b>Rules:</b><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&bull; Only one disk can be moved at a time<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&bull; Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&bull; No disk may be placed on top of a smaller disk<br>
+               <b>Best Solution for n Disks:</b> 2<sup>n</sup>-1 moves<br>
+
             </div>
             <div class="divider"></div>
 

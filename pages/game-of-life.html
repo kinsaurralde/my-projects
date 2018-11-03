@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Game of Life | kinsaurralde</title> 
+    <title>Game of Life | kinsaurralde</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Conway's Game of Life"> 
-    <meta name="keywords" content="Kyle, Insaurralde, netlify, conway, game"> 
+    <meta name="description" content="Conway's Game of Life">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify, conway, game">
     <meta name="author" content="Kyle Insaurralde">
 
     <link rel="stylesheet" href="../../css/reset.css" type="text/css">
@@ -26,19 +26,23 @@
 
     <div id="content">
         <div class="page-title">
-            <p>Conway's Game of Life</p> 
+            <p>Conway's Game of Life</p>
         </div>
         <div class="space-1"></div>
 
         <div class="sketch-holder-norm">
-            <iframe src="../p5/game-of-life/index.html"></iframe> 
+            <iframe src="../p5/game-of-life/index.html"></iframe>
         </div>
         <div class="divider"></div>
 
         <div class="section-title">Description</div>
         <div class="text">
-            
-        
+            The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician
+            John Horton Conway in 1970. The game is a zero-player game, meaning that its evolution is determined by its
+            initial state, requiring no
+            further input. One interacts with the Game of Life by creating an initial configuration and observing how
+            it evolves, or, for advanced players, by creating patterns with particular properties.
+
         </div>
         <div class="divider"></div>
 
@@ -53,7 +57,8 @@
                 </select>
                 <div class="code-iframe-footer-title-wide">Game of Life</div>
                 <div class="code-iframe-footer-button">
-                    <a href="https://github.com/kinsaurralde/website/tree/master/p5/game-of-life"><input type="button" value="View on Github"></a>
+                    <a href="https://github.com/kinsaurralde/website/tree/master/p5/game-of-life"><input type="button"
+                            value="View on Github"></a>
                 </div>
             </div>
         </div>
@@ -92,7 +97,7 @@
             var display = document.getElementById("code-display");
             if (current == "JS") {
                 display.src = "../p5/game-of-life/game.js";
-            }  else if (current == "CSS") {
+            } else if (current == "CSS") {
                 display.src = "../css/game-of-life.css";
             }
         }
