@@ -49,6 +49,11 @@ input {
     padding-top: 8vw;
 }
 
+.space-20 {
+    padding-top: 10vw;
+    padding-bottom: 10vw;
+}
+
 .space-10 {
     padding-top: 5vw;
     padding-bottom: 5vw;
@@ -208,9 +213,10 @@ input {
 .code-iframe-footer select {
     appearance: none;
     -webkit-appearance: none;
-    width: 12vw;
-    height: 1.2vw;
-    margin: .15vw;
+    width: 15%;
+    height: 80%;
+    margin-left: .5%;
+    margin-top: .15%;
     font-size: 1vw;
     text-align: center;
     background-color: rgb(240,240,240);
@@ -218,17 +224,15 @@ input {
 }
 
 .code-iframe-footer-title-wide {
-    width: 46vw;
-    height: 1.2vw;
-    margin: .15vw;
+    width: 70%;
+    height: 80%;
     font-size: 1.25vw;
     text-align: center;
 }
 
 .code-iframe-footer-button {
-    width: 12vw;
-    height: 1.2vw;
-    margin: .15vw;
+    width: 15%;
+    height: 80%;
 }
 
 .code-iframe-footer-button input {

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Base Converter | kinsaurralde</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kyle's Projects Base Converter">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify">
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/miniprojects.css" type="text/css">
+
+    <script src="../../js/main.js"></script>
+    <script src="main.js"></script>
+    <script src="extra.js"></script>
+    <script src="input.js"></script>
+</head>
+
+<body>
+
+    <div id="container-navbar">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="space-navbar"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>Base Converter</p>
+        </div>
+
+        <div class="space-1"></div>
+        <div class="divider"></div>
+        <div class="section-title">Convert to Base 10</div>
+        <div class="text">
+            This section converts the number in the first textbox from the base in the second textbox to base 10.<br>
+            The base must be &gt= 2 and &lt= 16 and the number should be > 0. Invalid input is not checked.
+        </div>
+        <div class="space-1"></div>
+        <div class="content-centered">
+            <input type="text" class="miniproject-text-input" id="base10-number" value="1101011011110001">
+            <input type="number" class="miniproject-text-input" id="base10-base" value="2" min="2" max="16">
+            <input type="button" class="miniproject-button-input" value="To Base 10" onclick="base10()">
+        </div>
+        <div class="space-2"></div>
+        <div class="section-title">Output</div>
+        <div class="space-1"></div>
+        <div class="miniproject-console-box">
+            <textarea class="miniproject-console" id="simple-output" readonly></textarea>
+        </div>
+        <div class="space-2"></div>
+        <div class="section-title">Code</div>
+        <div class="space-1"></div>
+        <div class="code-iframe">
+            <iframe src="main.js" id="code-display-1"></iframe>
+            <div class="code-iframe-footer">
+                <select name="file" oninput="selectCode('1','main')" id="code-select-1">
+                    <option value="JS">JS</option>
+                    <option value="PY">PYTHON</option>
+                </select>
+                <div class="code-iframe-footer-title-wide">To Base 10</div>
+                <div class="code-iframe-footer-button">
+                    <a href="https://github.com/kinsaurralde/website/tree/master/miniprojects/base-converter"><input type="button" value="View on Github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+
+        <div class="space-1"></div>
+        <div class="divider"></div>
+        <div class="section-title">Convert to Base n</div>
+        <div class="text">
+            This section converts the number in the first textbox from the base in the second textbox to base 10.<br>
+            The base must be &gt= 2 and &lt= 16 and the number should be > 0. Invalid input is not checked.
+        </div>
+        <div class="space-1"></div>
+        <div class="content-centered">
+            <input type="text" class="miniproject-text-input" id="baseN-number" value="FE73AAAA8201">
+            <input type="number" class="miniproject-text-input" id="baseN-base-initial" value="16" min="2" max="16">
+            <input type="number" class="miniproject-text-input" id="baseN-base-final" value="8" min="2" max="16">
+            <input type="button" class="miniproject-button-input" value="To Base n" onclick="baseN()">
+        </div>
+        <div class="space-2"></div>
+        <div class="section-title">Output</div>
+        <div class="space-1"></div>
+        <div class="miniproject-console-box">
+            <textarea class="miniproject-console" id="n-output" readonly></textarea>
+        </div>
+        <div class="space-2"></div>
+        <div class="section-title">Code</div>
+        <div class="space-1"></div>
+        <div class="code-iframe">
+            <iframe src="extra.js" id="code-display-2"></iframe>
+            <div class="code-iframe-footer">
+                <select name="file" oninput="selectCode('2','extra')" id="code-select-2">
+                    <option value="JS">JS</option>
+                    <option value="PY">PYTHON</option>
+                </select>
+                <div class="code-iframe-footer-title-wide">To Base 10</div>
+                <div class="code-iframe-footer-button">
+                    <a href="https://github.com/kinsaurralde/website/tree/master/miniprojects/base-converter"><input type="button" value="View on Github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+
+    </div>
+
+    <div id="container-footer">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        function selectCode(num, name) {
+            var current = document.getElementById("code-select-"+num).value;
+            var display = document.getElementById("code-display-"+num);
+            if (current == "JS") {
+                display.src = name+".js";
+            }  else if (current == "PY") {
+                display.src = name+".py";
+            }
+        }
+
+        var simpleOut = new Console("simple-output", true);
+        var nOut = new Console("n-output", true);
+    </script>
+</body>
+
+</html>
