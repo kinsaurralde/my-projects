@@ -8,6 +8,15 @@ function navReset() {
     iframe.style.height = "9vw";
 }
 
+function showTrinket() {
+    let trinkets = document.getElementsByClassName("trinket-python");
+    let loadings = document.getElementsByClassName("loading");
+    for (i = 0; i < trinkets.length; i++) {
+        trinkets[i].style.display = "block";
+        loadings[i].style.display = "none";
+    }
+}
+
 class Console {
     constructor(id, autoScroll) {
         this.name = id;

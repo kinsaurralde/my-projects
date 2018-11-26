@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Trapezoid Rule | kinsaurralde</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kyle's Projects Trapezoid Rule Calculator">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify">
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/miniprojects.css" type="text/css">
+
+    <script src="../../js/main.js"></script>
+</head>
+
+<body onload="showTrinket()">
+
+    <div id="container-navbar">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="space-navbar"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>Trapezoid Rule Calculator</p>
+        </div>
+
+        <div class="space-1"></div>
+        <div class="divider"></div>
+        <div class="section-title">Trapezoid Rule</div>
+        <div class="text">
+            Approximates definite integral by calculating area of trapezoids under a curve. When entering an equation, use x for the variable and ** instead of ^.
+        </div>
+        <div class="space-2"></div>
+        <div class="section-title">Python</div>
+        <div class="space-1"></div>
+        <div class="trinket">
+            <iframe src="../../loading.html" class="loading"></iframe>
+            <iframe src="https://trinket.io/embed/python3/ba55cc19be?outputOnly=true&runOption=run" class="trinket-python" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="space-2"></div>
+        <div class="section-title">Code</div>
+        <div class="space-1"></div>
+        <div class="code-iframe">
+            <iframe src="main.py" id="code-display-1"></iframe>
+            <div class="code-iframe-footer">
+                <select name="file" oninput="selectCode('1','main')" id="code-select-1">
+                    <option value="PY">PYTHON</option>
+                </select>
+                <div class="code-iframe-footer-title-wide">Trapezoid Rule Calculator</div>
+                <div class="code-iframe-footer-button">
+                    <a href="https://github.com/kinsaurralde/website/tree/master/miniprojects/trapezoid-rule"><input type="button" value="View on Github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+
+    </div>
+
+    <div id="container-footer">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        function selectCode(num, name) {
+            var current = document.getElementById("code-select-"+num).value;
+            var display = document.getElementById("code-display-"+num);
+            if (current == "PY") {
+                display.src = name+".py";
+            }
+        }
+    </script>
+</body>
+
+</html>
