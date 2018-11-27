@@ -58,6 +58,19 @@
         <input type="button" onclick="changeCode('trap')" class="code-change-button" value="Code">
         <div class="divider"></div>
 
+        <div class="section-title">Riemann Sums</div>
+        <div class="text">
+            Approximates definite integral using Riemann Sums.
+        </div>
+        <div class="space-2"></div>
+        <div class="trinket">
+            <iframe src="../../loading.html" class="loading"></iframe>
+            <iframe src="https://trinket.io/embed/python3/169aa7e398?outputOnly=true&runOption=run" class="trinket-python" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+        </div>
+        <div class="space-1"></div>
+        <input type="button" onclick="changeCode('riem')" class="code-change-button" value="Code">
+        <div class="divider"></div>
+
         <div class="section-title">Equation Symbols</div>
         <div class="space-1"></div>
         <div class="version-history">
@@ -145,6 +158,7 @@
                 <select name="file" oninput="selectCode('1')" id="code-select-1">
                     <option value="simp">Simpsons</option>
                     <option value="trap">Trapezoidal</option>
+                    <option value="riem">Riemann Sums</option>
                 </select>
                 <div class="code-iframe-footer-title-wide">Integral Approximations</div>
                 <div class="code-iframe-footer-button">
@@ -167,6 +181,8 @@
                 display.src = "trapezoidal.py";
             } else if (current == "simp") {
                 display.src = "simpsons.py";
+            } else if (current == "riem") {
+                display.src = "riemann.py";
             }
         }
 
