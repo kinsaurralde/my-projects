@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Integral Approximations | kinsaurralde</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kyle's Projects Integral Approximations">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify">
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/miniprojects.css" type="text/css">
+
+    <script src="../../js/main.js"></script>
+</head>
+
+<body onload="showTrinket()">
+
+    <div id="container-navbar">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="space-navbar"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>Integral Approximations</p>
+        </div>
+        <div class="space-1"></div>
+        <div class="divider"></div>
+
+        <div class="section-title">Simpsons Rule</div>
+        <div class="text">
+            Approximates definite integral using Simpsons rule.
+        </div>
+        <div class="space-2"></div>
+        <div class="trinket">
+            <iframe src="../../loading.html" class="loading"></iframe>
+            <iframe src="https://trinket.io/embed/python3/39e263078b?outputOnly=true&runOption=run" class="trinket-python" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+        </div>
+        <div class="space-1"></div>
+        <input type="button" onclick="changeCode('simp')" class="code-change-button" value="Code">
+        <div class="divider"></div>
+
+        <div class="section-title">Trapezoid Rule</div>
+        <div class="text">
+            Approximates definite integral by calculating area of trapezoids under a curve.
+        </div>
+        <div class="space-2"></div>
+        <div class="trinket">
+            <iframe src="../../loading.html" class="loading"></iframe>
+            <iframe src="https://trinket.io/embed/python3/ba55cc19be?outputOnly=true&runOption=run" class="trinket-python" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+        </div>
+        <div class="space-1"></div>
+        <input type="button" onclick="changeCode('trap')" class="code-change-button" value="Code">
+        <div class="divider"></div>
+
+        <div class="section-title">Equation Symbols</div>
+        <div class="space-1"></div>
+        <div class="version-history">
+                <table>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Returns</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>a + b</td>
+                        <td>a + b</td>
+                        <td>Addition</td>
+                    </tr>
+                    <tr>
+                        <td>a - b</td>
+                        <td>a - b</td>
+                        <td>Subtraction</td>
+                    </tr>
+                    <tr>
+                        <td>a * b</td>
+                        <td>a * b</td>
+                        <td>Multiplication</td>
+                    </tr>
+                    <tr>
+                        <td>a / b</td>
+                        <td>a / b</td>
+                        <td>Division</td>
+                    </tr>
+                    <tr>
+                        <td>a % b</td>
+                        <td>a % b</td>
+                        <td>Modulus</td>
+                    </tr>
+                    <tr>
+                        <td>a ** b</td>
+                        <td>a ^ b</td>
+                        <td>Exponent</td>
+                    </tr>
+                    <tr>
+                        <td>math.pow(a, b)</td>
+                        <td>a ^ b</td>
+                        <td>Exponent</td>
+                    </tr>
+                    <tr>
+                        <td>math.sin(x)</td>
+                        <td>sin(x)</td>
+                        <td>Sine</td>
+                    </tr>
+                    <tr>
+                        <td>math.cos(x)</td>
+                        <td>cos(x)</td>
+                        <td>Cosine</td>
+                    </tr>
+                    <tr>
+                        <td>math.tan(x)</td>
+                        <td>tan(x)</td>
+                        <td>Tangent</td>
+                    </tr>
+                    <tr>
+                        <td>math.log(x, base)</td>
+                        <td>log(x)</td>
+                        <td>Logarithm</td>
+                    </tr>
+                    <tr>
+                        <td>math.sqrt(x)</td>
+                        <td>Square root of x</td>
+                        <td>Square Root</td>
+                    </tr>
+                    <tr>
+                        <td>math.</td>
+                        <td>python math library</td>
+                        <td><a href="https://docs.python.org/3/library/math.html" target="_window">View More</a></td>
+                    </tr>
+                </table>
+            </div>
+        <div class="divider"></div>
+
+        <div class="space-2"></div>
+        <div class="section-title">Code</div>
+        <div class="space-1"></div>
+        <div class="code-iframe">
+            <iframe src="simpsons.py" id="code-display-1"></iframe>
+            <div class="code-iframe-footer">
+                <select name="file" oninput="selectCode('1')" id="code-select-1">
+                    <option value="simp">Simpsons</option>
+                    <option value="trap">Trapezoidal</option>
+                </select>
+                <div class="code-iframe-footer-title-wide">Integral Approximations</div>
+                <div class="code-iframe-footer-button">
+                    <a href="https://github.com/kinsaurralde/website/tree/master/miniprojects/integral-approximations"><input type="button" value="View on Github"></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="container-footer">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        function selectCode(num) {
+            var current = document.getElementById("code-select-"+num).value;
+            var display = document.getElementById("code-display-"+num);
+            if (current == "trap") {
+                display.src = "trapezoidal.py";
+            } else if (current == "simp") {
+                display.src = "simpsons.py";
+            }
+        }
+
+        function changeCode(name) {
+            document.getElementById("code-select-1").value = name;
+            location.href = "#code-display-1";
+            selectCode(1);
+        }
+    </script>
+</body>
+
+</html>

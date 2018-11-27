@@ -37,7 +37,7 @@ error = 1
 n = 0
 while error > error_amount:
     n += 1
-    error = find_error(lower, upper, n, (8 / math.pow(9, 3)))
+    error = find_error(lower, upper, n, (8 / math.pow(9, 3))) # Last argument is 2nd derivative of function
 
 
 print("n:", n)
