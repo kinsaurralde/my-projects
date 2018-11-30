@@ -2,6 +2,7 @@ html {
     --testing: 0;
     max-width: 100%;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -183,6 +184,12 @@ input {
     text-align: left;
     font-size: 1.25vw;
     line-height: 1.5vw;
+}
+
+.text-small {
+    text-align: left;
+    font-size: 1vw;
+    line-height: 1.25vw;
 }
 
 .text-center {
