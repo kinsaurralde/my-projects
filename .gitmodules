@@ -1,3 +1,6 @@
 [submodule "projects/weather"]
 	path = projects/weather
 	url = https://github.com/kinsaurralde/weather
+[submodule "projects/spaceship"]
+	path = projects/spaceship
+	url = https://github.com/kinsaurralde/spaceship
