@@ -314,6 +314,15 @@ input[type=number]::-webkit-outer-spin-button {
     height: 100%;
 }
 
+#sketch-holder {
+
+}
+
+.p5Canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
 /* Category */
 .category-page-container {
     display: flex;
