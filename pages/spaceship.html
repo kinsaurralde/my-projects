@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Spaceship | kinsaurralde</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kyle's Projects, Spaceship game, github gameoff 2018">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify, Spaceship, github gameoff 2018">
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css" />
+
+    <script src="../../js/main.js"></script>
+</head>
+
+<body>
+
+    <div id="container-navbar">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="space-navbar"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>Spaceship</p>
+        </div>
+        <div class="space-1"></div>
+
+        <div class="sketch-holder-norm">
+            <iframe src="https://Spaceship.kinsaurralde.com"></iframe>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Description</div>
+        <div class="text">
+            Github Gameoff 2018 submission
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Code</div>
+        <div class="space-1"></div>
+        <div class="code-iframe">
+            <iframe src="../projects/spaceship/game/main.js" id="code-display"></iframe>
+            <div class="code-iframe-footer">
+                <select name="file" oninput="selectCode()" id="code-select">
+                    <option value="main.js">main.js</option>
+                    <option value="draw.js">draw.js</option>
+                    <option value="class.js">class.js</option>
+                    <option value="main.css">main.css</option>
+                </select>
+                <div class="code-iframe-footer-title-wide">Weather</div>
+                <div class="code-iframe-footer-button">
+                    <a href="https://github.com/kinsaurralde/weather"><input type="button" value="View more on Github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Version History</div>
+        <div class="space-1"></div>
+        <div class="version-history">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Version</th>
+                    <th>Name</th>
+                    <th>Link</th>
+                </tr>
+                <tr>
+                    <td>11/30/2018</td>
+                    <td>1.0.0</td>
+                    <td>Gameoff Submission</td>
+                    <td><a href="https://github.com/kinsaurralde/spaceship/releases/tag/v1.0.0">https://github.com/kinsaurralde/spaceship/releases/tag/v1.0.0</a></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div id="container-footer">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        function selectCode() {
+            var current = document.getElementById("code-select").value;
+            var display = document.getElementById("code-display");
+            var src = "../projects/spaceship/game/";
+            display.src = src+current;
+        }
+    </script>
+</body>
+
+</html>
