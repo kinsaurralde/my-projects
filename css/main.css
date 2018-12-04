@@ -2,6 +2,7 @@ html {
     --testing: 0;
     max-width: 100%;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -47,6 +48,11 @@ input {
 
 .space-navbar {
     padding-top: 8vw;
+}
+
+.space-20 {
+    padding-top: 10vw;
+    padding-bottom: 10vw;
 }
 
 .space-10 {
@@ -180,6 +186,12 @@ input {
     line-height: 1.5vw;
 }
 
+.text-small {
+    text-align: left;
+    font-size: 1vw;
+    line-height: 1.25vw;
+}
+
 .text-center {
     text-align: center;
     font-size: 1.25vw;
@@ -208,9 +220,10 @@ input {
 .code-iframe-footer select {
     appearance: none;
     -webkit-appearance: none;
-    width: 12vw;
-    height: 1.2vw;
-    margin: .15vw;
+    width: 15%;
+    height: 80%;
+    margin-left: .5%;
+    margin-top: .15%;
     font-size: 1vw;
     text-align: center;
     background-color: rgb(240,240,240);
@@ -218,17 +231,15 @@ input {
 }
 
 .code-iframe-footer-title-wide {
-    width: 46vw;
-    height: 1.2vw;
-    margin: .15vw;
+    width: 70%;
+    height: 80%;
     font-size: 1.25vw;
     text-align: center;
 }
 
 .code-iframe-footer-button {
-    width: 12vw;
-    height: 1.2vw;
-    margin: .15vw;
+    width: 15%;
+    height: 80%;
 }
 
 .code-iframe-footer-button input {
@@ -303,6 +314,15 @@ input[type=number]::-webkit-outer-spin-button {
     height: 100%;
 }
 
+#sketch-holder {
+
+}
+
+.p5Canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
 /* Category */
 .category-page-container {
     display: flex;
@@ -334,6 +354,10 @@ input[type=number]::-webkit-outer-spin-button {
     opacity: 1;
 }
 
+.category-page-img:hover .category-page-title {
+    opacity: 0;
+}
+
 .category-page-img:hover {
     width: 44vw;
 }
@@ -342,4 +366,32 @@ input[type=number]::-webkit-outer-spin-button {
     width: 20vw;
     height: 11.25vw;
     padding: 1vw;
+}
+
+/* trinket.io */
+
+.trinket {
+    width: 100%;
+    height: 20vw;
+}
+
+.trinket iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.trinket-python {
+    display: none;
+}
+
+.loading {
+    display: block;
+}
+
+/* Other */
+
+.code-change-button {
+    appearance: none;
+    border: 1px solid rgb(155, 155, 155);
+    background: rgb(200,200,200);
 }

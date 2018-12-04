@@ -44,19 +44,25 @@
                     <td>Main</td>
                     <td><a href="https://kinsaurralde.com/">https://kinsaurralde.com/</a></td>
                     <td><a href="https://github.com/kinsaurralde/website">https://github.com/kinsaurralde/website</a></td>
-                    <td><a href="https://github.com/kinsaurralde/website/releases">https://github.com/kinsaurralde/website/releases</a></td>
+                    <td><a href="https://github.com/kinsaurralde/website/releases">Main Site</a></td>
                 </tr>
                 <tr>
                     <td>Weather</td>
                     <td><a href="https://weather.kinsaurralde.com/">https://weather.kinsaurralde.com/</a></td>
                     <td><a href="https://github.com/kinsaurralde/weather">https://github.com/kinsaurralde/weather</a></td>
-                    <td><a href="https://github.com/kinsaurralde/weather/releases">https://github.com/kinsaurralde/weather/releases</a></td>
+                    <td><a href="https://github.com/kinsaurralde/weather/releases">Weather</a></td>
                 </tr>
                 <tr>
                     <td>Testing</td>
                     <td><a href="https://testing.kinsaurralde.com/">https://testing.kinsaurralde.com/</a></td>
                     <td><a href="https://github.com/kinsaurralde/website/testing">https://github.com/kinsaurralde/website/testing</a></td>
                     <td></td>
+                </tr>
+                <tr>
+                    <td>Spaceship</td>
+                    <td><a href="https://spaceship.kinsaurralde.com/">https://spaceship.kinsaurralde.com/</a></td>
+                    <td><a href="https://github.com/kinsaurralde/spaceship">https://github.com/kinsaurralde/spaceship</a></td>
+                    <td><a href="https://github.com/kinsaurralde/spaceship/releases">Spaceship</a></td>
                 </tr>
                 <tr>
                     <td>Old</td>
@@ -81,6 +87,18 @@
                     <th>Code</th>
                 </tr>
                 <tr>
+                    <td>12/4/2018</td>
+                    <td><a href="https://v1-1-0.kinsaurralde.com/">1.1.0</a></td>
+                    <td>Miniprojetcs / Spaceship</td>
+                    <td><a href="https://github.com/kinsaurralde/website/tree/v1.1.0">https://github.com/kinsaurralde/website/tree/v1.1.0</a></td>
+                </tr>
+                <tr>
+                    <td>11/21/2018</td>
+                    <td><a href="https://v1-0-1.kinsaurralde.com/">1.0.1</a></td>
+                    <td>Removed old mobile link</td>
+                    <td><a href="https://github.com/kinsaurralde/website/tree/v1.0.1">https://github.com/kinsaurralde/website/tree/v1.0.1</a></td>
+                </tr>
+                <tr>
                     <td>11/2/2018</td>
                     <td><a href="https://v1-0-0.kinsaurralde.com/">1.0.0</a></td>
                     <td>New Site</td>
@@ -102,24 +120,6 @@
     <div id="container-footer">
         <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
     </div>
-
-    <script>
-        function selectCode() {
-            var current = document.getElementById("code-select").value;
-            var display = document.getElementById("code-display");
-            if (current == "JS") {
-                display.src = "../p5/neckercube/neckercube.js";
-            } else if (current == "PDE") {
-                if (confirm("Do you want to download this .pde file? \n(Click cancel to view as text)")) {
-                    display.src = "../p5/neckercube/neckercube.pde";
-                }
-                document.getElementById("code-select").value = "TXT";
-                setTimeout(function() {selectCode();}, 1000);
-            } else if (current == "TXT") {
-                display.src = "../p5/neckercube/neckercube.txt";
-            }
-        }
-    </script>
 </body>
 
 </html>

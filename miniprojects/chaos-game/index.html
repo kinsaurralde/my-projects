@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Chaos Game | kinsaurralde</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Chaos Game">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify, Chaos Game">
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/miniprojects.css">
+
+    <script src="../../js/main.js"></script>
+</head>
+
+<body>
+
+    <div id="container-navbar">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="space-navbar"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>Chaos Game</p>
+        </div>
+        <div class="space-1"></div>
+
+        <div class="sketch-holder-norm">
+            <iframe src="sketch.html"></iframe>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Controls</div>
+        <div class="space-1"></div>
+        <div class="text">
+            * Push: Draw with current settings<br>
+            * Pop: Remove last Draw<br>
+            * Play: Resume draw loop if paused<br>
+            * Pause: Stop draw loop if playing<br>
+            * Clear All: Remove all draws<br>
+            * Sierpinski ngon: Calculate distance value for sierpinski ngon with vertices given then draw<br>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Description</div>
+        <div class="space-1"></div>
+        <div class="text">
+            <p>"In mathematics, the term chaos game originally referred to a method of creating a fractal, using a
+                polygon and an initial point selected at random inside it. The fractal is created by iteratively
+                creating a sequence of points, starting with the initial random point, in which each point in the
+                sequence is a given fraction of the distance between the previous point and one of the vertices of the
+                polygon; the vertex is chosen at random in each iteration. Repeating this iterative process a large
+                number of times, selecting the vertex at random on each iteration, and throwing out the first few
+                points in the sequence, will often (but not always) produce a fractal shape. Using a regular triangle
+                and the factor 1/2 will result in the Sierpinski triangle, while creating the proper arrangement with
+                four points and a factor 1/2 will create a display of a "Sierpinski Tetrahedron", the three-dimensional
+                analogue of the Sierpinski triangle. As the number of points is increased to a number N, the
+                arrangement forms a corresponding (N-1)-dimensional Sierpinski Simplex."</p>
+            <a href="https://en.wikipedia.org/wiki/Chaos_game">Source</a>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Code</div>
+        <div class="space-1"></div>
+        <div class="code-iframe">
+            <iframe src="main.js" id="code-display"></iframe>
+            <div class="code-iframe-footer">
+                <select name="file" oninput="selectCode()" id="code-select">
+                    <option value="JS">JS</option>
+                </select>
+                <div class="code-iframe-footer-title-wide">Chaos Game</div>
+                <div class="code-iframe-footer-button">
+                    <a href="https://github.com/kinsaurralde/website/tree/master/miniprojects/chaos-game"><input type="button"
+                            value="View on Github"></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="space-1"></div>
+
+    <div id="container-footer">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        function selectCode() {
+            var current = document.getElementById("code-select").value;
+            var display = document.getElementById("code-display");
+            if (current == "JS") {
+                display.src = "main.js";
+            }
+        }
+    </script>
+</body>
+
+</html>

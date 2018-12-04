@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>ACSL | kinsaurralde</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kyle's Projects Integral Approximations">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify">
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" href="../../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/miniprojects.css" type="text/css">
+
+    <script src="../../js/main.js"></script>
+</head>
+
+<body onload="showTrinket()">
+
+    <div id="container-navbar">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="space-navbar"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>ACSL</p>
+        </div>
+        <div class="space-1"></div>
+        <div class="divider"></div>
+
+        <div class="section-title">1</div>
+        <div class="space-1"></div>
+        <div class="text-small">
+                ACSL Ninety-Nine is a two-player card game played with a standard deck of
+                52-cards (2 – 9, T, J, Q, K, A). To start, each player is dealt 3 cards and the remaining cards are
+                placed face down on the table (the pile). In an actual game the point total is set to zero, but for
+                this program an initial point total will be given. Each player in turn puts down one card and
+                changes the point total according to the point value of his card and then selects a card from the
+                top of the pile. Each card adds its face value in points (e.g. a 5 is worth five points, a T is worth
+                10 points, a J is worth 11 points, a Q is worth 12 points, a K is worth 13 points and an A is
+                worth 14 points) except for certain cards that have special values or meanings:<br>
+                &emsp;● A 9 is a pass (and does not change point total).<br>
+                &emsp;● A T subtracts 10 points from the total.<br>
+                &emsp;● An A adds either 1 or 14 to the point total. The 14 is played first as long as it does not put
+                the point total over 99.<br>
+                Cards are played using the following rule: Play the largest face value card.
+                The game ends when the card played puts the point total over 99.
+        </div>
+        <div class="space-1"></div>
+        <div class="version-history">
+            <table>
+                <tr>
+                    <th>Sample Input</th>
+                    <th>Sample Output</th>
+                </tr>
+                <tr>
+                    <td>75, 7, 3, 8, 8, 7, T, 5, 9, A, 6</td>
+                    <td>103, player</td>
+                </tr>
+                <tr>
+                    <td>80, 9, T, 7, 8, K, A, 3, 5, Q, T</td>
+                    <td>107, dealer</td>
+                </tr>
+                <tr>
+                    <td>94, 4, 2, 2, 7, T, 3, A, 5, J, K</td>
+                    <td>110, player</td>
+                </tr>
+                <tr>
+                    <td>80, 6, 6, 4, T, 9, 8, 6, 5, Q, K</td>
+                    <td>102, player</td>
+                </tr>
+                <tr>
+                    <td>90, T, 8, 5, 9, 9, Q, K, A, J, 8</td>
+                    <td>105, dealer</td>
+                </tr>
+            </table>
+        </div>
+        <div class="space-1"></div>
+        <div class="trinket">
+            <iframe src="../../loading.html" class="loading"></iframe>
+            <iframe src="https://trinket.io/embed/python/061c6f6258?outputOnly=true&runOption=run" class="trinket-python" width="100%" height="600" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+        </div>
+        <div class="space-1"></div>
+        <input type="button" onclick="changeCode('simp')" class="code-change-button" value="Code">
+        <div class="divider"></div>
+
+        <div class="section-title">Trapezoid Rule</div>
+        <div class="text">
+            Approximates definite integral by calculating area of trapezoids under a curve.
+        </div>
+        <div class="space-2"></div>
+        <div class="trinket">
+            <iframe src="../../loading.html" class="loading"></iframe>
+            <iframe src="https://trinket.io/embed/python3/ba55cc19be?outputOnly=true&runOption=run" class="trinket-python" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+        </div>
+        <div class="space-1"></div>
+        <input type="button" onclick="changeCode('trap')" class="code-change-button" value="Code">
+        <div class="divider"></div>
+
+        <div class="section-title">Riemann Sums</div>
+        <div class="text">
+            Approximates definite integral using Riemann Sums.
+        </div>
+        <div class="space-2"></div>
+        <div class="trinket">
+            <iframe src="../../loading.html" class="loading"></iframe>
+            <iframe src="https://trinket.io/embed/python3/169aa7e398?outputOnly=true&runOption=run" class="trinket-python" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+        </div>
+        <div class="space-1"></div>
+        <input type="button" onclick="changeCode('riem')" class="code-change-button" value="Code">
+        <div class="divider"></div>
+
+        <div class="space-2"></div>
+        <div class="section-title">Code</div>
+        <div class="space-1"></div>
+        <div class="code-iframe">
+            <iframe src="simpsons.py" id="code-display-1"></iframe>
+            <div class="code-iframe-footer">
+                <select name="file" oninput="selectCode('1')" id="code-select-1">
+                    <option value="simp">Simpsons</option>
+                    <option value="trap">Trapezoidal</option>
+                    <option value="riem">Riemann Sums</option>
+                </select>
+                <div class="code-iframe-footer-title-wide">Integral Approximations</div>
+                <div class="code-iframe-footer-button">
+                    <a href="https://github.com/kinsaurralde/website/tree/master/miniprojects/integral-approximations"><input type="button" value="View on Github"></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="container-footer">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        function selectCode(num) {
+            var current = document.getElementById("code-select-"+num).value;
+            var display = document.getElementById("code-display-"+num);
+            if (current == "trap") {
+                display.src = "trapezoidal.py";
+            } else if (current == "simp") {
+                display.src = "simpsons.py";
+            } else if (current == "riem") {
+                display.src = "riemann.py";
+            }
+        }
+
+        function changeCode(name) {
+            document.getElementById("code-select-1").value = name;
+            location.href = "#code-display-1";
+            selectCode(1);
+        }
+    </script>
+</body>
+
+</html>

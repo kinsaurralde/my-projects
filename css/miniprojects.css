@@ -1,0 +1,55 @@
+input {
+    width: 10vw;
+    height: 2vw;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-size: 1.25vw;
+}
+
+.miniproject-text-input {
+    border: 1px solid rgb(0,0,0);
+    background-color: none;
+    text-align: center;
+    width: 16vw;
+}
+
+.miniproject-text-small-input {
+    border: 1px solid rgb(0,0,0);
+    background-color: none;
+    text-align: center;
+    width: 5vw;
+}
+
+.miniproject-text-medium-input {
+    border: 1px solid rgb(0,0,0);
+    background-color: none;
+    text-align: center;
+    width: 7.5vw;
+}
+
+.miniproject-button-input {
+    border: 2px solid rgb(155,155,155);
+    background-color: rgb(200,200,200);
+    width: 16vw;
+    height: 2vw;
+    text-align: center;
+    font-size: 1.25vw;
+}
+
+.miniproject-console-box {
+    width: 99%;
+    height: 20vw;
+}
+
+.miniproject-console {
+    border: 1px solid rgb(200,200,200);
+    resize: none;
+    width: 100%;
+    height: 100%;
+}
+
+.miniproject-sketch-overlay {
+    position: absolute;
+    z-index: 4;
+}

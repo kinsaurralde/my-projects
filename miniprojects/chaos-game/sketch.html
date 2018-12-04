@@ -1,0 +1,40 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <script language="javascript" type="text/javascript" src="../../p5/p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="main.js"></script>
+
+  <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../../css/miniprojects.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+
+</head>
+
+<body  style="padding: 0; margin: 0;">
+    <div id="sketch-holder">
+        <div class="miniproject-sketch-overlay">
+            <input type="button" class="miniproject-button-input" id="chaos-push" value="Push" onclick="pushShape()">
+            <input type="button" class="miniproject-button-input" id="chaos-pop" value="Pop" onclick="popShape()">
+            <input type="number" class="miniproject-text-input" id="chaos-vertices" value="3" min="1" max="100">
+            <input type="number" class="miniproject-text-small-input" id="chaos-r" value="0" min="0" max="25">
+            <input type="number" class="miniproject-text-small-input" id="chaos-g" value="255" min="0" max="25">
+            <input type="number" class="miniproject-text-small-input" id="chaos-b" value="0" min="0" max="25">
+            <input type="number" class="miniproject-text-input" id="chaos-dpf" value="100" min="0" max="25">
+            <input type="number" class="miniproject-text-input" id="chaos-max-points" value="5000" min="0" max="100000">
+            <input type="number" class="miniproject-text-input" id="chaos-percent" value="50" min="0" max="100">
+            
+            <input type="button" class="miniproject-button-input" id="chaos-play" value="Play" onclick="loop()">
+            <input type="button" class="miniproject-button-input" id="chaos-pause" value="Pause" onclick="noLoop()">
+            <input type="button" class="miniproject-button-input" id="chaos-clear-all" value="Clear All" onclick="clearAllShapes()">
+            <input type="button" class="miniproject-button-input" id="chaos-sierpinski" value="Sierpinski ngon" onclick="sierpinski()">
+            <input type="range" class="miniproject-button-input" id="chaos-draw-end" value="100" min="0" max="100" oninput="updateSliders()">
+
+            <select value="random" class="miniproject-button-input" id="chaos-mode">
+                <option value="random">Random</option>
+                <option value="equal">Equalateral</option>
+            </select>
+        </div>
+    </div>
+</body>
+</html>

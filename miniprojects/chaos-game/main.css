@@ -1,0 +1,93 @@
+
+#chaos-play {
+    position: absolute;
+    top: 6vw;
+    left: 80vw;
+}
+
+#chaos-pause {
+    position: absolute;
+    top: 10vw;
+    left: 80vw;
+}
+
+#chaos-clear-all {
+    position: absolute;
+    top: 14vw;
+    left: 80vw;
+}
+
+#chaos-sierpinski {
+    position: absolute;
+    top: 18vw;
+    left: 80vw;
+}
+
+#chaos-draw-end {
+    position: absolute;
+    top: 38vw;
+    left: 80vw; 
+}
+
+#chaos-push {
+    position: absolute;
+    top: 6vw;
+    left: 2vw;
+}
+
+#chaos-pop {
+    position: absolute;
+    top: 10vw;
+    left: 2vw;
+}
+
+#chaos-vertices {
+    position: absolute;
+    top: 16vw;
+    left: 2vw; 
+}
+
+#chaos-mode {
+    position: absolute;
+    top: 20vw;
+    left: 2vw; 
+}
+
+#chaos-r {
+    position: absolute;
+    top: 26vw;
+    left: 2vw; 
+}
+
+#chaos-g {
+    position: absolute;
+    top: 26vw;
+    left: 7.5vw; 
+}
+
+#chaos-b {
+    position: absolute;
+    top: 26vw;
+    left: 13vw; 
+}
+
+#chaos-dpf {
+    position: absolute;
+    top: 32vw;
+    left: 2vw; 
+}
+
+#chaos-max-points {
+    position: absolute;
+    top: 38vw;
+    left: 2vw; 
+}
+
+#chaos-percent {
+    position: absolute;
+    top: 44vw;
+    left: 2vw; 
+}
+
+
+

@@ -39,3 +39,11 @@ input {
     z-index: 10;
     top: 5vw;
 }
+
+#fullscreen {
+    width: 95vw;
+    height: 95vh;
+    position: absolute;
+    z-index: 5;
+    opacity: .0;
+}
