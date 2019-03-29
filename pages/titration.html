@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Weather | kinsaurralde</title>
+    <title>Titration | kinsaurralde</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Kyle's Projects">
@@ -26,46 +26,60 @@
 
     <div id="content">
         <div class="page-title">
-            <p>Weather</p>
+            <p>Titration Calculator</p>
         </div>
         <div class="space-1"></div>
 
         <div class="sketch-holder-norm">
-            <iframe src="https://weather.kinsaurralde.com" allow="geolocation"></iframe>
+            <iframe src="https://chemistry.kinsaurralde.com"></iframe>
         </div>
         <div class="divider"></div>
 
         <div class="text-center">
-            <a href="https://weather.kinsaurralde.com">! This project is meant to be run in its own window !</a><br>
-            <a href="https://weather.kinsaurralde.com">Click Here to open in new window</a>
+            <a href="https://chemistry.kinsaurralde.com" target="_blank" rel="noopener">Click Here to open in new
+                window</a>
         </div>
         <div class="divider"></div>
 
         <div class="section-title">Description</div>
         <div class="text">
-            This page displays the weather at your current location. It can also get the weather at user inputted
-            coordinates. It displays todays high, low, and current temperatures, and has a second row that provides
-            more options.
+            The titration calculator website is used to generate a url which makes a request to the titration
+            calculator. The titration calculator is written in c++ and runs on aws lambda. The code for the calculator is located at: <br>
+            <a href="https://github.com/kinsaurralde/titration" target="_blank">https://github.com/kinsaurralde/titration </a><br>
+            <br>
+            Website Features: <br>
+            - Strong Acid / Base Titration types <br>
+            - Change number of cycles used in calculations <br>
+            - Set molarity and volume of acid and base used <br>
+            - Display calculated results in data table <br>
+            - Download data as csv <br>
+            - Graph Volume of titrant added vs pH <br>
+            - Download graph data as csv <br>
+            - Display generated url to collect data and response time <br>
         </div>
         <div class="divider"></div>
 
-        <div class="section-title">Code</div>
+        <div class="section-title">Code Sample</div>
         <div class="space-1"></div>
         <div class="code-iframe">
-            <iframe src="../projects/weather/index.txt" id="code-display"></iframe>
+            <iframe src="../projects/chemistry/index.txt" id="code-display"></iframe>
             <div class="code-iframe-footer">
                 <select name="file" oninput="selectCode()" id="code-select">
                     <option value="index.txt">index.html</option>
-                    <option value="js/weather.js">weather.js</option>
-                    <option value="js/functions.js">functions.js</option>
-                    <option value="js/footer.js">footer.js</option>
+                    <option value="js/aws.js">aws.js</option>
+                    <option value="js/data.js">data.js</option>
+                    <option value="js/graph.js">graph.js</option>
+                    <option value="js/input.js">input.js</option>
+                    <option value="js/main.js">main.js</option>
+                    <option value="js/output.js">output.js</option>
+                    <option value="js/utility.js">utility.js</option>
                     <option value="css/main.css">main.css</option>
-                    <option value="css/secondary.css">secondary.css</option>
                     <option value="css/footer.css">footer.css</option>
                 </select>
-                <div class="code-iframe-footer-title-wide">Weather</div>
+                <div class="code-iframe-footer-title-wide">Chemistry</div>
                 <div class="code-iframe-footer-button">
-                    <a href="https://github.com/kinsaurralde/weather"><input type="button" value="View more on Github"></a>
+                    <a href="https://github.com/kinsaurralde/chemistry" target="_blank" rel="noopener"><input
+                            type="button" value="View more on Github"></a>
                 </div>
             </div>
         </div>
@@ -82,16 +96,11 @@
                     <th>Link</th>
                 </tr>
                 <tr>
-                    <td>10/20/2018</td>
-                    <td>1.1.0</td>
-                    <td>Hourly Weather</td>
-                    <td><a href="https://github.com/kinsaurralde/weather/releases/tag/v1.1.0">https://github.com/kinsaurralde/weather/releases/tag/v1.1.0</a></td>
-                </tr>
-                <tr>
-                    <td>10/20/2018</td>
+                    <td>3/29/2019</td>
                     <td>1.0.0</td>
                     <td>Initial</td>
-                    <td><a href="https://github.com/kinsaurralde/weather/releases/tag/v1.0.0">https://github.com/kinsaurralde/weather/releases/tag/v1.0.0</a></td>
+                    <td><a href="https://github.com/kinsaurralde/chemistry/releases/tag/1.0.0"
+                            target="_blank">https://github.com/kinsaurralde/chemistry/releases/tag/1.0.0</a></td>
                 </tr>
             </table>
         </div>
@@ -106,8 +115,8 @@
         function selectCode() {
             var current = document.getElementById("code-select").value;
             var display = document.getElementById("code-display");
-            var src = "../projects/weather/";
-            display.src = src+current;
+            var src = "../projects/chemistry/";
+            display.src = src + current;
         }
     </script>
 </body>
