@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Titration | kinsaurralde</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kyle's Projects">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify">
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css" />
+
+    <script src="../../js/main.js"></script>
+</head>
+
+<body>
+
+    <div id="container-navbar">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="space-navbar"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>Titration Calculator</p>
+        </div>
+        <div class="space-1"></div>
+
+        <div class="sketch-holder-norm">
+            <iframe src="https://chemistry.kinsaurralde.com"></iframe>
+        </div>
+        <div class="divider"></div>
+
+        <div class="text-center">
+            <a href="https://chemistry.kinsaurralde.com" target="_blank" rel="noopener">Click Here to open in new
+                window</a>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Description</div>
+        <div class="text">
+            The titration calculator website is used to generate a url which makes a request to the titration
+            calculator. The titration calculator is written in c++ and runs on aws lambda. The code for the calculator is located at: <br>
+            <a href="https://github.com/kinsaurralde/titration" target="_blank">https://github.com/kinsaurralde/titration </a><br>
+            <br>
+            Website Features: <br>
+            - Strong Acid / Base Titration types <br>
+            - Change number of cycles used in calculations <br>
+            - Set molarity and volume of acid and base used <br>
+            - Display calculated results in data table <br>
+            - Download data as csv <br>
+            - Graph Volume of titrant added vs pH <br>
+            - Download graph data as csv <br>
+            - Display generated url to collect data and response time <br>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Code Sample</div>
+        <div class="space-1"></div>
+        <div class="code-iframe">
+            <iframe src="../projects/chemistry/index.txt" id="code-display"></iframe>
+            <div class="code-iframe-footer">
+                <select name="file" oninput="selectCode()" id="code-select">
+                    <option value="index.txt">index.html</option>
+                    <option value="js/aws.js">aws.js</option>
+                    <option value="js/data.js">data.js</option>
+                    <option value="js/graph.js">graph.js</option>
+                    <option value="js/input.js">input.js</option>
+                    <option value="js/main.js">main.js</option>
+                    <option value="js/output.js">output.js</option>
+                    <option value="js/utility.js">utility.js</option>
+                    <option value="css/main.css">main.css</option>
+                    <option value="css/footer.css">footer.css</option>
+                </select>
+                <div class="code-iframe-footer-title-wide">Chemistry</div>
+                <div class="code-iframe-footer-button">
+                    <a href="https://github.com/kinsaurralde/chemistry" target="_blank" rel="noopener"><input
+                            type="button" value="View more on Github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Version History</div>
+        <div class="space-1"></div>
+        <div class="version-history">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Version</th>
+                    <th>Name</th>
+                    <th>Link</th>
+                </tr>
+                <tr>
+                    <td>3/29/2019</td>
+                    <td>1.0.0</td>
+                    <td>Initial</td>
+                    <td><a href="https://github.com/kinsaurralde/chemistry/releases/tag/1.0.0"
+                            target="_blank">https://github.com/kinsaurralde/chemistry/releases/tag/1.0.0</a></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div id="container-footer">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        function selectCode() {
+            var current = document.getElementById("code-select").value;
+            var display = document.getElementById("code-display");
+            var src = "../projects/chemistry/";
+            display.src = src + current;
+        }
+    </script>
+</body>
+
+</html>
