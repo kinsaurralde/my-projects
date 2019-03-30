@@ -4,6 +4,3 @@
 [submodule "projects/spaceship"]
 	path = projects/spaceship
 	url = https://github.com/kinsaurralde/spaceship
-[submodule "projects/chemistry"]
-	path = projects/chemistry
-	url = https://github.com/kinsaurralde/chemistry
