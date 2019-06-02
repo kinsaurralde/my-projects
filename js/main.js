@@ -1,6 +1,6 @@
 function navExpand() {
     var iframe = window.parent.document.getElementById("container-navbar");
-    iframe.style.height = "20vw";
+    iframe.style.height = "40vw";
 }
 
 function navReset() {

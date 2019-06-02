@@ -24,6 +24,10 @@ a:hover {
     color: rgb(0,134,255);
 }
 
+img {
+    border: .1vw solid rgb(200,200,200);
+}
+
 input {
     text-align: center;
     font-size: 1.25vw;
@@ -73,6 +77,11 @@ input {
 .space-1 {
     padding-top: .5vw;
     padding-bottom: .5vw;
+}
+
+.space--5 {
+    padding-top: .25vw;
+    padding-bottom: .25vw;
 }
 
 /* Margins */

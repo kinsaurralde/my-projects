@@ -53,3 +53,8 @@ input {
     position: absolute;
     z-index: 4;
 }
+
+.miniproject-large-img {
+    width: 50vw;
+    margin-left: 1vw;
+}
