@@ -7,3 +7,6 @@
 [submodule "projects/chemistry"]
 	path = projects/chemistry
 	url = https://github.com/kinsaurralde/chemistry
+[submodule "projects/ws_281x"]
+	path = projects/ws_281x
+	url = https://github.com/kinsaurralde/ws_281x-lights

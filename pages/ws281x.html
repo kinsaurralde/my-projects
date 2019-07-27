@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>ws_281x | kinsaurralde</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kyle's Projects">
+    <meta name="keywords" content="Kyle, Insaurralde, netlify">
+    <meta name="author" content="Kyle Insaurralde">
+
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/main.css" />
+
+    <script src="../../js/main.js"></script>
+</head>
+
+<body>
+
+    <div id="container-navbar">
+        <iframe src="../../navbar.html" onload="navReset()" id="navbar-iframe"></iframe>
+    </div>
+
+    <div class="space-navbar"></div>
+
+    <div id="content">
+        <div class="page-title">
+            <p>ws_281x</p>
+        </div>
+        <div class="space-1"></div>
+
+        <div class="sketch-holder-norm">
+            <iframe src="https://www.youtube.com/embed/KlVvtnJRnVM?controls=1&rel=0" frameborder="0" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="divider"></div>
+
+        <div class="section-title">Code Sample</div>
+        <div class="space-1"></div>
+        <div class="code-iframe">
+            <iframe src="../projects/ws_281x/app.py" id="code-display"></iframe>
+            <div class="code-iframe-footer">
+                <select name="file" oninput="selectCode()" id="code-select">
+                    <option value="app.py">app.py</option>
+                    <option value="controller.py">controller.py</option>
+                    <option value="lights.py">lights.py</option>
+                    <option value="key.py">key.py</option>
+                    <option value="tools/gen_config.py">tools/gen_config.py</option>
+                    <option value="tools/send_json.py">tools/send_json.py</option>
+                </select>
+                <div class="code-iframe-footer-title-wide">ws_281x</div>
+                <div class="code-iframe-footer-button">
+                    <a href="https://github.com/kinsaurralde/ws_281x-lights" target="_blank" rel="noopener"><input
+                            type="button" value="View more on Github"></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="container-footer">
+        <iframe src="../../footer.html" onload="navReset()" id="footer-iframe"></iframe>
+    </div>
+
+    <script>
+        function selectCode() {
+            var current = document.getElementById("code-select").value;
+            var display = document.getElementById("code-display");
+            var src = "../projects/ws_281x/";
+            display.src = src + current;
+        }
+    </script>
+</body>
+
+</html>
