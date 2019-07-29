@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-import sys, json, requests
+#!/usr/bin/env python3
+import sys, requests
 
 if len(sys.argv) < 2:
     print("Usage: ./send_json.py [file_name]")
