@@ -1,0 +1,72 @@
+<link rel='stylesheet' href='github-markdown.css'>
+<div class='markdown-body'>
+<h1>ws_281x-lights</h1>
+<p>This project contains a flask webserver that provides a website to control rgb lights through the rpi_ws281x library.</p>
+<h2>Installation</h2>
+<p>Clone this repository then run</p>
+<div class="highlight highlight-source-shell"><pre>./setup.sh</pre></div>
+<h2>Usage</h2>
+<p>Plugin LED strip with data on GPIO pin 18</p>
+<p>Guide at: <a href="https://learn.adafruit.com/neopixels-on-raspberry-pi/raspberry-pi-wiring" rel="nofollow">https://learn.adafruit.com/neopixels-on-raspberry-pi/raspberry-pi-wiring</a></p>
+<p>Run</p>
+<div class="highlight highlight-source-shell"><pre>./flask_startup.sh [config_file]</pre></div>
+<h2>Flask Server (app.py)</h2>
+<ul>
+<li>Receives requests to web routes, checks keys, and passes information to controllers (controllers.py)</li>
+<li>Returns JSON message with strip and error status</li>
+<li>controller.py
+<ul>
+<li>Calls given function with their arguments</li>
+<li>Creates virtual strips and passes their information to neopixel class (lights.py)</li>
+</ul>
+</li>
+<li>lights.py
+<ul>
+<li>Lights class contains functions that change specific LED colors according to pattern</li>
+<li>Neopixels class adjusts pixel ids for virtual strips and sends to rpi_ws281x library to change<br>
+physical LED strip</li>
+</ul>
+</li>
+</ul>
+<h2>Main Web Page</h2>
+<ul>
+<li>Creates a url based on input boxes</li>
+<li>Sends commands to flask server though url</li>
+</ul>
+<h2>Keys Web Page</h2>
+<ul>
+<li>View/Change Keys and which light strips they can access</li>
+</ul>
+<h2>Info Web Page</h2>
+<ul>
+<li>View current settings</li>
+<li>View controllers and their virtual strips</li>
+<li>View current color of all LEDs on all strips</li>
+</ul>
+<h2>Tools</h2>
+<ul>
+<li>Config file generator</li>
+<li>Send json to url</li>
+</ul>
+<p><a href="tools/README.md">More Information</a></p>
+<h2>License</h2>
+<p><a href="https://choosealicense.com/licenses/mit/" rel="nofollow">MIT</a></p>
+<h2>Test</h2>
+<div class="highlight highlight-source-python"><pre><span class="pl-c"><span class="pl-c">#</span>!/usr/bin/env python3</span>
+<span class="pl-k">import</span> sys, json, requests
+
+<span class="pl-k">if</span> <span class="pl-c1">len</span>(sys.argv) <span class="pl-k">&lt;</span> <span class="pl-c1">2</span>:
+<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span>Usage: ./send_json.py [file_name]<span class="pl-pds">"</span></span>)
+<span class="pl-c1">exit</span>(<span class="pl-c1">1</span>)
+
+<span class="pl-k">with</span> <span class="pl-c1">open</span>(sys.argv[<span class="pl-c1">1</span>]) <span class="pl-k">as</span> f:
+content <span class="pl-k">=</span> f.read()
+
+data <span class="pl-k">=</span> {
+<span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>: content,
+<span class="pl-s"><span class="pl-pds">"</span>mode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>gfm<span class="pl-pds">"</span></span>
+}
+
+r <span class="pl-k">=</span> requests.post(<span class="pl-s"><span class="pl-pds">"</span>https://api.github.com/markdown<span class="pl-pds">"</span></span>, <span class="pl-v">json</span><span class="pl-k">=</span>data)
+<span class="pl-c1">print</span>(r.text)</pre></div>
+</div>
