@@ -240,15 +240,16 @@ input {
 }
 
 .code-iframe-footer-title-wide {
-    width: 70%;
+    width: 65%;
     height: 80%;
     font-size: 1.25vw;
     text-align: center;
 }
 
 .code-iframe-footer-button {
-    width: 15%;
+    width: 20%;
     height: 80%;
+    margin-top: .15%;
 }
 
 .code-iframe-footer-button input {
@@ -375,6 +376,7 @@ input[type=number]::-webkit-outer-spin-button {
     width: 20vw;
     height: 11.25vw;
     padding: 1vw;
+    border: none;
 }
 
 /* trinket.io */
